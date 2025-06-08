@@ -1,27 +1,38 @@
 package main
 
 import (
-	"flag"
 	"fmt"
+	"os"
 
-	"github.com/ocular-d/asciidoclint/internal/linter"
+	"github.com/ocular-d/asciidoclint/internal/lint"
 	"github.com/ocular-d/asciidoclint/rules"
 )
 
 func main() {
-	flag.Parse()
-	args := flag.Args()
+	if len(os.Args) < 2 {
+		fmt.Println("Usage: adoc-linter <file.adoc>")
+		os.Exit(1)
+	}
+	fileName := os.Args[1]
 
-	if len(args) == 0 {
-		fmt.Println("Usage: asciidoclint <file1.adoc> <file2.adoc> ...")
-		return
+	allRules := []rules.Rule{
+		rules.AD001HeadingFormatRule{},
+		rules.AD002DiscouragedSourceLangRule{},
 	}
 
-	lint := linter.NewLinter()
-	lint.RegisterRule(rules.HeadingSpacingRule{})  // AD001
-	lint.RegisterRule(rules.HeadingSurroundRule{}) // AD002
+	results, err := lint.RunLinter(fileName, allRules)
+	if err != nil {
+		fmt.Printf("Error reading file: %v\n", err)
+		os.Exit(1)
+	}
 
-	for _, file := range args {
-		lint.LintFile(file)
+	if len(results) > 0 {
+		for _, res := range results {
+			fmt.Printf("❌ %s:%d [%s] %s\n", res.File, res.Line, res.RuleName, res.Message)
+		}
+		os.Exit(1)
+	} else {
+		fmt.Printf("✅ %s passed all rules!\n", fileName)
 	}
 }
+

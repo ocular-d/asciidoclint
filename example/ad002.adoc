@@ -1,0 +1,23 @@
+= Good Doc
+
+[source,shell]
+----
+echo "Allowed"
+----
+
+[source,console]
+----
+echo "Nope"
+----
+
+//adoc-lint disable AD002
+[source,shell script]
+----
+echo "Temporarily allowed"
+----
+//adoc-lint enable AD002
+
+[source,shell script]
+----
+echo "Still not okay"
+----

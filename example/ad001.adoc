@@ -1,0 +1,9 @@
+=invalidHeading
+
+//adoc-lint disable AD001
+== another heading
+
+=== heading that Is fine
+//adoc-lint enable AD001
+
+== this Should Trigger
