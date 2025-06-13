@@ -16,7 +16,7 @@ func main() {
 	fileName := os.Args[1]
 
 	allRules := []rules.Rule{
-		rules.AD001HeadingFormatRule{},
+		// rules.AD001HeadingFormatRule{},
 		rules.AD002DiscouragedSourceLangRule{},
 	}
 
