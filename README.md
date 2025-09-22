@@ -45,6 +45,7 @@ return [];
 ```shell
 bun run src/cli.ts --help
 bun run src/cli.ts --version
+bun run src/cli.ts --rules
 bun run src/cli.ts --format json test.adoc
 ```
 
@@ -77,9 +78,36 @@ test.adoc:7:1    heading-style-equals  Underline style headings detected — pre
 cat test.adoc | bun run src/cli.ts
 ```
 
+### Rules
+
+Overview about available rules
+
+| Rule                 | Description                                              |
+| -------------------- | -------------------------------------------------------- |
+| heading-style-equals | Prefer "==" style headings for level 1 (e.g. "== Title") |
+| line-length          | Line should not exceed 120 characters                    |
+| no-todo              | Do not leave TODO markers in files                                                        |
+
+For a full overview about all available rules run `bun run src/cli.ts --rules`.
+
+### Configuration
+
+On default all rules are enabled.
+
+If you want to disable certain rules, you can create a custom config `JSON` file, for example `asciidoc-lint.json` to configure which rules to use.
+
+```json
+{
+  "rules": {
+    "heading-style-equals": true,
+    "line-length": false
+  }
+}
+```
+
 ## (Optional) Install globally during dev
 
-If you want to just type `asciidoc-lint` instead of `bun run...`"
+If you want to type `asciidoc-lint` instead of `bun run...`"
 
 ```shell
 bun link

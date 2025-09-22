@@ -19,10 +19,13 @@ Options:
   -h, --help          Show help
   -v, --version       Show version
   --format [json|text]  Output format (default: text)
+  --config <path>     Path to the configuration file
+  --rules             List all available rules
 
 Examples:
   asciidoc-lint doc.adoc
-  cat doc.adoc | asciidoc-lint
+  asciidoc-lint test.adoc
+     cat doc.adoc | asciidoc-lint --config asciidoc-lint.json
 `);
 }
 
@@ -37,25 +40,52 @@ async function main(argv: string[]) {
     return;
   }
 
+  if (argv.includes("--rules")) {
+    const rules = await loadRules();
+    rules.forEach(rule => console.log(`${rule.id}: ${rule.description}`));
+    return;
+  }
+
   let format = "text";
   let files = argv.slice();
+  let configPath: string | null = null;
 
   const formatIndex = files.indexOf("--format");
   if (formatIndex >= 0) {
     format = files[formatIndex + 1] || "text";
-    // remove the flag and its value so they don't show up in `files`
     files.splice(formatIndex, 2);
   }
 
-  // filter out other options
+  const configIndex = files.indexOf("--config");
+  if (configIndex >= 0) {
+    configPath = files[configIndex + 1] || null;
+    files.splice(configIndex, 2);
+  }
+
   files = files.filter((a) => !a.startsWith("-"));
 
+  let config = {};
+  if (configPath) {
+    try {
+      const configFileContent = fs.readFileSync(configPath, "utf8");
+      config = JSON.parse(configFileContent);
+    } catch (error) {
+      console.error(`Error loading config file: ${error}`);
+      process.exit(1);
+    }
+  }
+
   const rules = await loadRules();
+
+  // Apply config to rules
+  const enabledRules = rules.filter(rule => {
+    return config?.rules?.[rule.id] !== false; // Enabled by default, unless explicitly disabled
+  });
 
   if (files.length === 0) {
     // read from stdin
     const content = await readStdin();
-    const issues = runRules(content, rules);
+    const issues = runRules(content, enabledRules);
     printIssues("stdin", issues, format);
     process.exit(issues.length > 0 ? 2 : 0);
   }
@@ -67,7 +97,7 @@ async function main(argv: string[]) {
       continue;
     }
     const content = readFileSyncUtf8(f);
-    const issues = runRules(content, rules);
+    const issues = runRules(content, enabledRules);
     printIssues(f, issues, format);
     total += issues.length;
   }
