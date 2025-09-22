@@ -1,0 +1,8 @@
+This is a title
+===============
+
+This line is intentionally way too long to trigger the line-length rule because it contains far more than 120 characters. By writing such a ridiculously long sentence, we can be absolutely sure the linter will catch it.
+
+== Proper Heading
+
+Some normal content here.
