@@ -39,7 +39,9 @@ async function main(argv: string[]) {
     }
     if (argv.includes("-v") || argv.includes("--version")) {
         console.log("Version:", pkg.version);
-        console.log("OS Arch:", os.arch());
+        console.log("OS:", os.platform());
+        console.log("OS Architecture:", os.arch());
+        console.log("Node Version:", process.version);
         return;
     }
 
