@@ -1,21 +1,22 @@
 {
-  "name": "asciidoc-lint",
-  "version": "0.1.0",
-  "description": "Minimal extensible AsciiDoc linter (TypeScript + Bun)",
-  "bin": {
-  "asciidoc-lint": "./src/cli.ts"
-  },
-  "scripts": {
-  "start": "bun run ./src/cli.ts",
-  "check": "bun run ./src/cli.ts"
-  },
-  "module": "index.ts",
-  "type": "module",
-  "private": true,
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  }
+    "name": "@testthedocs/asciidoc-lint",
+    "version": "0.1.0",
+    "description": "Minimal extensible AsciiDoc linter (TypeScript + Bun)",
+    "license": "MIT",
+    "bin": {
+        "asciidoc-lint": "./src/cli.ts"
+    },
+    "scripts": {
+        "start": "bun run ./src/cli.ts",
+        "check": "bun run ./src/cli.ts"
+    },
+    "module": "index.ts",
+    "type": "module",
+    "private": true,
+    "devDependencies": {
+        "@types/bun": "latest"
+    },
+    "peerDependencies": {
+        "typescript": "^5"
+    }
 }
