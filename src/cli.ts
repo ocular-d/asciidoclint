@@ -5,6 +5,8 @@ import { loadRules } from "./rules/index.ts";
 import { runRules } from "./index.ts";
 import { readStdin, isAsciiDocFile, readFileSyncUtf8 } from "./utils.ts";
 
+const os = require('os');
+
 const pkg = JSON.parse(
   fs.readFileSync(new URL("../package.json", import.meta.url).pathname, "utf8")
 );
@@ -30,7 +32,8 @@ async function main(argv: string[]) {
     return;
   }
   if (argv.includes("-v") || argv.includes("--version")) {
-    console.log(pkg.version);
+    console.log("Version:",pkg.version);
+    console.log("OS Arch:",os.arch());
     return;
   }
 
