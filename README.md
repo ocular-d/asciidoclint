@@ -105,6 +105,20 @@ If you want to disable certain rules, you can create a custom config `JSON` file
 }
 ```
 
+#### Ignore rules inline
+
+You can ignore rules inline by using the `// asciidoc-lint disable $RULE` command, see the following example:
+
+```adoc
+= Title
+
+// asciidoc-lint disable line-length
+This line is intentionally way too long and would normally trigger line-length but we are ignoring it. This is very long yes and it should be ignored.
+// asciidoc-lint enable line-length
+
+This is a long line and should be reported as it is too long and this is what we want this is a test if that is working. Why is this happening?
+```
+
 ## (Optional) Install globally during dev
 
 If you want to type `asciidoc-lint` instead of `bun run...`"
