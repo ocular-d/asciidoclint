@@ -84,6 +84,12 @@ async function main(argv: string[]) {
     const rules = await loadRules();
 
     if (files.length === 0) {
+        // If no files are provided and stdin is a TTY, show help.
+        // This means the user ran `adoc-lint` without arguments or pipes.
+        if (process.stdin.isTTY) {
+            printHelp();
+            return;
+        }
         // read from stdin
         const content = await readStdin();
         const issues = runRules(
