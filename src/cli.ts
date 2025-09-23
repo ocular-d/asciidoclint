@@ -15,8 +15,8 @@ const pkg = JSON.parse(
 );
 
 function printHelp() {
-    console.log(`asciidoc-lint ${pkg.version}\n
-Usage: asciidoc-lint [options] [files...]
+    console.log(`adoc-lint ${pkg.version}\n
+Usage: adoc-lint [options] [files...]
 
 Options:
   -h, --help          Show help
@@ -26,9 +26,9 @@ Options:
   --rules             List all available rules
 
 Examples:
-  asciidoc-lint doc.adoc
-  asciidoc-lint test.adoc
-     cat doc.adoc | asciidoc-lint --config asciidoc-lint.json
+  adoc-lint doc.adoc
+  adoc-lint test.adoc
+     cat doc.adoc | adoc-lint --config adoc-lint.json
 `);
 }
 

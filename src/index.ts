@@ -27,12 +27,12 @@ function filterDisabledIssues(content: string, issues: Issue[]): Issue[] {
         const lineNo = i + 1;
         const line = lines[i].trim();
 
-        if (line.startsWith("// asciidoc-lint disable")) {
+        if (line.startsWith("// adoc-lint disable")) {
             // start disable from *next* line
             const parts = line.split(/\s+/);
             currentFrom = lineNo + 1;
             currentIds = parts.length > 2 ? new Set(parts.slice(2)) : null;
-        } else if (line.startsWith("// asciidoc-lint enable")) {
+        } else if (line.startsWith("// adoc-lint enable")) {
             if (currentFrom !== null) {
                 const parts = line.split(/\s+/);
                 const to = lineNo - 1; // stop *before* enable line

@@ -4,7 +4,7 @@
     "description": "Minimal extensible AsciiDoc linter (TypeScript + Bun)",
     "license": "MIT",
     "bin": {
-        "asciidoc-lint": "./src/cli.ts"
+        "adoc-lint": "./src/cli.ts"
     },
     "scripts": {
         "start": "bun run ./src/cli.ts",
