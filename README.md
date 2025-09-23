@@ -40,6 +40,10 @@ return [];
 3. Return `Issue[]` with `ruleId`, `message`, `line`, `column`.
 4. Run the CLI → it auto-loads your rule.
 
+### Tests
+
+Run `bun test` for some basic tests.
+
 ## Commands
 
 ```shell

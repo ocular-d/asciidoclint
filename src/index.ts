@@ -26,63 +26,49 @@ export function runRules(
 function filterDisabledIssues(content: string, issues: Issue[]): Issue[] {
     const lines = content.split(/\r?\n/);
 
-    type Range = { from: number; to: number; ids: Set<string> | null };
-    const ranges: Range[] = [];
-
-    let currentFrom: number | null = null;
-    let currentIds: Set<string> | null = null;
+    const disabledRanges: { from: number; to: number; ids: Set<string> | null }[] = [];
+    const disableStack: { from: number; ids: Set<string> | null }[] = [];
 
     for (let i = 0; i < lines.length; i++) {
         const lineNo = i + 1;
-        const line = lines[i].trim();
+        const line = (lines[i] ?? "").trim();
 
         if (line.startsWith("// adoc-lint disable")) {
-            // start disable from *next* line
             const parts = line.split(/\s+/);
-            currentFrom = lineNo + 1;
-            currentIds = parts.length > 2 ? new Set(parts.slice(2)) : null;
+            const ids = parts.length > 2 ? new Set(parts.slice(2)) : null;
+            disableStack.push({ from: lineNo + 1, ids });
         } else if (line.startsWith("// adoc-lint enable")) {
-            if (currentFrom !== null) {
-                const parts = line.split(/\s+/);
-                const to = lineNo - 1; // stop *before* enable line
-                if (currentIds && parts.length > 2) {
-                    // Only re-enable rules that are currently disabled
-                    const enableIds = new Set(parts.slice(2));
-                    const stillDisabled = new Set([...currentIds].filter(id => !enableIds.has(id)));
-                    if (stillDisabled.size === 0) {
-                        ranges.push({
-                            from: currentFrom,
-                            to,
-                            ids: new Set(currentIds),
-                        });
-                        currentFrom = null;
-                        currentIds = null;
-                    } else {
-                        ranges.push({
-                            from: currentFrom,
-                            to,
-                            ids: new Set([...currentIds].filter(id => enableIds.has(id))),
-                        });
-                        currentIds = stillDisabled;
-                        currentFrom = lineNo + 1;
-                    }
-                } else if (parts.length === 2 || currentIds === null) {
-                    ranges.push({ from: currentFrom, to, ids: null });
-                    currentFrom = null;
-                    currentIds = null;
+            if (disableStack.length === 0) continue;
+
+            const lastDisable = disableStack.pop()!;
+            const parts = line.split(/\s+/);
+            const enableIds = parts.length > 2 ? new Set(parts.slice(2)) : null;
+
+            // If enabling specific rules, we might need to split the disable range
+            if (enableIds && lastDisable.ids) {
+                const stillDisabled = new Set([...lastDisable.ids].filter(id => !enableIds.has(id)));
+                const justEnabled = new Set([...lastDisable.ids].filter(id => enableIds.has(id)));
+
+                if (justEnabled.size > 0) {
+                    disabledRanges.push({ from: lastDisable.from, to: lineNo - 1, ids: justEnabled });
                 }
+                if (stillDisabled.size > 0) {
+                    disableStack.push({ from: lastDisable.from, ids: stillDisabled });
+                }
+            } else {
+                // Enabling all rules, or the disable was for all rules
+                disabledRanges.push({ from: lastDisable.from, to: lineNo - 1, ids: lastDisable.ids });
             }
         }
     }
 
-    // if still disabled at EOF
-    if (currentFrom !== null) {
-        ranges.push({ from: currentFrom, to: lines.length, ids: currentIds });
+    // Add any remaining open disable ranges (to end of file)
+    for (const openDisable of disableStack) {
+        disabledRanges.push({ from: openDisable.from, to: lines.length, ids: openDisable.ids });
     }
 
-    // filter issues
     return issues.filter((iss) => {
-        for (const r of ranges) {
+        for (const r of disabledRanges) {
             if (iss.line >= r.from && iss.line <= r.to) {
                 // all rules disabled
                 if (r.ids === null) return false;

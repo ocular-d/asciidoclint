@@ -8,5 +8,3 @@ This is a long line and should be reported as it is too long and this is what we
 
 This is a title
 ===============
-
-
