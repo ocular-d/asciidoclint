@@ -70,7 +70,7 @@ async function main(argv: string[]) {
 
     files = files.filter((a) => !a.startsWith("-"));
 
-    let config = {};
+    let config: { rules?: Record<string, any> } = {};
     if (configPath) {
         try {
             const configFileContent = fs.readFileSync(configPath, "utf8");
@@ -83,15 +83,15 @@ async function main(argv: string[]) {
 
     const rules = await loadRules();
 
-    // Apply config to rules
-    const enabledRules = rules.filter((rule) => {
-        return config?.rules?.[rule.id] !== false; // Enabled by default, unless explicitly disabled
-    });
-
     if (files.length === 0) {
         // read from stdin
         const content = await readStdin();
-        const issues = runRules(content, enabledRules);
+        const issues = runRules(
+            content,
+            rules,
+            config.rules ?? {},
+            "stdin"
+        );
         printIssues("stdin", issues, format);
         process.exit(issues.length > 0 ? 2 : 0);
     }
@@ -103,7 +103,7 @@ async function main(argv: string[]) {
             continue;
         }
         const content = readFileSyncUtf8(f);
-        const issues = runRules(content, enabledRules);
+        const issues = runRules(content, rules, config.rules ?? {}, f);
         printIssues(f, issues, format);
         total += issues.length;
     }

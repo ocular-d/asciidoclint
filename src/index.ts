@@ -1,10 +1,19 @@
 import { Rule, Issue } from "./types.ts";
 
-export function runRules(content: string, rules: Rule[]) {
+export function runRules(
+    content: string,
+    rules: Rule[],
+    config: Record<string, any>,
+    path?: string
+) {
     const all: Issue[] = [];
 
     for (const r of rules) {
-        const res = r.check(content);
+        const ruleConfig = config[r.id];
+        if (ruleConfig === false) {
+            continue; // rule is disabled
+        }
+        const res = r.check(content, ruleConfig, path);
         if (res instanceof Promise) {
             throw new Error("Async rules not supported yet");
         }

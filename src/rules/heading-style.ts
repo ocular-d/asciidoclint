@@ -5,7 +5,7 @@ import { Rule, Issue } from '../types';
 const rule: Rule = {
 id: 'heading-style-equals',
 description: 'Prefer "==" style headings for level 1 (e.g. "== Title")',
-check(content: string) {
+check(content: string, config: any) {
 const issues: Issue[] = [];
 const lines = content.split(/\r?\n/);
 for (let i = 0; i < lines.length; i++) {

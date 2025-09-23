@@ -105,6 +105,21 @@ If you want to disable certain rules, you can create a custom config `JSON` file
 }
 ```
 
+Example: `adoc-lint --config adoc-lint.json test.adoc`
+
+#### Configure line length
+
+You can configure the line length by adding your cur custom setting to the optional configuration file:
+
+```json
+{
+  "rules": {
+    "heading-style-equals": true,
+    "line-length": { "max": 100 }
+  }
+}
+```
+
 #### Ignore rules inline
 
 You can ignore rules inline by using the `// adoc-lint disable $RULE` command, see the following example:

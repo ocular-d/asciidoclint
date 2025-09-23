@@ -1,6 +1,6 @@
 {
   "rules": {
     "heading-style-equals": true,
-    "line-length": true
+    "line-length": { "max": 100 }
   }
 }

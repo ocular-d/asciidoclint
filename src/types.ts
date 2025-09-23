@@ -13,5 +13,5 @@ description?: string;
 * Check the file content and return issues.
 * `path` may be undefined for stdin or virtual files.
 */
-check(content: string, path?: string): Promise<Issue[]> | Issue[];
+check(content: string, config: any, path?: string): Promise<Issue[]> | Issue[];
 };
