@@ -22,5 +22,6 @@ coverage
 test.adoc
 test-todo.adoc
 test-disable.adoc
+test-blank.adoc
 adoc-lint.json
 tsconfig.json

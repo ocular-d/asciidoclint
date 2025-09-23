@@ -1,0 +1,8 @@
+== Title
+
+This is fine.
+
+
+But here are too many blank lines.
+
+Another section
