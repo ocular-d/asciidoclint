@@ -86,12 +86,13 @@ cat test.adoc | bun run src/cli.ts
 
 Overview about available rules
 
-| Rule                                                                 | Description                                              |
-| -------------------------------------------------------------------- | -------------------------------------------------------- |
-| heading-style-equals                                                 | Prefer "==" style headings for level 1 (e.g. "== Title") |
-| line-length                                                          | Line should not exceed 120 characters                    |
-| no-todo                                                              | Do not leave TODO markers in files                       |
-| no-multiple-blanks  | Multiple consecutive blank lines should not occur                                                       |
+| Rule                 | Description                                              | Default   |
+| -------------------- | -------------------------------------------------------- | --------- |
+| heading-style-equals | Prefer "==" style headings for level 1 (e.g. "== Title") | undefined |
+| line-length          | Line should not exceed 120 characters                    | 120       |
+| no-todo              | Do not leave TODO markers in files                       |           |
+| no-multiple-blanks   | Multiple consecutive blank lines should not occur        |           |
+| heading-level        | Enforce a maximum heading level                          | 3         |
 
 For a full overview about all available rules run `bun run src/cli.ts --rules`.
 
