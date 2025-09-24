@@ -88,12 +88,13 @@ Overview about available rules
 
 | Rule                              | Description                                                            | Default   |
 | --------------------------------- | ---------------------------------------------------------------------- | --------- |
-| heading-style-equals              | Prefer "==" style headings for level 1 (e.g. "== Heading Two")               | undefined |
+| heading-style-equals              | Prefer "==" style headings for level 1 (e.g. "== Heading Two")         | undefined |
 | line-length                       | Line should not exceed 120 characters                                  | 120       |
 | no-todo                           | Do not leave TODO markers in files                                     |           |
 | no-multiple-blanks                | Multiple consecutive blank lines should not occur                      |           |
 | heading-level                     | Enforce a maximum heading level                                        | 3         |
 | heading-surrounded-by-blank-lines | Headings should be surrounded by blank lines (except level 1 headings) |           |
+| table-surrounded-by-blank-lines   | Tables should be surrounded by blank lines and not stacked without separation |    |
 
 For a full overview about all available rules run `bun run src/cli.ts --rules`.
 

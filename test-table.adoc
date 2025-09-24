@@ -1,0 +1,15 @@
+== Bad Table Example
+|===
+| A | B
+| 1 | 2
+|===
+Text immediately after
+
+== Good Table Example
+
+|===
+| A | B
+| 1 | 2
+|===
+
+Text after
