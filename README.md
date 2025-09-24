@@ -88,7 +88,7 @@ Overview about available rules
 
 | Rule                              | Description                                                            | Default   |
 | --------------------------------- | ---------------------------------------------------------------------- | --------- |
-| heading-style-equals              | Prefer "==" style headings for level 1 (e.g. "== Title")               | undefined |
+| heading-style-equals              | Prefer "==" style headings for level 1 (e.g. "== Heading Two")               | undefined |
 | line-length                       | Line should not exceed 120 characters                                  | 120       |
 | no-todo                           | Do not leave TODO markers in files                                     |           |
 | no-multiple-blanks                | Multiple consecutive blank lines should not occur                      |           |
