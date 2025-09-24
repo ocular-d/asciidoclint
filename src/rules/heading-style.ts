@@ -4,7 +4,7 @@ import { Rule, Issue } from '../types';
 // A simple rule: Asciidoc headings should use `==` style for level-1 (no underline style)
 const rule: Rule = {
 id: 'heading-style-equals',
-description: 'Prefer "==" style headings for level 1 (e.g. "== Heading Two")',
+description: 'Prefer "==" style headings (e.g. "== Heading Two")',
 check(content: string, config: any) {
 const issues: Issue[] = [];
 const lines = content.split(/\r?\n/);
