@@ -1,0 +1,76 @@
+= Usage
+
+== Command Line Interface
+
+=== Basic usage
+
+[source,bash]
+----
+adoc-lint document.adoc
+----
+
+=== Multiple files
+
+[source,bash]
+----
+adoc-lint doc1.adoc doc2.adoc doc3.adoc
+----
+
+=== Glob patterns
+
+[source,bash]
+----
+adoc-lint docs/**/*.adoc
+----
+
+=== Piping content
+
+[source,bash]
+----
+cat document.adoc | adoc-lint
+----
+
+== Configuration
+
+=== Using a configuration file
+
+[source,bash]
+----
+adoc-lint --config adoc-lint.json document.adoc
+----
+
+=== Output formats
+
+[source,bash]
+----
+# Text output (default)
+adoc-lint document.adoc
+
+# JSON output
+adoc-lint --format json document.adoc
+----
+
+== Programmatic API
+
+[source,javascript]
+----
+import { runRules, loadRules } from '@testthedocs/asciidoc-linter';
+
+const content = `= My Document
+Some content here.`;
+
+const rules = await loadRules();
+const config = {
+  'line-length': { max: 80 },
+  'heading-style-equals': true
+};
+
+const issues = runRules(content, rules, config);
+console.log(issues);
+----
+
+== Exit codes
+
+* `0`: No issues found
+* `1`: Configuration or runtime error
+* `2`: Linting issues found

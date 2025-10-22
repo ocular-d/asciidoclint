@@ -1,22 +1,30 @@
 {
-    "name": "@testthedocs/asciidoc-lint",
+    "name": "@testthedocs/asciidoc-linter-workspace",
     "version": "0.1.0",
-    "description": "Minimal extensible AsciiDoc linter (TypeScript + Bun)",
+    "description": "AsciiDoc linter workspace with documentation and theme",
     "license": "MIT",
-    "bin": {
-        "adoc-lint": "./src/cli.ts"
-    },
+    "private": true,
+    "workspaces": [
+        "packages/*"
+    ],
     "scripts": {
-        "start": "bun run ./src/cli.ts",
-        "check": "bun run ./src/cli.ts"
+        "build": "pnpm -r run build",
+        "test": "pnpm -r run test",
+        "dev": "pnpm -r run dev",
+        "clean": "pnpm -r run clean",
+        "lint": "pnpm -r run lint",
+        "linter:start": "pnpm --filter @testthedocs/asciidoc-linter run start",
+        "docs:build": "pnpm --filter @testthedocs/docs run build",
+        "docs:dev": "pnpm --filter @testthedocs/docs run dev",
+        "theme:build": "pnpm --filter @testthedocs/antora-theme run build",
+        "theme:dev": "pnpm --filter @testthedocs/antora-theme run dev"
     },
-    "module": "index.ts",
-    "type": "module",
-    "private": false,
     "devDependencies": {
-        "@types/bun": "latest"
+        "@types/node": "^20.0.0",
+        "typescript": "^5.0.0"
     },
-    "peerDependencies": {
-        "typescript": "^5"
+    "engines": {
+        "node": ">=18.0.0",
+        "pnpm": ">=8.0.0"
     }
 }

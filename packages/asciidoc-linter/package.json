@@ -1,0 +1,34 @@
+{
+    "name": "@testthedocs/asciidoc-linter",
+    "version": "0.1.0",
+    "description": "Minimal extensible AsciiDoc linter (TypeScript + Node.js)",
+    "license": "MIT",
+    "bin": {
+        "adoc-lint": "./dist/cli.js"
+    },
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "start": "npm run build && node ./dist/cli.js",
+        "check": "npm run build && node ./dist/cli.js",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "dev": "tsc --watch",
+        "clean": "rm -rf dist",
+        "prepublishOnly": "npm run build"
+    },
+    "type": "module",
+    "private": false,
+    "devDependencies": {
+        "@types/node": "^20.0.0",
+        "typescript": "^5.0.0",
+        "vitest": "^1.0.0"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    }
+}

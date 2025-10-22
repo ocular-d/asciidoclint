@@ -1,0 +1,25 @@
+      <div class="nav-panel">
+{{#each menu}}
+        <div class="nav-menu">
+          <h3 class="nav-menu-title">{{this.content}}</h3>
+{{#if this.items}}
+          <ul class="nav-list">
+{{#each this.items}}
+            <li class="nav-item{{#if (eq this.url @root.page.url)}} is-current-page{{/if}}">
+              <a class="nav-link" href="{{{relativize this.url}}}">{{this.content}}</a>
+{{#if this.items}}
+              <ul class="nav-list">
+{{#each this.items}}
+                <li class="nav-item{{#if (eq this.url @root.page.url)}} is-current-page{{/if}}">
+                  <a class="nav-link" href="{{{relativize this.url}}}">{{this.content}}</a>
+                </li>
+{{/each}}
+              </ul>
+{{/if}}
+            </li>
+{{/each}}
+          </ul>
+{{/if}}
+        </div>
+{{/each}}
+      </div>

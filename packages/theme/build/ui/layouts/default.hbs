@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{page.title}}{{#unless page.home}} | {{site.title}}{{/unless}}</title>
+  <link rel="stylesheet" href="{{{uiRootPath}}}/css/site.css">
+</head>
+<body class="article">
+  <header class="navbar">
+    <nav class="navbar-nav">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="{{{or site.url (relativeURL page.url site.homeURL)}}}">{{site.title}}</a>
+      </div>
+    </nav>
+  </header>
+  <div class="body">
+    <div class="nav-container" data-panel="nav">
+      <nav class="nav">
+        <div class="panels">
+{{> nav-menu menu=navigation.menu}}
+        </div>
+      </nav>
+    </div>
+    <div class="nav-panel-explore" data-panel="explore">
+    </div>
+    <main class="article">
+      <div class="toolbar" role="navigation">
+{{> breadcrumbs}}
+{{> page-versions}}
+{{> edit-this-page}}
+      </div>
+      <div class="content">
+        <article class="doc">
+          <h1 class="page">{{page.title}}</h1>
+{{#if page.description}}
+          <div class="paragraph">
+            <p>{{page.description}}</p>
+          </div>
+{{/if}}
+{{{page.contents}}}
+        </article>
+      </div>
+    </main>
+  </div>
+  <script src="{{{uiRootPath}}}/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+{
+    "name": "@testthedocs/antora-theme",
+    "version": "0.1.0",
+    "description": "Custom Antora theme for AsciiDoc Linter documentation",
+    "license": "MIT",
+    "private": true,
+    "scripts": {
+        "build": "gulp build",
+        "dev": "gulp bundle:dev",
+        "preview": "gulp preview",
+        "clean": "rm -rf build public",
+        "lint": "gulp lint"
+    },
+    "devDependencies": {
+        "@antora/ui-loader": "^3.1.0",
+        "autoprefixer": "^10.4.0",
+        "browser-sync": "^2.29.0",
+        "del": "^6.1.0",
+        "gulp": "^4.0.0",
+        "gulp-concat": "^2.6.0",
+        "gulp-if": "^3.0.0",
+        "gulp-imagemin": "^8.0.0",
+        "gulp-postcss": "^9.0.0",
+        "gulp-stylelint": "^13.0.0",
+        "gulp-uglify": "^3.0.0",
+        "gulp-zip": "^5.1.0",
+        "merge-stream": "^2.0.0",
+        "postcss": "^8.4.0",
+        "stylelint": "^13.0.0",
+        "vinyl-fs": "^3.0.0"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    }
+}
