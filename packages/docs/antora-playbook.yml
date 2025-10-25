@@ -9,8 +9,8 @@ content:
     start_path: packages/docs/src
 ui:
   bundle:
-    #url: ../theme/build/ui-bundle.zip
-    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    url: ../ui/build/ui-bundle.zip
+    #url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
     snapshot: true
 asciidoc:
   attributes:
