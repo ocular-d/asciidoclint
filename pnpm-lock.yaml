@@ -28,6 +28,10 @@ importers:
         version: 1.6.1(@types/node@20.19.23)(lightningcss@1.30.2)(sugarss@2.0.0)
 
   packages/docs:
+    dependencies:
+      '@antora/lunr-extension':
+        specifier: 1.0.0-alpha.10
+        version: 1.0.0-alpha.10
     devDependencies:
       '@antora/cli':
         specifier: ^3.1.0
@@ -263,6 +267,10 @@ packages:
 
   '@antora/logger@3.1.14':
     resolution: {integrity: sha512-kVEeGqZbXR903hPIm+BlN97fLdQ3LoUzE/BOPZ6vRp9m9Mmbnm67Kg7fSYkfTMLB0S2UWpAPFg22RdsU5ZoAzA==}
+    engines: {node: '>=16.0.0'}
+
+  '@antora/lunr-extension@1.0.0-alpha.10':
+    resolution: {integrity: sha512-YunvJ3D/Q/GfIgOvmoFvL6NrKLL3TBN2UiemIDCquvWl6z0Jlonb5w3GkT/CKhtnGWXDPOMOJ7M4fVOKjMOHZw==}
     engines: {node: '>=16.0.0'}
 
   '@antora/navigation-builder@3.1.14':
@@ -3330,6 +3338,9 @@ packages:
   htmlparser2@3.10.1:
     resolution: {integrity: sha512-IgieNijUMbkDovyoKObU1DUhm1iwNYE/fuifEoEHfd1oZKZDaONBSkal7Y01shxsM49R4XaMdGez3WnF9UfiCQ==}
 
+  htmlparser2@9.1.0:
+    resolution: {integrity: sha512-5zfg6mHUoaer/97TxnGpxmbR7zJtPwIYFMZ/H5ucTlPZhKvtum05yiPK3Mgai3a0DyVxv7qYqoweaEd2nrYQzQ==}
+
   http-cache-semantics@3.8.1:
     resolution: {integrity: sha512-5ai2iksyV8ZXmnZhHH4rWPoxxistEexSi5936zIQ1bnNTW5VnA85B6P/VpXiRM017IgRvb2kKo1a//y+0wSp3w==}
 
@@ -4108,6 +4119,12 @@ packages:
   lru-cache@6.0.0:
     resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}
     engines: {node: '>=10'}
+
+  lunr-languages@1.10.0:
+    resolution: {integrity: sha512-BBjKKcwrieJlzwwc9M5H/MRXGJ2qyOSDx/NXYiwkuKjiLOOoouh0WsDzeqcLoUWcX31y7i8sb8IgsZKObdUCkw==}
+
+  lunr@2.3.9:
+    resolution: {integrity: sha512-zTU3DaZaF3Rt9rhN3uBMGQD3dD2/vFQqnvZCDv4dl5iOzq2IZQqTxu90r4E5J+nP70J3ilqVCrbho2eWaeW8Ow==}
 
   magic-string@0.23.2:
     resolution: {integrity: sha512-oIUZaAxbcxYIp4AyLafV6OVKoB3YouZs0UTCJ8mOKBHNyJgGDaMJ4TgA+VylJh6fx7EQCC52XkbURxxG9IoJXA==}
@@ -6803,6 +6820,12 @@ snapshots:
       pino: 9.2.0
       pino-pretty: 11.2.2
       sonic-boom: 4.0.1
+
+  '@antora/lunr-extension@1.0.0-alpha.10':
+    dependencies:
+      htmlparser2: 9.1.0
+      lunr: 2.3.9
+      lunr-languages: 1.10.0
 
   '@antora/navigation-builder@3.1.14':
     dependencies:
@@ -10749,6 +10772,13 @@ snapshots:
       inherits: 2.0.4
       readable-stream: 3.6.2
 
+  htmlparser2@9.1.0:
+    dependencies:
+      domelementtype: 2.3.0
+      domhandler: 5.0.3
+      domutils: 3.2.2
+      entities: 4.5.0
+
   http-cache-semantics@3.8.1:
     optional: true
 
@@ -11515,6 +11545,10 @@ snapshots:
   lru-cache@6.0.0:
     dependencies:
       yallist: 4.0.0
+
+  lunr-languages@1.10.0: {}
+
+  lunr@2.3.9: {}
 
   magic-string@0.23.2:
     dependencies:
