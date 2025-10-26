@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "typeface-inter.css";
+@import "typeface-roboto.css";
 @import "typeface-ibm-plex-mono.css";
 @import "vars.css";
 @import "base.css";
@@ -24,7 +24,7 @@
   --color-body-dark: #343434;
 
   --color-vapor: #D4D4D4;
-  --color-fog: #EDEDED;
+  --color-fog: #f5f6f8;
   --color-inline-grey: #F7F7F7;
 
   --color-link-on-light: #5469d4;
