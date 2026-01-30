@@ -111,6 +111,68 @@ Accepts a `maxLength` option to customize the line length limit.
 }
 ----
 
+heading-spacing::
+Accepts options to customize heading spacing requirements.
++
+[source,json]
+----
+{
+  "rules": {
+    "heading-spacing": ["warning", {
+      "requireBefore": true,
+      "requireAfter": true,
+      "exceptions": [3],
+      "allowConsecutiveHeadings": false
+    }]
+  }
+}
+----
++
+* `requireBefore`: Require blank line before headings (default: `true`)
+* `requireAfter`: Require blank line after headings (default: `true`)
+* `exceptions`: Array of heading levels to skip (default: `[]`)
+* `allowConsecutiveHeadings`: Allow consecutive headings without spacing (default: `false`)
+
+=== Rule Interactions
+
+Some rules are designed to work together optimally:
+
+==== Execution Order
+
+Rules execute in a specific order for optimal performance:
+
+1. `heading-spacing` - Executed first as it may add blank lines
+2. `max-line-length` - Executed after heading-spacing, automatically ignores blank lines
+3. `no-trailing-spaces` - Processes final content
+4. `title-case` - Validates heading content
+
+==== Configuration Validation
+
+The linter validates rule configurations and warns about potential conflicts:
+
+[source,json]
+----
+{
+  "rules": {
+    "heading-spacing": ["warning", {
+      "exceptions": "invalid"  // ❌ Should be an array
+    }]
+  }
+}
+----
+
+Valid configuration:
+[source,json]
+----
+{
+  "rules": {
+    "heading-spacing": ["warning", {
+      "exceptions": [2, 3]  // ✅ Array of heading levels
+    }]
+  }
+}
+----
+
 == Default Configuration  
 
 When no configuration file is found, AsciiDocLint uses these default settings:
@@ -119,6 +181,7 @@ When no configuration file is found, AsciiDocLint uses these default settings:
 ----
 {
   "rules": {
+    "heading-spacing": "warning",
     "title-case": "error",
     "no-trailing-spaces": "warning",
     "max-line-length": "warning"
@@ -142,6 +205,7 @@ All formatting rules should be enforced as errors.
 ----
 {
   "rules": {
+    "heading-spacing": "error",
     "title-case": "error",
     "no-trailing-spaces": "error",
     "max-line-length": "warning"
@@ -168,6 +232,9 @@ User guides balance quality with flexibility, allowing some formatting variation
 ----
 {
   "rules": {
+    "heading-spacing": ["warning", {
+      "allowConsecutiveHeadings": true
+    }],
     "title-case": "warning",
     "no-trailing-spaces": "warning",
     "max-line-length": "info"
@@ -194,6 +261,7 @@ Tutorials focus on learning outcomes and may include informal language or long c
 ----
 {
   "rules": {
+    "heading-spacing": "info",
     "title-case": "info",
     "no-trailing-spaces": "warning",
     "max-line-length": "off"

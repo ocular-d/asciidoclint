@@ -7,6 +7,7 @@ const debug = Debug('asciidoclint:core');
 
 export class AsciiDocLinter {
   private rules: Map<string, LintRule> = new Map();
+  private ruleExecutionOrder: string[] = [];
   private config: LintConfig;
   private asciidoc = asciidoctor();
 
@@ -17,16 +18,19 @@ export class AsciiDocLinter {
       configWithDefaults.enableInlineDirectives = true;
     }
     this.config = configWithDefaults;
+    this.validateConfiguration();
     debug('Linter initialized with config: %O', config);
   }
 
   addRule(rule: LintRule): void {
     this.rules.set(rule.name, rule);
+    this.updateRuleExecutionOrder(rule.name);
     debug('Added rule: %s', rule.name);
   }
 
   removeRule(ruleName: string): void {
     this.rules.delete(ruleName);
+    this.ruleExecutionOrder = this.ruleExecutionOrder.filter(name => name !== ruleName);
     debug('Removed rule: %s', ruleName);
   }
 
@@ -62,13 +66,18 @@ export class AsciiDocLinter {
             directiveMessages.length);
     }
 
-    const context: LintContext & { directiveManager?: DirectiveManager } = {
+    const context: LintContext & { directiveManager?: DirectiveManager; sourceLines?: string[] } = {
       filename,
       options: this.config,
-      directiveManager
+      directiveManager,
+      sourceLines: content.split('\n')
     };
 
-    for (const [ruleName, rule] of this.rules) {
+    // Execute rules in the defined order for optimal performance
+    for (const ruleName of this.ruleExecutionOrder) {
+      const rule = this.rules.get(ruleName);
+      if (!rule) continue;
+      
       const ruleConfig = this.config.rules[ruleName];
       
       if (ruleConfig === 'off') {
@@ -133,6 +142,75 @@ export class AsciiDocLinter {
     const fs = await import('fs/promises');
     const content = await fs.readFile(filepath, 'utf8');
     return this.lintText(content, filepath);
+  }
+
+  private validateConfiguration(): void {
+    const rules = this.config.rules || {};
+    const warnings: string[] = [];
+
+    // Check for conflicting rule configurations
+    if (rules['heading-spacing'] && rules['max-line-length']) {
+      const headingSpacing = rules['heading-spacing'];
+      const maxLineLength = rules['max-line-length'];
+      
+      if (headingSpacing !== 'off' && maxLineLength !== 'off') {
+        debug('Note: heading-spacing and max-line-length rules are both enabled. ' +
+              'heading-spacing will be executed first for optimal performance.');
+      }
+    }
+
+    // Validate rule configurations
+    for (const [ruleName, ruleConfig] of Object.entries(rules)) {
+      if (typeof ruleConfig === 'object' && ruleConfig !== null) {
+        // Validate specific rule configurations
+        if (ruleName === 'heading-spacing') {
+          const config = ruleConfig as any;
+          if (config.exceptions && !Array.isArray(config.exceptions)) {
+            warnings.push(`Invalid 'exceptions' configuration for heading-spacing rule: must be an array`);
+          }
+          if (config.exceptions && config.exceptions.some((level: any) => typeof level !== 'number' || level < 1)) {
+            warnings.push(`Invalid 'exceptions' configuration for heading-spacing rule: must contain positive integers`);
+          }
+        }
+      }
+    }
+
+    if (warnings.length > 0) {
+      debug('Configuration warnings: %O', warnings);
+    }
+  }
+
+  private updateRuleExecutionOrder(ruleName: string): void {
+    // Remove if already exists
+    this.ruleExecutionOrder = this.ruleExecutionOrder.filter(name => name !== ruleName);
+    
+    // Define rule execution priority for optimal performance
+    const priorityOrder = [
+      'heading-spacing',  // Execute first as it may add blank lines that affect other rules
+      'max-line-length',  // Execute after heading-spacing to handle any added content
+      'no-trailing-spaces',
+      'title-case'
+    ];
+    
+    // Find the correct position to insert the rule
+    const ruleIndex = priorityOrder.indexOf(ruleName);
+    if (ruleIndex !== -1) {
+      // Insert in priority position
+      let insertIndex = 0;
+      for (let i = 0; i < ruleIndex; i++) {
+        const priorityRule = priorityOrder[i];
+        const existingIndex = this.ruleExecutionOrder.indexOf(priorityRule);
+        if (existingIndex !== -1) {
+          insertIndex = existingIndex + 1;
+        }
+      }
+      this.ruleExecutionOrder.splice(insertIndex, 0, ruleName);
+    } else {
+      // Unknown rule, add at the end
+      this.ruleExecutionOrder.push(ruleName);
+    }
+    
+    debug('Updated rule execution order: %O', this.ruleExecutionOrder);
   }
 }
 

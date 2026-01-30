@@ -1,0 +1,107 @@
+= Heading Spacing Examples
+:toc:
+
+This document demonstrates various heading spacing scenarios for testing and documentation purposes.
+
+== Proper Heading Spacing
+
+This section shows correct heading spacing patterns.
+
+=== Level 3 Heading
+
+Content under level 3 heading.
+
+==== Level 4 Heading
+
+Content under level 4 heading.
+
+== Rule Configuration Examples
+
+The heading-spacing rule supports various configuration options:
+
+=== Basic Configuration
+
+[source,json]
+----
+{
+  "rules": {
+    "heading-spacing": "warning"
+  }
+}
+----
+
+=== Advanced Configuration
+
+[source,json]
+----
+{
+  "rules": {
+    "heading-spacing": ["error", {
+      "requireBefore": true,
+      "requireAfter": true,
+      "exceptions": [3],
+      "allowConsecutiveHeadings": false
+    }]
+  }
+}
+----
+
+== Inline Directive Examples
+
+This section demonstrates inline directive usage with heading-spacing rule.
+
+=== Disabling the Rule
+
+// adoc-lint disable heading-spacing
+== Bad Example Section
+This heading has no blank line before it.
+=== Bad Subsection
+This subsection also violates spacing rules.
+// adoc-lint enable heading-spacing
+
+=== Re-enabling the Rule
+
+== Good Example Section
+
+This heading follows proper spacing rules after re-enabling.
+
+=== Performance Testing
+
+This section contains multiple headings for performance testing:
+
+==== Test Heading 1
+
+Content.
+
+==== Test Heading 2
+
+Content.
+
+==== Test Heading 3
+
+Content.
+
+==== Test Heading 4
+
+Content.
+
+==== Test Heading 5
+
+Content.
+
+== Edge Cases
+
+=== Document Boundaries
+
+This heading is near the document end.
+
+=== Multiple Violations
+Content here.
+== Heading Without Space Before
+Content directly after.
+== Another Bad Heading
+More content.
+
+== Final Section
+
+This demonstrates proper ending.

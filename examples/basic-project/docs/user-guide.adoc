@@ -38,7 +38,12 @@ Rules can be configured in the `.adoc-lintrc.json` file:
 {
   "rules": {
     "title-case": "error",
-    "no-trailing-spaces": "warning"
+    "no-trailing-spaces": "warning",
+    "heading-spacing": ["warning", {
+      "requireBefore": true,
+      "requireAfter": true,
+      "exceptions": []
+    }]
   }
 }
 ----
@@ -92,12 +97,49 @@ This line can be as long as you need it to be without triggering the max-line-le
 // adoc-lint enable max-line-length
 ----
 
+=== Heading Spacing Examples
+
+The `heading-spacing` rule requires blank lines around headings (except level 1):
+
+[source,asciidoc]
+----
+= Document Title
+
+Content here.
+
+== Proper Heading
+
+This heading has proper spacing.
+
+=== Another Section
+
+Also properly spaced.
+----
+
+==== Common Violations
+
+Here are examples of heading spacing violations:
+
+// adoc-lint disable heading-spacing
+==== Bad Example One
+No blank line before or after.
+==== Bad Example Two
+Consecutive headings without spacing.
+// adoc-lint enable heading-spacing
+
 === Supported Directives
 
 * `// adoc-lint disable <rule>` - Disable a specific rule from this point forward
 * `// adoc-lint enable <rule>` - Re-enable a specific rule from this point forward  
 * `// adoc-lint disable-all` - Disable all rules from this point forward
 * `// adoc-lint enable-all` - Re-enable all rules from this point forward
+
+Supported rules include:
+
+* `max-line-length` - Controls line length limits
+* `no-trailing-spaces` - Controls trailing whitespace detection
+* `title-case` - Controls title case formatting
+* `heading-spacing` - Controls blank line requirements around headings
 
 === Multiple Rules
 
@@ -129,7 +171,8 @@ Inline directives are enabled by default. You can disable them globally in your 
 ----
 {
   "rules": {
-    "title-case": "error"
+    "title-case": "error",
+    "heading-spacing": "warning"
   },
   "enableInlineDirectives": false
 }

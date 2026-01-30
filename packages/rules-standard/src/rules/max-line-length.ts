@@ -11,8 +11,9 @@ export const maxLineLengthRule: LintRule = {
     // Get max length from config, default to 120
     const maxLength = context.options.rules?.['max-line-length']?.maxLength || 120;
     
-    // Get source content if available
-    const source = document.getSourceLines?.();
+    // Get source content from context or document
+    const contextWithSource = context as LintContext & { sourceLines?: string[] };
+    const source = contextWithSource.sourceLines || document.getSourceLines?.();
     if (!source) {
       return messages;
     }
@@ -21,11 +22,16 @@ export const maxLineLengthRule: LintRule = {
       const line = source[i];
       const lineNumber = i + 1;
       
+      // Skip blank lines as they don't contribute to readability issues
+      if (line.trim() === '') {
+        continue;
+      }
+      
       if (line.length > maxLength) {
         messages.push({
           rule: 'max-line-length',
           message: `Line is too long (${line.length} > ${maxLength} characters)`,
-          severity: 'warning',
+          severity: context.options.rules?.['max-line-length'] || 'warning',
           line: lineNumber,
           column: maxLength + 1,
           source: line

@@ -8,8 +8,9 @@ export const noTrailingSpacesRule: LintRule = {
   check(document: any, context: LintContext): LintMessage[] {
     const messages: LintMessage[] = [];
     
-    // Get source content if available
-    const source = document.getSourceLines?.();
+    // Get source content from context or document
+    const contextWithSource = context as LintContext & { sourceLines?: string[] };
+    const source = contextWithSource.sourceLines || document.getSourceLines?.();
     if (!source) {
       return messages;
     }

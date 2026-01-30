@@ -43,4 +43,49 @@ Try linting this very file:
 asciidoclint getting-started.adoc
 ----
 
+== Advanced Configuration
+
+Create a more comprehensive configuration with the heading-spacing rule:
+
+[source,json]
+----
+{
+  "rules": {
+    "title-case": "warning",
+    "max-line-length": ["warning", { "maxLength": 100 }],
+    "no-trailing-spaces": "error",
+    "heading-spacing": ["warning", {
+      "requireBefore": true,
+      "requireAfter": true,
+      "allowConsecutiveHeadings": false,
+      "exceptions": []
+    }]
+  },
+  "enableInlineDirectives": true
+}
+----
+
+== Rule Interactions
+
+Some rules work together for optimal performance:
+
+=== Heading Spacing and Line Length
+
+The `heading-spacing` rule is executed before `max-line-length` to ensure that any blank lines added don't interfere with line length checking. The `max-line-length` rule automatically ignores blank lines.
+
+=== Inline Directive Examples
+
+You can disable rules temporarily:
+
+// adoc-lint disable heading-spacing
+=== Bad Heading Example
+This heading violates spacing rules but is ignored.
+=== Another Bad Heading
+Consecutive headings without proper spacing.
+// adoc-lint enable heading-spacing
+
+=== Performance Considerations
+
+The linter uses caching to optimize performance with large documents containing many headings.
+
 NOTE: This tutorial demonstrates various AsciiDoc features and potential linting issues.

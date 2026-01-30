@@ -1,16 +1,143 @@
 = Rules
 :page-aliases: linting-rules
 
-AsciiDocLint includes three standard rules that help maintain consistent, high-quality AsciiDoc content.
+AsciiDocLint includes four standard rules that help maintain consistent, high-quality AsciiDoc content.
 Each rule can be configured with different severity levels (`error`, `warning`, `info`, or `off`) to match your project's needs.
 
 == Available Rules
 
+* **heading-spacing**: Requires blank lines around headings (except level 1) for better document structure
 * **title-case**: Enforces proper title case formatting for document and section titles
 * **max-line-length**: Limits line length to improve readability and code review experience
 * **no-trailing-spaces**: Removes trailing whitespace that can cause formatting issues
 
 == Rule Details
+
+=== heading-spacing
+
+Requires blank lines around headings (except level 1 document titles) to improve document structure and readability.
+
+==== Description
+
+The heading-spacing rule enforces consistent spacing around headings to create better visual separation and improve document readability. By default, the rule requires:
+
+* A blank line before each heading (except level 1 document titles)
+* A blank line after each heading (except level 1 document titles)
+* Level 1 headings (`= Document Title`) are exempt from spacing requirements
+
+==== Configuration Options
+
+* `requireBefore`: Require blank line before headings (default: `true`)
+* `requireAfter`: Require blank line after headings (default: `true`)
+* `exceptions`: Array of heading levels to skip checking (default: `[]`)
+* `allowConsecutiveHeadings`: Allow headings without spacing when they appear consecutively (default: `false`)
+
+.Basic configuration
+[source,json]
+----
+{
+  "rules": {
+    "heading-spacing": "warning"
+  }
+}
+----
+
+.Advanced configuration
+[source,json]
+----
+{
+  "rules": {
+    "heading-spacing": ["error", {
+      "requireBefore": true,
+      "requireAfter": true,
+      "exceptions": [3],
+      "allowConsecutiveHeadings": false
+    }]
+  }
+}
+----
+
+==== Examples
+
+.Before (violates rule)
+[source,asciidoc]
+----
+= Document Title
+Content directly after title.
+== Section One
+Content without spacing before heading.
+=== Subsection
+No spacing around this heading either.
+== Section Two
+Final content.
+----
+
+.After (correct)
+[source,asciidoc]
+----
+= Document Title
+
+Content after title.
+
+== Section One
+
+Content with proper spacing.
+
+=== Subsection
+
+Proper spacing around this heading.
+
+== Section Two
+
+Final content.
+----
+
+==== CLI Output
+
+.Stylish Format
+[source,console]
+----
+$ adoc-lint docs/user-guide.adoc
+
+docs/user-guide.adoc
+  3:1  warning  Heading "Section One" should have blank line before it    heading-spacing
+  3:1  warning  Heading "Section One" should have blank line after it     heading-spacing
+  5:1  warning  Heading "Subsection" should have blank line before it     heading-spacing
+
+✖ 3 problems (0 errors, 3 warnings)
+----
+
+.JSON Format
+[source,console]
+----
+$ adoc-lint docs/user-guide.adoc --format json
+
+[
+  {
+    "filePath": "docs/user-guide.adoc",
+    "messages": [
+      {
+        "ruleId": "heading-spacing",
+        "severity": 1,
+        "message": "Heading \"Section One\" should have blank line before it",
+        "line": 3,
+        "column": 1
+      }
+    ],
+    "errorCount": 0,
+    "warningCount": 1
+  }
+]
+----
+
+==== Performance Notes
+
+The heading-spacing rule uses caching to optimize performance when processing large documents with many headings. It executes before other rules like `max-line-length` to ensure optimal rule interaction.
+
+==== Rule Interactions
+
+* **max-line-length**: The `max-line-length` rule ignores blank lines to prevent conflicts when `heading-spacing` adds spacing
+* **Execution Order**: `heading-spacing` runs first to allow other rules to process the properly spaced document
 
 === title-case
 
@@ -88,7 +215,9 @@ Enforces a maximum line length to improve readability and maintainability of Asc
 ==== Description
 
 The max-line-length rule checks that lines do not exceed the configured maximum length.
-The default limit is 120 characters, but this can be customized per project needs.
+The default limit is 120 characters, but this can be customized per project needs. 
+
+**Note**: Blank lines are automatically ignored by this rule to prevent conflicts with the `heading-spacing` rule.
 
 ==== Configuration Options
 
