@@ -1,0 +1,14 @@
+{
+	"id": 0,
+	"name": "@testthedocs/cli",
+	"variant": "project",
+	"kind": 1,
+	"flags": {},
+	"packageName": "@testthedocs/cli",
+	"symbolIdMap": {
+		"0": {
+			"sourceFileName": "src/index.ts",
+			"qualifiedName": ""
+		}
+	}
+}

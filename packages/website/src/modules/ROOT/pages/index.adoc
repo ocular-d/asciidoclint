@@ -1,0 +1,37 @@
+= AsciiDoc Linter
+
+Welcome to the AsciiDoc Linter documentation!
+
+The AsciiDoc Linter is a minimal, extensible tool for linting AsciiDoc documents. It helps ensure consistency and quality in your documentation by checking for common issues and style violations.
+
+== Features
+
+* **Extensible rule system**: Easy to add custom rules
+* **Configurable**: Customize rules and their settings
+* **Fast**: Built with TypeScript and Node.js for performance
+* **CLI and programmatic API**: Use from command line or integrate into your build process
+
+== Quick Start
+
+.Installation
+[source,bash]
+----
+pnpm add @testthedocs/asciidoc-linter
+----
+
+.Basic usage
+[source,bash]
+----
+adoc-lint my-document.adoc
+----
+
+== Getting Help
+
+* xref:installation.adoc[Installation Guide]
+//* xref:usage.adoc[Usage Examples]
+//* xref:rules.adoc[Available Rules]
+//* xref:configuration.adoc[Configuration Options]
+
+//For development information, see the xref:development.adoc[Development Guide].
+
+This is a test. This is another test. And one more test. Another one

@@ -15,7 +15,7 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "@asciidoclint/*": ["packages/*/src"]
+      "@testthedocs/*": ["packages/*/src"]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

@@ -1,0 +1,48 @@
+= Installation
+
+== Prerequisites
+
+* Node.js 18.0.0 or later
+* pnpm 8.0.0 or later (recommended)
+
+== Installing from npm
+
+[source,bash]
+----
+# Using pnpm (recommended)
+pnpm add @testthedocs/asciidoc-linter
+
+# Using npm
+npm install @testthedocs/asciidoc-linter
+
+# Using yarn
+yarn add @testthedocs/asciidoc-linter
+----
+
+== Global installation
+
+For command-line usage, install globally:
+
+[source,bash]
+----
+pnpm add -g @testthedocs/asciidoc-linter
+----
+
+== Verify installation
+
+[source,bash]
+----
+adoc-lint --version
+----
+
+== Development installation
+
+To install for development:
+
+[source,bash]
+----
+git clone https://github.com/ocular-d/asciidoc-linter.git
+cd asciidoc-linter
+pnpm install
+pnpm run build
+----

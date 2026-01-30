@@ -4,12 +4,12 @@
   "private": true,
   "description": "Basic example project for testing AsciiDocLint",
   "scripts": {
-    "test": "asciidoclint docs/*.adoc",
-    "lint": "asciidoclint docs/*.adoc --format json > lint-results.json",
-    "fix": "asciidoclint docs/*.adoc --fix"
+    "test": "adoc-lint docs/*.adoc",
+    "lint": "adoc-lint docs/*.adoc --format json > lint-results.json",
+    "fix": "adoc-lint docs/*.adoc --fix"
   },
   "dependencies": {
-    "@asciidoclint/cli": "workspace:*"
+    "@testthedocs/cli": "workspace:*"
   },
   "devDependencies": {}
 }

@@ -1,0 +1,21 @@
+{{#with site.keys.cookiebot}}
+    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="{{this}}" data-blockingmode="auto" type="text/javascript"></script>
+{{/with}}
+{{#with site.keys.googleAnalytics}}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{this}}"></script>
+    <script>function gtag(){dataLayer.push(arguments)};window.dataLayer=window.dataLayer||[];gtag('js',new Date());gtag('config','{{this}}')</script>
+{{/with}}
+<script src="{{{uiRootPath}}}/js/vendor/lunr.js"></script>
+<script src="/search-index.js"></script>
+<script id="search-ui-script" 
+        src="{{{uiRootPath}}}/js/search-ui.js"
+        data-site-root-path=""
+        data-snippet-length="100"
+        data-stylesheet="{{{uiRootPath}}}/css/search.css"></script>
+{{#with site.keys.segmentWrite }}
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+{{/with}}
+
+{{!--
+<script>var uiRootPath = '{{{uiRootPath}}}'</script>
+--}}

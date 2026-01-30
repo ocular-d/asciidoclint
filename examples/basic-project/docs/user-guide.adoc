@@ -31,7 +31,7 @@ The basic project includes the following features:
 
 === Rule Configuration
 
-Rules can be configured in the `.asciidoclintrc.json` file:
+Rules can be configured in the `.adoc-lintrc.json` file:
 
 [source,json]
 ----
@@ -70,7 +70,7 @@ asciidoclint docs/*.adoc --format stylish
 Common issues and their solutions:
 
 . *Permission denied*: Check file permissions
-. *Config not found*: Ensure `.asciidoclintrc.json` exists
+. *Config not found*: Ensure `.adoc-lintrc.json` exists
 . *Rule errors*: Verify rule configuration syntax
 
 == Conclusion

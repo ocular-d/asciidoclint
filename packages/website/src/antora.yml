@@ -1,0 +1,8 @@
+name: linter
+title: AsciiDoc Linter
+version: '0.1'
+asciidoc:
+    attributes:
+        page-pagination@: true
+nav:
+  - modules/ROOT/nav.adoc

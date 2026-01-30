@@ -31,7 +31,7 @@ asciidoclint --version
 +
 [source,bash]
 ----
-echo '{"rules": {"title-case": "warning"}}' > .asciidoclintrc.json
+echo '{"rules": {"title-case": "warning"}}' > .adoc-lintrc.json
 ----
 
 == First Lint

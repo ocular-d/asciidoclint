@@ -1,0 +1,26 @@
+{
+    "name": "@testthedocs/docs",
+    "version": "0.1.0",
+    "description": "Documentation for the AsciiDoc linter using Antora",
+    "license": "MIT",
+    "private": true,
+    "scripts": {
+        "build": "antora antora-playbook.yml",
+        "dev": "antora antora-playbook.yml --to-dir=./build/site --clean",
+        "serve": "npx http-server build/site -c-1 -p 9090",
+        "watch": "nodemon --watch src --watch antora-playbook.yml --ext adoc,yml,yaml,js --exec \"pnpm run dev\"",
+        "clean": "rm -rf build"
+    },
+    "devDependencies": {
+        "@antora/cli": "^3.1.0",
+        "@antora/site-generator": "^3.1.0",
+        "http-server": "^14.0.0",
+        "nodemon": "^3.0.0"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "dependencies": {
+        "@antora/lunr-extension": "1.0.0-alpha.10"
+    }
+}

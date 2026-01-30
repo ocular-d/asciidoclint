@@ -1,0 +1,1758 @@
+{
+	"schemaVersion": "2.0",
+	"id": 0,
+	"name": "@testthedocs/core",
+	"variant": "project",
+	"kind": 1,
+	"flags": {},
+	"children": [
+		{
+			"id": 48,
+			"name": "DirectiveManager",
+			"variant": "declaration",
+			"kind": 128,
+			"flags": {},
+			"children": [
+				{
+					"id": 59,
+					"name": "constructor",
+					"variant": "declaration",
+					"kind": 512,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "directive-manager.ts",
+							"line": 27,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/directive-manager.ts#L27"
+						}
+					],
+					"signatures": [
+						{
+							"id": 60,
+							"name": "DirectiveManager",
+							"variant": "signature",
+							"kind": 16384,
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "directive-manager.ts",
+									"line": 27,
+									"character": 2,
+									"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/directive-manager.ts#L27"
+								}
+							],
+							"parameters": [
+								{
+									"id": 61,
+									"name": "validRules",
+									"variant": "param",
+									"kind": 32768,
+									"flags": {},
+									"type": {
+										"type": "array",
+										"elementType": {
+											"type": "intrinsic",
+											"name": "string"
+										}
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"target": 48,
+								"name": "DirectiveManager",
+								"package": "@testthedocs/core"
+							}
+						}
+					]
+				},
+				{
+					"id": 65,
+					"name": "parseDirectives",
+					"variant": "declaration",
+					"kind": 2048,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "directive-manager.ts",
+							"line": 35,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/directive-manager.ts#L35"
+						}
+					],
+					"signatures": [
+						{
+							"id": 66,
+							"name": "parseDirectives",
+							"variant": "signature",
+							"kind": 4096,
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Parse directives from source lines with caching based on content hash"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "directive-manager.ts",
+									"line": 35,
+									"character": 2,
+									"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/directive-manager.ts#L35"
+								}
+							],
+							"parameters": [
+								{
+									"id": 67,
+									"name": "lines",
+									"variant": "param",
+									"kind": 32768,
+									"flags": {},
+									"type": {
+										"type": "array",
+										"elementType": {
+											"type": "intrinsic",
+											"name": "string"
+										}
+									}
+								},
+								{
+									"id": 68,
+									"name": "contentHash",
+									"variant": "param",
+									"kind": 32768,
+									"flags": {
+										"isOptional": true
+									},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							],
+							"type": {
+								"type": "array",
+								"elementType": {
+									"type": "reference",
+									"target": 22,
+									"name": "LintMessage",
+									"package": "@testthedocs/core"
+								}
+							}
+						}
+					]
+				},
+				{
+					"id": 82,
+					"name": "isRuleDisabled",
+					"variant": "declaration",
+					"kind": 2048,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "directive-manager.ts",
+							"line": 226,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/directive-manager.ts#L226"
+						}
+					],
+					"signatures": [
+						{
+							"id": 83,
+							"name": "isRuleDisabled",
+							"variant": "signature",
+							"kind": 4096,
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Check if a rule is disabled for a specific line"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "directive-manager.ts",
+									"line": 226,
+									"character": 2,
+									"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/directive-manager.ts#L226"
+								}
+							],
+							"parameters": [
+								{
+									"id": 84,
+									"name": "ruleName",
+									"variant": "param",
+									"kind": 32768,
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								},
+								{
+									"id": 85,
+									"name": "lineNumber",
+									"variant": "param",
+									"kind": 32768,
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "number"
+									}
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "boolean"
+							}
+						}
+					]
+				},
+				{
+					"id": 86,
+					"name": "isDirectiveLine",
+					"variant": "declaration",
+					"kind": 2048,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "directive-manager.ts",
+							"line": 244,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/directive-manager.ts#L244"
+						}
+					],
+					"signatures": [
+						{
+							"id": 87,
+							"name": "isDirectiveLine",
+							"variant": "signature",
+							"kind": 4096,
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Check if a line is a directive line (should be excluded from rule checking)"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "directive-manager.ts",
+									"line": 244,
+									"character": 2,
+									"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/directive-manager.ts#L244"
+								}
+							],
+							"parameters": [
+								{
+									"id": 88,
+									"name": "lineNumber",
+									"variant": "param",
+									"kind": 32768,
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "number"
+									}
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "boolean"
+							}
+						}
+					]
+				},
+				{
+					"id": 89,
+					"name": "getDirectiveLines",
+					"variant": "declaration",
+					"kind": 2048,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "directive-manager.ts",
+							"line": 251,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/directive-manager.ts#L251"
+						}
+					],
+					"signatures": [
+						{
+							"id": 90,
+							"name": "getDirectiveLines",
+							"variant": "signature",
+							"kind": 4096,
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Get all directive lines for debugging"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "directive-manager.ts",
+									"line": 251,
+									"character": 2,
+									"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/directive-manager.ts#L251"
+								}
+							],
+							"type": {
+								"type": "array",
+								"elementType": {
+									"type": "intrinsic",
+									"name": "number"
+								}
+							}
+						}
+					]
+				},
+				{
+					"id": 54,
+					"name": "clearCache",
+					"variant": "declaration",
+					"kind": 2048,
+					"flags": {
+						"isStatic": true
+					},
+					"sources": [
+						{
+							"fileName": "directive-manager.ts",
+							"line": 258,
+							"character": 9,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/directive-manager.ts#L258"
+						}
+					],
+					"signatures": [
+						{
+							"id": 55,
+							"name": "clearCache",
+							"variant": "signature",
+							"kind": 4096,
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Clear cache - useful for testing or when rules change"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "directive-manager.ts",
+									"line": 258,
+									"character": 9,
+									"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/directive-manager.ts#L258"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "void"
+							}
+						}
+					]
+				},
+				{
+					"id": 56,
+					"name": "generateContentHash",
+					"variant": "declaration",
+					"kind": 2048,
+					"flags": {
+						"isStatic": true
+					},
+					"sources": [
+						{
+							"fileName": "directive-manager.ts",
+							"line": 266,
+							"character": 9,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/directive-manager.ts#L266"
+						}
+					],
+					"signatures": [
+						{
+							"id": 57,
+							"name": "generateContentHash",
+							"variant": "signature",
+							"kind": 4096,
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Generate content hash for caching"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "directive-manager.ts",
+									"line": 266,
+									"character": 9,
+									"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/directive-manager.ts#L266"
+								}
+							],
+							"parameters": [
+								{
+									"id": 58,
+									"name": "content",
+									"variant": "param",
+									"kind": 32768,
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					]
+				}
+			],
+			"groups": [
+				{
+					"title": "Constructors",
+					"children": [
+						59
+					]
+				},
+				{
+					"title": "Methods",
+					"children": [
+						65,
+						82,
+						86,
+						89,
+						54,
+						56
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "directive-manager.ts",
+					"line": 19,
+					"character": 13,
+					"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/directive-manager.ts#L19"
+				}
+			]
+		},
+		{
+			"id": 1,
+			"name": "AsciiDocLinter",
+			"variant": "declaration",
+			"kind": 128,
+			"flags": {},
+			"children": [
+				{
+					"id": 2,
+					"name": "constructor",
+					"variant": "declaration",
+					"kind": 512,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "index.ts",
+							"line": 13,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/index.ts#L13"
+						}
+					],
+					"signatures": [
+						{
+							"id": 3,
+							"name": "AsciiDocLinter",
+							"variant": "signature",
+							"kind": 16384,
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "index.ts",
+									"line": 13,
+									"character": 2,
+									"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/index.ts#L13"
+								}
+							],
+							"parameters": [
+								{
+									"id": 4,
+									"name": "config",
+									"variant": "param",
+									"kind": 32768,
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"target": 37,
+										"name": "LintConfig",
+										"package": "@testthedocs/core"
+									},
+									"defaultValue": "..."
+								}
+							],
+							"type": {
+								"type": "reference",
+								"target": 1,
+								"name": "AsciiDocLinter",
+								"package": "@testthedocs/core"
+							}
+						}
+					]
+				},
+				{
+					"id": 8,
+					"name": "addRule",
+					"variant": "declaration",
+					"kind": 2048,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "index.ts",
+							"line": 23,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/index.ts#L23"
+						}
+					],
+					"signatures": [
+						{
+							"id": 9,
+							"name": "addRule",
+							"variant": "signature",
+							"kind": 4096,
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "index.ts",
+									"line": 23,
+									"character": 2,
+									"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/index.ts#L23"
+								}
+							],
+							"parameters": [
+								{
+									"id": 10,
+									"name": "rule",
+									"variant": "param",
+									"kind": 32768,
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"target": 39,
+										"name": "LintRule",
+										"package": "@testthedocs/core"
+									}
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "void"
+							}
+						}
+					]
+				},
+				{
+					"id": 11,
+					"name": "removeRule",
+					"variant": "declaration",
+					"kind": 2048,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "index.ts",
+							"line": 28,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/index.ts#L28"
+						}
+					],
+					"signatures": [
+						{
+							"id": 12,
+							"name": "removeRule",
+							"variant": "signature",
+							"kind": 4096,
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "index.ts",
+									"line": 28,
+									"character": 2,
+									"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/index.ts#L28"
+								}
+							],
+							"parameters": [
+								{
+									"id": 13,
+									"name": "ruleName",
+									"variant": "param",
+									"kind": 32768,
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "void"
+							}
+						}
+					]
+				},
+				{
+					"id": 14,
+					"name": "lintText",
+					"variant": "declaration",
+					"kind": 2048,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "index.ts",
+							"line": 33,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/index.ts#L33"
+						}
+					],
+					"signatures": [
+						{
+							"id": 15,
+							"name": "lintText",
+							"variant": "signature",
+							"kind": 4096,
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "index.ts",
+									"line": 33,
+									"character": 2,
+									"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/index.ts#L33"
+								}
+							],
+							"parameters": [
+								{
+									"id": 16,
+									"name": "content",
+									"variant": "param",
+									"kind": 32768,
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								},
+								{
+									"id": 17,
+									"name": "filename",
+									"variant": "param",
+									"kind": 32768,
+									"flags": {
+										"isOptional": true
+									},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"target": 29,
+								"name": "LintResult",
+								"package": "@testthedocs/core"
+							}
+						}
+					]
+				},
+				{
+					"id": 18,
+					"name": "lintFile",
+					"variant": "declaration",
+					"kind": 2048,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "index.ts",
+							"line": 132,
+							"character": 8,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/index.ts#L132"
+						}
+					],
+					"signatures": [
+						{
+							"id": 19,
+							"name": "lintFile",
+							"variant": "signature",
+							"kind": 4096,
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "index.ts",
+									"line": 132,
+									"character": 8,
+									"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/index.ts#L132"
+								}
+							],
+							"parameters": [
+								{
+									"id": 20,
+									"name": "filepath",
+									"variant": "param",
+									"kind": 32768,
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"target": {
+									"packageName": "typescript",
+									"packagePath": "lib/lib.es5.d.ts",
+									"qualifiedName": "Promise"
+								},
+								"typeArguments": [
+									{
+										"type": "reference",
+										"target": 29,
+										"name": "LintResult",
+										"package": "@testthedocs/core"
+									}
+								],
+								"name": "Promise",
+								"package": "typescript"
+							}
+						}
+					]
+				}
+			],
+			"groups": [
+				{
+					"title": "Constructors",
+					"children": [
+						2
+					]
+				},
+				{
+					"title": "Methods",
+					"children": [
+						8,
+						11,
+						14,
+						18
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "index.ts",
+					"line": 8,
+					"character": 13,
+					"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/index.ts#L8"
+				}
+			]
+		},
+		{
+			"id": 47,
+			"name": "default",
+			"variant": "reference",
+			"kind": 4194304,
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "index.ts",
+					"line": 141,
+					"character": 27,
+					"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/index.ts#L141"
+				}
+			],
+			"target": 1
+		},
+		{
+			"id": 21,
+			"name": "Severity",
+			"variant": "declaration",
+			"kind": 2097152,
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "types/index.ts",
+					"line": 1,
+					"character": 12,
+					"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L1"
+				}
+			],
+			"type": {
+				"type": "union",
+				"types": [
+					{
+						"type": "literal",
+						"value": "error"
+					},
+					{
+						"type": "literal",
+						"value": "warning"
+					},
+					{
+						"type": "literal",
+						"value": "info"
+					}
+				]
+			}
+		},
+		{
+			"id": 22,
+			"name": "LintMessage",
+			"variant": "declaration",
+			"kind": 256,
+			"flags": {},
+			"children": [
+				{
+					"id": 23,
+					"name": "rule",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "types/index.ts",
+							"line": 4,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L4"
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 24,
+					"name": "message",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "types/index.ts",
+							"line": 5,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L5"
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 25,
+					"name": "severity",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "types/index.ts",
+							"line": 6,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L6"
+						}
+					],
+					"type": {
+						"type": "reference",
+						"target": 21,
+						"name": "Severity",
+						"package": "@testthedocs/core"
+					}
+				},
+				{
+					"id": 26,
+					"name": "line",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "types/index.ts",
+							"line": 7,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L7"
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "number"
+					}
+				},
+				{
+					"id": 27,
+					"name": "column",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "types/index.ts",
+							"line": 8,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L8"
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "number"
+					}
+				},
+				{
+					"id": 28,
+					"name": "source",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "types/index.ts",
+							"line": 9,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L9"
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						23,
+						24,
+						25,
+						26,
+						27,
+						28
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "types/index.ts",
+					"line": 3,
+					"character": 17,
+					"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L3"
+				}
+			]
+		},
+		{
+			"id": 29,
+			"name": "LintResult",
+			"variant": "declaration",
+			"kind": 256,
+			"flags": {},
+			"children": [
+				{
+					"id": 30,
+					"name": "filename",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "types/index.ts",
+							"line": 13,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L13"
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 31,
+					"name": "messages",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "types/index.ts",
+							"line": 14,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L14"
+						}
+					],
+					"type": {
+						"type": "array",
+						"elementType": {
+							"type": "reference",
+							"target": 22,
+							"name": "LintMessage",
+							"package": "@testthedocs/core"
+						}
+					}
+				},
+				{
+					"id": 32,
+					"name": "errorCount",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "types/index.ts",
+							"line": 15,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L15"
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "number"
+					}
+				},
+				{
+					"id": 33,
+					"name": "warningCount",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "types/index.ts",
+							"line": 16,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L16"
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "number"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						30,
+						31,
+						32,
+						33
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "types/index.ts",
+					"line": 12,
+					"character": 17,
+					"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L12"
+				}
+			]
+		},
+		{
+			"id": 34,
+			"name": "LintContext",
+			"variant": "declaration",
+			"kind": 256,
+			"flags": {},
+			"children": [
+				{
+					"id": 35,
+					"name": "filename",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "types/index.ts",
+							"line": 20,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L20"
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 36,
+					"name": "options",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "types/index.ts",
+							"line": 21,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L21"
+						}
+					],
+					"type": {
+						"type": "reference",
+						"target": 37,
+						"name": "LintConfig",
+						"package": "@testthedocs/core"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						35,
+						36
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "types/index.ts",
+					"line": 19,
+					"character": 17,
+					"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L19"
+				}
+			]
+		},
+		{
+			"id": 37,
+			"name": "LintConfig",
+			"variant": "declaration",
+			"kind": 256,
+			"flags": {},
+			"children": [
+				{
+					"id": 38,
+					"name": "rules",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "types/index.ts",
+							"line": 25,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L25"
+						}
+					],
+					"type": {
+						"type": "reference",
+						"target": {
+							"packageName": "typescript",
+							"packagePath": "lib/lib.es5.d.ts",
+							"qualifiedName": "Record"
+						},
+						"typeArguments": [
+							{
+								"type": "intrinsic",
+								"name": "string"
+							},
+							{
+								"type": "union",
+								"types": [
+									{
+										"type": "reference",
+										"target": 21,
+										"name": "Severity",
+										"package": "@testthedocs/core"
+									},
+									{
+										"type": "literal",
+										"value": "off"
+									},
+									{
+										"type": "intrinsic",
+										"name": "any"
+									}
+								]
+							}
+						],
+						"name": "Record",
+						"package": "typescript"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						38
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "types/index.ts",
+					"line": 24,
+					"character": 17,
+					"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L24"
+				}
+			]
+		},
+		{
+			"id": 39,
+			"name": "LintRule",
+			"variant": "declaration",
+			"kind": 256,
+			"flags": {},
+			"children": [
+				{
+					"id": 40,
+					"name": "name",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "types/index.ts",
+							"line": 29,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L29"
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 41,
+					"name": "description",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "types/index.ts",
+							"line": 30,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L30"
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 42,
+					"name": "severity",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "types/index.ts",
+							"line": 31,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L31"
+						}
+					],
+					"type": {
+						"type": "reference",
+						"target": 21,
+						"name": "Severity",
+						"package": "@testthedocs/core"
+					}
+				},
+				{
+					"id": 43,
+					"name": "check",
+					"variant": "declaration",
+					"kind": 2048,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "types/index.ts",
+							"line": 32,
+							"character": 2,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L32"
+						}
+					],
+					"signatures": [
+						{
+							"id": 44,
+							"name": "check",
+							"variant": "signature",
+							"kind": 4096,
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "types/index.ts",
+									"line": 32,
+									"character": 2,
+									"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L32"
+								}
+							],
+							"parameters": [
+								{
+									"id": 45,
+									"name": "document",
+									"variant": "param",
+									"kind": 32768,
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "any"
+									}
+								},
+								{
+									"id": 46,
+									"name": "context",
+									"variant": "param",
+									"kind": 32768,
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"target": 34,
+										"name": "LintContext",
+										"package": "@testthedocs/core"
+									}
+								}
+							],
+							"type": {
+								"type": "array",
+								"elementType": {
+									"type": "reference",
+									"target": 22,
+									"name": "LintMessage",
+									"package": "@testthedocs/core"
+								}
+							}
+						}
+					]
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						40,
+						41,
+						42
+					]
+				},
+				{
+					"title": "Methods",
+					"children": [
+						43
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "types/index.ts",
+					"line": 28,
+					"character": 17,
+					"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L28"
+				}
+			]
+		}
+	],
+	"groups": [
+		{
+			"title": "Classes",
+			"children": [
+				48,
+				1
+			]
+		},
+		{
+			"title": "Interfaces",
+			"children": [
+				22,
+				29,
+				34,
+				37,
+				39
+			]
+		},
+		{
+			"title": "Type Aliases",
+			"children": [
+				21
+			]
+		},
+		{
+			"title": "References",
+			"children": [
+				47
+			]
+		}
+	],
+	"packageName": "@testthedocs/core",
+	"symbolIdMap": {
+		"0": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/index.ts",
+			"qualifiedName": ""
+		},
+		"1": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/index.ts",
+			"qualifiedName": "AsciiDocLinter"
+		},
+		"2": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/index.ts",
+			"qualifiedName": "AsciiDocLinter.__constructor"
+		},
+		"3": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/index.ts",
+			"qualifiedName": "AsciiDocLinter"
+		},
+		"4": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/index.ts",
+			"qualifiedName": "config"
+		},
+		"8": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/index.ts",
+			"qualifiedName": "AsciiDocLinter.addRule"
+		},
+		"9": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/index.ts",
+			"qualifiedName": "AsciiDocLinter.addRule"
+		},
+		"10": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/index.ts",
+			"qualifiedName": "rule"
+		},
+		"11": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/index.ts",
+			"qualifiedName": "AsciiDocLinter.removeRule"
+		},
+		"12": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/index.ts",
+			"qualifiedName": "AsciiDocLinter.removeRule"
+		},
+		"13": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/index.ts",
+			"qualifiedName": "ruleName"
+		},
+		"14": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/index.ts",
+			"qualifiedName": "AsciiDocLinter.lintText"
+		},
+		"15": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/index.ts",
+			"qualifiedName": "AsciiDocLinter.lintText"
+		},
+		"16": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/index.ts",
+			"qualifiedName": "content"
+		},
+		"17": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/index.ts",
+			"qualifiedName": "filename"
+		},
+		"18": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/index.ts",
+			"qualifiedName": "AsciiDocLinter.lintFile"
+		},
+		"19": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/index.ts",
+			"qualifiedName": "AsciiDocLinter.lintFile"
+		},
+		"20": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/index.ts",
+			"qualifiedName": "filepath"
+		},
+		"21": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "Severity"
+		},
+		"22": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "LintMessage"
+		},
+		"23": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "LintMessage.rule"
+		},
+		"24": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "LintMessage.message"
+		},
+		"25": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "LintMessage.severity"
+		},
+		"26": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "LintMessage.line"
+		},
+		"27": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "LintMessage.column"
+		},
+		"28": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "LintMessage.source"
+		},
+		"29": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "LintResult"
+		},
+		"30": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "LintResult.filename"
+		},
+		"31": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "LintResult.messages"
+		},
+		"32": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "LintResult.errorCount"
+		},
+		"33": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "LintResult.warningCount"
+		},
+		"34": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "LintContext"
+		},
+		"35": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "LintContext.filename"
+		},
+		"36": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "LintContext.options"
+		},
+		"37": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "LintConfig"
+		},
+		"38": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "LintConfig.rules"
+		},
+		"39": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "LintRule"
+		},
+		"40": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "LintRule.name"
+		},
+		"41": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "LintRule.description"
+		},
+		"42": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "LintRule.severity"
+		},
+		"43": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "LintRule.check"
+		},
+		"44": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "LintRule.check"
+		},
+		"45": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "document"
+		},
+		"46": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/types/index.ts",
+			"qualifiedName": "context"
+		},
+		"47": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/index.ts",
+			"qualifiedName": "default"
+		},
+		"48": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/directive-manager.ts",
+			"qualifiedName": "DirectiveManager"
+		},
+		"54": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/directive-manager.ts",
+			"qualifiedName": "DirectiveManager.clearCache"
+		},
+		"55": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/directive-manager.ts",
+			"qualifiedName": "DirectiveManager.clearCache"
+		},
+		"56": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/directive-manager.ts",
+			"qualifiedName": "DirectiveManager.generateContentHash"
+		},
+		"57": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/directive-manager.ts",
+			"qualifiedName": "DirectiveManager.generateContentHash"
+		},
+		"58": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/directive-manager.ts",
+			"qualifiedName": "content"
+		},
+		"59": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/directive-manager.ts",
+			"qualifiedName": "DirectiveManager.__constructor"
+		},
+		"60": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/directive-manager.ts",
+			"qualifiedName": "DirectiveManager"
+		},
+		"61": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/directive-manager.ts",
+			"qualifiedName": "validRules"
+		},
+		"65": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/directive-manager.ts",
+			"qualifiedName": "DirectiveManager.parseDirectives"
+		},
+		"66": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/directive-manager.ts",
+			"qualifiedName": "DirectiveManager.parseDirectives"
+		},
+		"67": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/directive-manager.ts",
+			"qualifiedName": "lines"
+		},
+		"68": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/directive-manager.ts",
+			"qualifiedName": "contentHash"
+		},
+		"82": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/directive-manager.ts",
+			"qualifiedName": "DirectiveManager.isRuleDisabled"
+		},
+		"83": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/directive-manager.ts",
+			"qualifiedName": "DirectiveManager.isRuleDisabled"
+		},
+		"84": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/directive-manager.ts",
+			"qualifiedName": "ruleName"
+		},
+		"85": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/directive-manager.ts",
+			"qualifiedName": "lineNumber"
+		},
+		"86": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/directive-manager.ts",
+			"qualifiedName": "DirectiveManager.isDirectiveLine"
+		},
+		"87": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/directive-manager.ts",
+			"qualifiedName": "DirectiveManager.isDirectiveLine"
+		},
+		"88": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/directive-manager.ts",
+			"qualifiedName": "lineNumber"
+		},
+		"89": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/directive-manager.ts",
+			"qualifiedName": "DirectiveManager.getDirectiveLines"
+		},
+		"90": {
+			"packageName": "@testthedocs/core",
+			"packagePath": "src/directive-manager.ts",
+			"qualifiedName": "DirectiveManager.getDirectiveLines"
+		}
+	},
+	"files": {
+		"entries": {
+			"1": "src/index.ts"
+		},
+		"reflections": {
+			"1": 0
+		}
+	}
+}

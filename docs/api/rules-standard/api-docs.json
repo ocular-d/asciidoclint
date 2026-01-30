@@ -1,0 +1,191 @@
+{
+	"id": 0,
+	"name": "@testthedocs/rules-standard",
+	"variant": "project",
+	"kind": 1,
+	"flags": {},
+	"children": [
+		{
+			"id": 1,
+			"name": "loadStandardRules",
+			"variant": "declaration",
+			"kind": 64,
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "index.ts",
+					"line": 6,
+					"character": 16,
+					"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/rules-standard/src/index.ts#L6"
+				}
+			],
+			"signatures": [
+				{
+					"id": 2,
+					"name": "loadStandardRules",
+					"variant": "signature",
+					"kind": 4096,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "index.ts",
+							"line": 6,
+							"character": 16,
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/rules-standard/src/index.ts#L6"
+						}
+					],
+					"parameters": [
+						{
+							"id": 3,
+							"name": "linter",
+							"variant": "param",
+							"kind": 32768,
+							"flags": {},
+							"type": {
+								"type": "reference",
+								"target": {
+									"sourceFileName": "../core/src/index.ts",
+									"qualifiedName": "AsciiDocLinter"
+								},
+								"name": "AsciiDocLinter",
+								"package": "@testthedocs/core"
+							}
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "void"
+					}
+				}
+			]
+		},
+		{
+			"id": 6,
+			"name": "maxLineLengthRule",
+			"variant": "declaration",
+			"kind": 32,
+			"flags": {
+				"isConst": true
+			},
+			"sources": [
+				{
+					"fileName": "rules/max-line-length.ts",
+					"line": 3,
+					"character": 13,
+					"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/rules-standard/src/rules/max-line-length.ts#L3"
+				}
+			],
+			"type": {
+				"type": "reference",
+				"target": {
+					"sourceFileName": "../core/src/types/index.ts",
+					"qualifiedName": "LintRule"
+				},
+				"name": "LintRule",
+				"package": "@testthedocs/core"
+			},
+			"defaultValue": "..."
+		},
+		{
+			"id": 5,
+			"name": "noTrailingSpacesRule",
+			"variant": "declaration",
+			"kind": 32,
+			"flags": {
+				"isConst": true
+			},
+			"sources": [
+				{
+					"fileName": "rules/no-trailing-spaces.ts",
+					"line": 3,
+					"character": 13,
+					"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/rules-standard/src/rules/no-trailing-spaces.ts#L3"
+				}
+			],
+			"type": {
+				"type": "reference",
+				"target": {
+					"sourceFileName": "../core/src/types/index.ts",
+					"qualifiedName": "LintRule"
+				},
+				"name": "LintRule",
+				"package": "@testthedocs/core"
+			},
+			"defaultValue": "..."
+		},
+		{
+			"id": 4,
+			"name": "titleCaseRule",
+			"variant": "declaration",
+			"kind": 32,
+			"flags": {
+				"isConst": true
+			},
+			"sources": [
+				{
+					"fileName": "rules/title-case.ts",
+					"line": 3,
+					"character": 13,
+					"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/rules-standard/src/rules/title-case.ts#L3"
+				}
+			],
+			"type": {
+				"type": "reference",
+				"target": {
+					"sourceFileName": "../core/src/types/index.ts",
+					"qualifiedName": "LintRule"
+				},
+				"name": "LintRule",
+				"package": "@testthedocs/core"
+			},
+			"defaultValue": "..."
+		}
+	],
+	"groups": [
+		{
+			"title": "Variables",
+			"children": [
+				6,
+				5,
+				4
+			]
+		},
+		{
+			"title": "Functions",
+			"children": [
+				1
+			]
+		}
+	],
+	"packageName": "@testthedocs/rules-standard",
+	"symbolIdMap": {
+		"0": {
+			"sourceFileName": "src/index.ts",
+			"qualifiedName": ""
+		},
+		"1": {
+			"sourceFileName": "src/index.ts",
+			"qualifiedName": "loadStandardRules"
+		},
+		"2": {
+			"sourceFileName": "src/index.ts",
+			"qualifiedName": "loadStandardRules"
+		},
+		"3": {
+			"sourceFileName": "src/index.ts",
+			"qualifiedName": "linter"
+		},
+		"4": {
+			"sourceFileName": "src/rules/title-case.ts",
+			"qualifiedName": "titleCaseRule"
+		},
+		"5": {
+			"sourceFileName": "src/rules/no-trailing-spaces.ts",
+			"qualifiedName": "noTrailingSpacesRule"
+		},
+		"6": {
+			"sourceFileName": "src/rules/max-line-length.ts",
+			"qualifiedName": "maxLineLengthRule"
+		}
+	}
+}

@@ -1,0 +1,22 @@
+site:
+    title: AsciiDoc Linter Documentation
+    start_page: linter::index.adoc
+    url: https://testthedocs.github.io/asciidoc-linter
+content:
+    sources:
+      - url: ../../
+        branches: [ HEAD ]
+        start_path: packages/website/src
+ui:
+    bundle:
+        url: ../theme/build/ui-bundle.zip
+        #url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+        snapshot: true
+asciidoc:
+    attributes:
+        source-highlighter: highlight.js
+antora:
+    extensions:
+      - '@antora/lunr-extension'
+output:
+    dir: ./build/site

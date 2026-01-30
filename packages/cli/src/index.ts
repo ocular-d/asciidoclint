@@ -2,7 +2,7 @@
 
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { AsciiDocLinter, LintConfig } from '@asciidoclint/core';
+import { AsciiDocLinter, LintConfig } from '@testthedocs/core';
 import { loadConfig } from './config';
 import { formatResults } from './formatters';
 import { glob } from 'glob';
@@ -12,7 +12,7 @@ const debug = Debug('asciidoclint:cli');
 const program = new Command();
 
 program
-  .name('asciidoclint')
+  .name('adoc-lint')
   .description('AsciiDoc linter for documentation quality')
   .version('1.0.0')
   .argument('[files...]', 'Files to lint (supports glob patterns)', ['**/*.adoc'])
@@ -38,7 +38,7 @@ program
       const linter = new AsciiDocLinter(configWithDirectives);
       
       // Load standard rules
-      const { loadStandardRules } = await import('@asciidoclint/rules-standard');
+      const { loadStandardRules } = await import('@testthedocs/rules-standard');
       loadStandardRules(linter);
       
       const allFiles: string[] = [];

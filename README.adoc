@@ -9,9 +9,9 @@ A comprehensive workspace for AsciiDoc linting, documentation quality assurance,
 
 This repository contains multiple related packages that work together to provide comprehensive AsciiDoc linting capabilities:
 
-* *@asciidoclint/core* - TypeScript-based AsciiDoc linting engine with configurable rules and inline directive support
-* *@asciidoclint/cli* - Command-line interface for interactive linting
-* *@asciidoclint/rules-standard* - Standard rule set for common documentation quality checks
+* *@testthedocs/core* - TypeScript-based AsciiDoc linting engine with configurable rules and inline directive support
+* *@testthedocs/cli* - Command-line interface for interactive linting
+* *@testthedocs/rules-standard* - Standard rule set for common documentation quality checks
 * *examples/* - Integration test examples and usage demonstrations
 
 == Key Features
@@ -74,7 +74,7 @@ pnpm clean
 
 === Package-Specific Development
 
-==== Core Engine (@asciidoclint/core)
+==== Core Engine (@testthedocs/core)
 
 [source,bash]
 ----
@@ -97,7 +97,7 @@ The core engine provides the fundamental linting functionality:
 * Configurable severity levels
 * Extensible rule architecture
 
-==== Command-Line Interface (@asciidoclint/cli)
+==== Command-Line Interface (@testthedocs/cli)
 
 [source,bash]
 ----
@@ -121,7 +121,7 @@ The CLI provides user-friendly access to linting:
 * Glob pattern file matching
 * Exit codes for CI integration
 
-==== Standard Rules (@asciidoclint/rules-standard)
+==== Standard Rules (@testthedocs/rules-standard)
 
 [source,bash]
 ----
@@ -211,7 +211,7 @@ For maintainers setting up automated releases:
 1. *NPM Registry Token*:
    - Create automation token at https://npmjs.com
    - Add to repository secrets as `NPM_TOKEN`
-   - Ensure token has publish permissions for `@asciidoclint/*` scope
+   - Ensure token has publish permissions for `@testthedocs/*` scope
 
 2. *GitHub Permissions*:
    - Repository must have Actions enabled
@@ -227,7 +227,7 @@ For maintainers setting up automated releases:
 
 === CLI Configuration
 
-Create `.asciidoclintrc.json` in your project root:
+Create `.adoc-lintrc.json` in your project root:
 
 [source,json]
 ----
@@ -279,13 +279,13 @@ Create `.asciidoclintrc.json` in your project root:
 [source,bash]
 ----
 # Lint all AsciiDoc files in current directory
-asciidoclint **/*.adoc
+adoc-lint **/*.adoc
 
 # Lint specific files
-asciidoclint README.adoc docs/user-guide.adoc
+adoc-lint README.adoc docs/user-guide.adoc
 
 # Use specific configuration file
-asciidoclint docs/*.adoc --config custom-config.json
+adoc-lint docs/*.adoc --config custom-config.json
 ----
 
 === Inline Directives
@@ -324,7 +324,7 @@ Disable inline directives globally:
 [source,bash]
 ----
 # Disable directive processing via CLI
-asciidoclint docs/*.adoc --disable-inline-directives
+adoc-lint docs/*.adoc --disable-inline-directives
 
 # Or via configuration
 {
@@ -338,13 +338,13 @@ asciidoclint docs/*.adoc --disable-inline-directives
 [source,bash]
 ----
 # Stylish output (default)
-asciidoclint docs/*.adoc
+adoc-lint docs/*.adoc
 
 # JSON output for programmatic use
-asciidoclint docs/*.adoc --format json
+adoc-lint docs/*.adoc --format json
 
 # Compact output for CI logs
-asciidoclint docs/*.adoc --format compact
+adoc-lint docs/*.adoc --format compact
 ----
 
 === CI Integration
@@ -352,13 +352,13 @@ asciidoclint docs/*.adoc --format compact
 [source,bash]
 ----
 # Fail build on errors, allow warnings
-asciidoclint docs/**/*.adoc
+adoc-lint docs/**/*.adoc
 
 # Fail build if more than 5 warnings
-asciidoclint docs/**/*.adoc --max-warnings 5
+adoc-lint docs/**/*.adoc --max-warnings 5
 
 # Quiet mode (errors only)
-asciidoclint docs/**/*.adoc --quiet
+adoc-lint docs/**/*.adoc --quiet
 ----
 
 == Architecture
@@ -367,16 +367,16 @@ asciidoclint docs/**/*.adoc --quiet
 
 The packages have the following relationships:
 
-* `@asciidoclint/cli` depends on `@asciidoclint/core` and `@asciidoclint/rules-standard`
-* `@asciidoclint/rules-standard` depends on `@asciidoclint/core`
-* `@asciidoclint/core` is independent with only external dependencies
+* `@testthedocs/cli` depends on `@testthedocs/core` and `@testthedocs/rules-standard`
+* `@testthedocs/rules-standard` depends on `@testthedocs/core`
+* `@testthedocs/core` is independent with only external dependencies
 * Examples use `workspace:*` protocol for internal dependencies during development
 
 === Development Workflow
 
-1. *Core Changes*: Modify `@asciidoclint/core` for engine improvements
-2. *Rule Development*: Add rules to `@asciidoclint/rules-standard`
-3. *CLI Features*: Extend `@asciidoclint/cli` for user interface improvements
+1. *Core Changes*: Modify `@testthedocs/core` for engine improvements
+2. *Rule Development*: Add rules to `@testthedocs/rules-standard`
+3. *CLI Features*: Extend `@testthedocs/cli` for user interface improvements
 4. *Integration Testing*: Update example projects to test new features
 5. *Documentation*: Update README and example documentation
 

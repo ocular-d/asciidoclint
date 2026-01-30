@@ -12,6 +12,14 @@
     "lint": "eslint . --ext .ts,.js",
     "type-check": "pnpm -r run type-check",
     "clean": "pnpm -r run clean && rm -rf node_modules",
+    "docs:api": "pnpm docs:api:core && pnpm docs:api:cli && pnpm docs:api:rules",
+    "docs:api:core": "cd packages/core && typedoc",
+    "docs:api:cli": "cd packages/cli && typedoc",
+    "docs:api:rules": "cd packages/rules-standard && typedoc",
+    "docs:theme": "pnpm --filter @testthedocs/antora-theme build",
+    "docs:site": "pnpm --filter @testthedocs/docs build",
+    "docs:serve": "pnpm --filter @testthedocs/docs serve",
+    "docs:build": "pnpm docs:api && pnpm docs:theme && pnpm docs:site",
     "changeset": "changeset",
     "changeset:version": "changeset version",
     "changeset:publish": "changeset publish",
@@ -29,6 +37,10 @@
     "prettier": "^3.8.1",
     "typescript": "^5.9.3",
     "execa": "^9.6.1",
-    "semver": "^7.7.3"
+    "semver": "^7.7.3",
+    "typedoc": "^0.28.16",
+    "typedoc-plugin-markdown": "^4.4.0",
+    "@testthedocs/antora-theme": "workspace:*",
+    "@testthedocs/docs": "workspace:*"
   }
 }

@@ -1,4 +1,4 @@
-import { LintRule, LintMessage, LintContext } from '@asciidoclint/core';
+import { LintRule, LintMessage, LintContext } from '@testthedocs/core';
 
 export const titleCaseRule: LintRule = {
   name: 'title-case',

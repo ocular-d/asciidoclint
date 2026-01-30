@@ -71,8 +71,8 @@ jobs:
           asciidoclint test.adoc
           
           # Test with configuration
-          echo '{"rules": {"title-case": "error"}}' > .asciidoclintrc.json
-          asciidoclint test.adoc --config .asciidoclintrc.json
+          echo '{"rules": {"title-case": "error"}}' > .adoc-lintrc.json
+          adoc-lint test.adoc --config .adoc-lintrc.json
 
   validate-integration:
     runs-on: ubuntu-latest

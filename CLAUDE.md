@@ -6,9 +6,9 @@ This file provides guidance to AI coding agents like Claude Code (claude.ai/code
 
 AsciiDocLint is a TypeScript-based monorepo providing comprehensive AsciiDoc linting capabilities. The project consists of three core packages that work together:
 
-- `@asciidoclint/core` - The linting engine with configurable rules and Asciidoctor.js integration
-- `@asciidoclint/cli` - Command-line interface with glob pattern support and multiple output formats
-- `@asciidoclint/rules-standard` - Standard rule implementations for common documentation quality checks
+- `@testthedocs/core` - The linting engine with configurable rules and Asciidoctor.js integration
+- `@testthedocs/cli` - Command-line interface with glob pattern support and multiple output formats
+- `@testthedocs/rules-standard` - Standard rule implementations for common documentation quality checks
 
 ## Essential Commands
 
@@ -54,7 +54,7 @@ cd examples/basic-project && pnpm test
 ### Testing Different Configurations
 ```bash
 # Test with basic configuration
-cd examples/basic-project && asciidoclint docs/*.adoc
+cd examples/basic-project && adoc-lint docs/*.adoc
 
 # Test with complex multi-config setup
 cd examples/complex-project && npm run test

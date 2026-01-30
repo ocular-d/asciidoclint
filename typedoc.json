@@ -1,0 +1,12 @@
+{
+  "plugin": ["typedoc-plugin-markdown"],
+  "out": "docs/api",
+  "json": "docs/api/api-docs.json",
+  "readme": "none",
+  "gitRevision": "main",
+  "excludeExternals": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "hideGenerator": true,
+  "sort": ["source-order"]
+}

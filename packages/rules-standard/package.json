@@ -1,5 +1,5 @@
 {
-  "name": "@asciidoclint/rules-standard",
+  "name": "@testthedocs/rules-standard",
   "version": "1.0.0",
   "description": "Standard rules for AsciiDoc linting",
   "main": "dist/index.js",
@@ -34,7 +34,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "@asciidoclint/core": "workspace:*",
+    "@testthedocs/core": "workspace:*",
     "debug": "^4.3.4"
   },
   "devDependencies": {

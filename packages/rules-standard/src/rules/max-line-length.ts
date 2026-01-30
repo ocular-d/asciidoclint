@@ -1,4 +1,4 @@
-import { LintRule, LintMessage, LintContext } from '@asciidoclint/core';
+import { LintRule, LintMessage, LintContext } from '@testthedocs/core';
 
 export const maxLineLengthRule: LintRule = {
   name: 'max-line-length',

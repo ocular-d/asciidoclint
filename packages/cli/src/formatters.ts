@@ -1,4 +1,4 @@
-import { LintResult } from '@asciidoclint/core';
+import { LintResult } from '@testthedocs/core';
 import chalk from 'chalk';
 
 export function formatResults(results: LintResult[], format: string = 'stylish'): string {

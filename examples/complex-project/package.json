@@ -5,14 +5,14 @@
   "description": "Complex example project with multiple document types",
   "scripts": {
     "test": "npm run test:api && npm run test:guides && npm run test:tutorials",
-    "test:api": "asciidoclint docs/api/*.adoc --config configs/api.json",
-    "test:guides": "asciidoclint docs/guides/*.adoc --config configs/guides.json",
-    "test:tutorials": "asciidoclint docs/tutorials/*.adoc --config configs/tutorials.json",
-    "lint:all": "asciidoclint docs/**/*.adoc"
+    "test:api": "adoc-lint docs/api/*.adoc --config configs/api.json",
+    "test:guides": "adoc-lint docs/guides/*.adoc --config configs/guides.json",
+    "test:tutorials": "adoc-lint docs/tutorials/*.adoc --config configs/tutorials.json",
+    "lint:all": "adoc-lint docs/**/*.adoc"
   },
   "dependencies": {
-    "@asciidoclint/cli": "workspace:*",
-    "@asciidoclint/core": "workspace:*",
-    "@asciidoclint/rules-standard": "workspace:*"
+    "@testthedocs/cli": "workspace:*",
+    "@testthedocs/core": "workspace:*",
+    "@testthedocs/rules-standard": "workspace:*"
   }
 }

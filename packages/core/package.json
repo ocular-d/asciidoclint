@@ -1,5 +1,5 @@
 {
-  "name": "@asciidoclint/core",
+  "name": "@testthedocs/core",
   "version": "1.0.0",
   "description": "Core AsciiDoc linting engine",
   "main": "dist/index.js",

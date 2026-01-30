@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs';
 import { resolve } from 'path';
-import { LintConfig } from '@asciidoclint/core';
+import { LintConfig } from '@testthedocs/core';
 import Debug from 'debug';
 
 const debug = Debug('asciidoclint:config');
@@ -23,10 +23,10 @@ export async function loadConfig(configPath?: string): Promise<LintConfig> {
   
   // Try default config file locations
   const defaultPaths = [
-    '.asciidoclintrc.json',
-    '.asciidoclintrc.js',
-    'asciidoclint.config.js',
-    'asciidoclint.config.json'
+    '.adoc-lintrc.json',
+    '.adoc-lintrc.js',
+    'adoc-lint.config.js',
+    'adoc-lint.config.json'
   ];
   
   for (const path of defaultPaths) {
