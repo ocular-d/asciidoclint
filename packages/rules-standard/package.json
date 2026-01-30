@@ -1,0 +1,46 @@
+{
+  "name": "@asciidoclint/rules-standard",
+  "version": "1.0.0",
+  "description": "Standard rules for AsciiDoc linting",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src/**/*.ts",
+    "clean": "rm -rf dist"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "asciidoc",
+    "linter",
+    "rules",
+    "documentation"
+  ],
+  "author": "OCLD Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ocld/asciidoclint.git",
+    "directory": "packages/rules-standard"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "dependencies": {
+    "@asciidoclint/core": "workspace:*",
+    "debug": "^4.3.4"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.12",
+    "typescript": "workspace:*",
+    "@types/node": "workspace:*",
+    "jest": "workspace:*"
+  }
+}

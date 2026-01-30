@@ -1,0 +1,7 @@
+{
+  "rules": {
+    "title-case": "error",
+    "no-trailing-spaces": "error",
+    "max-line-length": "warning"
+  }
+}

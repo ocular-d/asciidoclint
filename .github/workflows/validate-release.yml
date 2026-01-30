@@ -1,0 +1,203 @@
+name: Validate Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      packages:
+        description: 'JSON array of published packages'
+        required: true
+        type: string
+      tag:
+        description: 'NPM tag to validate'
+        required: true
+        default: 'next'
+        type: string
+
+jobs:
+  validate-installation:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20, 21]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Test package installation
+        run: |
+          packages='${{ inputs.packages }}'
+          echo "$packages" | jq -r '.[] | .name + "@" + .version' | while read package; do
+            echo "Testing installation of $package"
+            npm install "$package" --tag ${{ inputs.tag }}
+            npm list "$package" --depth=0
+          done
+
+  validate-cli:
+    runs-on: ubuntu-latest
+    needs: [validate-installation]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install CLI package
+        run: |
+          packages='${{ inputs.packages }}'
+          cli_package=$(echo "$packages" | jq -r '.[] | select(.name | contains("cli")) | .name + "@" + .version')
+          if [ -n "$cli_package" ]; then
+            npm install -g "$cli_package" --tag ${{ inputs.tag }}
+          fi
+
+      - name: Test CLI functionality
+        run: |
+          # Test basic CLI commands
+          asciidoclint --version
+          asciidoclint --help
+          
+          # Test linting functionality with sample files
+          echo "= Test Document" > test.adoc
+          echo "" >> test.adoc
+          echo "This is a test." >> test.adoc
+          asciidoclint test.adoc
+          
+          # Test with configuration
+          echo '{"rules": {"title-case": "error"}}' > .asciidoclintrc.json
+          asciidoclint test.adoc --config .asciidoclintrc.json
+
+  validate-integration:
+    runs-on: ubuntu-latest
+    needs: [validate-installation]
+    strategy:
+      matrix:
+        example: [basic-project, complex-project]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.15.0
+
+      - name: Update example to use published packages
+        run: |
+          cd examples/${{ matrix.example }}
+          packages='${{ inputs.packages }}'
+          
+          # Update package.json to use published versions
+          echo "$packages" | jq -r '.[] | .name + "@" + .version' | while read package; do
+            package_name=$(echo $package | cut -d@ -f1)
+            package_version=$(echo $package | cut -d@ -f2)
+            
+            if grep -q "$package_name" package.json; then
+              sed -i "s|\"$package_name\": \".*\"|\"$package_name\": \"^$package_version\"|" package.json
+            fi
+          done
+
+      - name: Install and test
+        run: |
+          cd examples/${{ matrix.example }}
+          npm install
+          npm test
+
+  validate-performance:
+    runs-on: ubuntu-latest
+    needs: [validate-installation]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install published packages
+        run: |
+          packages='${{ inputs.packages }}'
+          echo "$packages" | jq -r '.[] | .name + "@" + .version' | while read package; do
+            npm install "$package" --tag ${{ inputs.tag }}
+          done
+
+      - name: Run performance benchmarks
+        run: |
+          node scripts/validate-release.js '${{ inputs.packages }}' ${{ inputs.tag }}
+
+  promote-to-stable:
+    runs-on: ubuntu-latest
+    needs: [validate-cli, validate-integration, validate-performance]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Promote packages to latest tag
+        run: |
+          packages='${{ inputs.packages }}'
+          echo "$packages" | jq -r '.[] | .name + "@" + .version' | while read package; do
+            echo "Promoting $package to latest"
+            npm dist-tag add "$package" latest
+          done
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Release
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const packages = JSON.parse('${{ inputs.packages }}');
+            const packageList = packages.map(pkg => `- ${pkg.name}@${pkg.version}`).join('\n');
+            
+            const { data: release } = await github.rest.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: `release-${Date.now()}`,
+              name: 'Release ' + new Date().toISOString().split('T')[0],
+              body: `## Released Packages\n\n${packageList}\n\n## Validation Status\n\n✅ All validation tests passed\n✅ Promoted to stable`,
+              draft: false,
+              prerelease: false
+            });
+
+  rollback-on-failure:
+    runs-on: ubuntu-latest
+    needs: [validate-cli, validate-integration, validate-performance]
+    if: failure()
+    steps:
+      - name: Rollback packages
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const packages = JSON.parse('${{ inputs.packages }}');
+            
+            // Create issue for failed validation
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🚨 Release Validation Failed - ${new Date().toISOString()}`,
+              body: `## Failed Validation\n\nThe following packages failed validation:\n\n${packages.map(pkg => `- ${pkg.name}@${pkg.version}`).join('\n')}\n\n## Action Required\n\n- [ ] Investigate validation failures\n- [ ] Fix issues\n- [ ] Unpublish failed packages if necessary\n- [ ] Create new release`,
+              labels: ['bug', 'release-failure']
+            });
+
+      - name: Unpublish failed packages (if needed)
+        run: |
+          # Only unpublish if packages were published less than 24 hours ago
+          # and have critical issues
+          echo "Manual intervention required for rollback"

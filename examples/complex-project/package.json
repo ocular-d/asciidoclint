@@ -1,0 +1,18 @@
+{
+  "name": "@asciidoclint/example-complex",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Complex example project with multiple document types",
+  "scripts": {
+    "test": "npm run test:api && npm run test:guides && npm run test:tutorials",
+    "test:api": "asciidoclint docs/api/*.adoc --config configs/api.json",
+    "test:guides": "asciidoclint docs/guides/*.adoc --config configs/guides.json",
+    "test:tutorials": "asciidoclint docs/tutorials/*.adoc --config configs/tutorials.json",
+    "lint:all": "asciidoclint docs/**/*.adoc"
+  },
+  "dependencies": {
+    "@asciidoclint/cli": "workspace:*",
+    "@asciidoclint/core": "workspace:*",
+    "@asciidoclint/rules-standard": "workspace:*"
+  }
+}

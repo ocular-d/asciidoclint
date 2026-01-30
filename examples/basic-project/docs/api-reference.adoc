@@ -1,0 +1,60 @@
+= API Reference
+:toc: left
+
+Basic API documentation for the project.
+
+== Core Functions
+
+=== `lintDocument(content: string): LintResult`
+
+Lints an AsciiDoc document and returns the results.
+
+.Parameters
+* `content` - The AsciiDoc content as a string
+
+.Returns
+A `LintResult` object containing messages and error counts.
+
+.Example
+[source,javascript]
+----
+const result = lintDocument('= My Document\n\nContent here.');
+console.log(result.messages);
+----
+
+=== `loadConfig(path?: string): LintConfig`
+
+Loads configuration from a file or uses defaults.
+
+.Parameters
+* `path` - Optional path to configuration file
+
+.Returns
+A `LintConfig` object with rule settings.
+
+== Data Types
+
+=== LintResult
+
+[source,typescript]
+----
+interface LintResult {
+  filename: string;
+  messages: LintMessage[];
+  errorCount: number;
+  warningCount: number;
+}
+----
+
+=== LintMessage
+
+[source,typescript]
+----
+interface LintMessage {
+  rule: string;
+  message: string;
+  severity: 'error' | 'warning' | 'info';
+  line?: number;
+  column?: number;
+}
+----

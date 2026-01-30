@@ -1,0 +1,428 @@
+= AsciiDocLint Workspace
+:toc: preamble
+:toclevels: 2
+:experimental:
+
+A comprehensive workspace for AsciiDoc linting, documentation quality assurance, and tooling built with TypeScript and pnpm workspaces.
+
+== Overview
+
+This repository contains multiple related packages that work together to provide comprehensive AsciiDoc linting capabilities:
+
+* *@asciidoclint/core* - TypeScript-based AsciiDoc linting engine with configurable rules
+* *@asciidoclint/cli* - Command-line interface for interactive linting
+* *@asciidoclint/rules-standard* - Standard rule set for common documentation quality checks
+* *examples/* - Integration test examples and usage demonstrations
+
+== Quick Start
+
+=== Prerequisites
+
+* Node.js 18 or later
+* pnpm 8 or later
+
+=== Installation
+
+[source,bash]
+----
+# Clone the repository
+git clone https://github.com/ocld/asciidoclint.git
+cd asciidoclint
+
+# Install dependencies for all packages
+pnpm install
+
+# Build all packages
+pnpm build
+----
+
+== Development
+
+=== Workspace Commands
+
+[source,bash]
+----
+# Install dependencies across all packages
+pnpm install
+
+# Build all packages
+pnpm build
+
+# Run tests across all packages
+pnpm test
+
+# Type check all packages
+pnpm type-check
+
+# Lint all packages
+pnpm lint
+
+# Start development mode with watch
+pnpm dev
+
+# Clean build artifacts
+pnpm clean
+----
+
+=== Package-Specific Development
+
+==== Core Engine (@asciidoclint/core)
+
+[source,bash]
+----
+cd packages/core
+
+# Development with watch mode
+pnpm dev
+
+# Run specific tests
+pnpm test
+
+# Build the core engine
+pnpm build
+----
+
+The core engine provides the fundamental linting functionality:
+
+* Document parsing using Asciidoctor.js
+* Rule-based analysis system
+* Configurable severity levels
+* Extensible rule architecture
+
+==== Command-Line Interface (@asciidoclint/cli)
+
+[source,bash]
+----
+cd packages/cli
+
+# Development with watch mode
+pnpm dev
+
+# Test CLI locally
+pnpm build
+node bin/cli.js --help
+
+# Install globally for testing
+npm install -g .
+----
+
+The CLI provides user-friendly access to linting:
+
+* Multiple output formats (stylish, json, compact)
+* Configuration file support
+* Glob pattern file matching  
+* Exit codes for CI integration
+
+==== Standard Rules (@asciidoclint/rules-standard)
+
+[source,bash]
+----
+cd packages/rules-standard
+
+# Development with watch mode
+pnpm dev
+
+# Add new rules to src/rules/
+# Export from src/index.ts
+----
+
+Standard rules include:
+
+* *title-case*: Enforces proper title case formatting
+* *no-trailing-spaces*: Detects trailing whitespace
+* *max-line-length*: Enforces maximum line length limits
+
+=== Example Projects
+
+Test your changes with the included example projects:
+
+[source,bash]
+----
+# Test basic project example  
+cd examples/basic-project
+pnpm install
+pnpm test
+
+# Test complex project example
+cd examples/complex-project
+pnpm install
+pnpm test
+----
+
+== Release Process
+
+This project uses independent package versioning with automated validation:
+
+=== Automated Release Workflow
+
+The release system includes:
+
+1. *Change Detection*: Analyzes commits for release-worthy changes using conventional commits
+2. *Staging Release*: Publishes packages with `@next` tag for validation
+3. *Comprehensive Validation*: Tests installation, functionality, integration, and performance
+4. *Promotion to Stable*: Promotes to `@latest` tag after successful validation
+5. *GitHub Release*: Creates tagged releases with automated changelog
+
+=== Manual Release Process
+
+[source,bash]
+----
+# 1. Create changeset describing your changes
+pnpm changeset
+
+# 2. Version packages based on changesets
+pnpm changeset:version
+
+# 3. Build and test before publishing
+pnpm build
+pnpm test
+
+# 4. Publish to staging (automated via CI)
+pnpm changeset:publish --tag next
+
+# 5. Validation runs automatically via GitHub Actions
+# 6. Packages promoted to stable after validation passes
+----
+
+=== Release Validation
+
+The automated validation process includes:
+
+* *Cross-Platform Testing*: Linux, macOS, Windows compatibility
+* *Multi-Version Support*: Node.js 18, 20, 21 testing
+* *Installation Verification*: Package installation and dependency resolution
+* *Functionality Testing*: CLI commands and core API functionality
+* *Integration Testing*: Real-world usage scenarios with example projects
+* *Performance Benchmarking*: Execution time and memory usage validation
+* *Security Scanning*: Dependency vulnerability detection
+
+=== Secret Management
+
+For maintainers setting up automated releases:
+
+1. *NPM Registry Token*:
+   - Create automation token at https://npmjs.com
+   - Add to repository secrets as `NPM_TOKEN` 
+   - Ensure token has publish permissions for `@asciidoclint/*` scope
+
+2. *GitHub Permissions*:
+   - Repository must have Actions enabled
+   - Workflows require `contents: write`, `packages: write`, `pages: write` permissions
+   - Secrets stored in repository Settings → Secrets and Variables → Actions
+
+3. *Validation Environment*:
+   - GitHub Actions provides automated cross-platform testing
+   - Release validation triggers on staging package publication
+   - Failed validations create GitHub issues with rollback procedures
+
+== Configuration
+
+=== CLI Configuration
+
+Create `.asciidoclintrc.json` in your project root:
+
+[source,json]
+----
+{
+  "rules": {
+    "title-case": "error",
+    "no-trailing-spaces": "warning", 
+    "max-line-length": {
+      "severity": "warning",
+      "maxLength": 120
+    }
+  }
+}
+----
+
+=== Rule Configuration Options
+
+* `"off"` - Disable the rule
+* `"info"` - Informational messages only
+* `"warning"` - Warning level (doesn't fail builds)
+* `"error"` - Error level (fails builds with exit code 1)
+
+=== Advanced Configuration
+
+[source,json]
+----
+{
+  "rules": {
+    "title-case": "error",
+    "no-trailing-spaces": "warning",
+    "max-line-length": {
+      "severity": "warning", 
+      "maxLength": 100,
+      "ignoreUrls": true,
+      "ignoreCodeBlocks": true
+    }
+  },
+  "ignorePatterns": [
+    "generated/**/*.adoc",
+    "vendor/**/*.adoc"
+  ]
+}
+----
+
+== Usage Examples
+
+=== Basic Usage
+
+[source,bash]
+----
+# Lint all AsciiDoc files in current directory
+asciidoclint **/*.adoc
+
+# Lint specific files
+asciidoclint README.adoc docs/user-guide.adoc
+
+# Use specific configuration file
+asciidoclint docs/*.adoc --config custom-config.json
+----
+
+=== Output Formats
+
+[source,bash]
+----
+# Stylish output (default)
+asciidoclint docs/*.adoc
+
+# JSON output for programmatic use
+asciidoclint docs/*.adoc --format json
+
+# Compact output for CI logs
+asciidoclint docs/*.adoc --format compact
+----
+
+=== CI Integration
+
+[source,bash]
+----
+# Fail build on errors, allow warnings
+asciidoclint docs/**/*.adoc
+
+# Fail build if more than 5 warnings
+asciidoclint docs/**/*.adoc --max-warnings 5
+
+# Quiet mode (errors only)
+asciidoclint docs/**/*.adoc --quiet
+----
+
+== Architecture
+
+=== Package Dependencies
+
+The packages have the following relationships:
+
+* `@asciidoclint/cli` depends on `@asciidoclint/core` and `@asciidoclint/rules-standard`
+* `@asciidoclint/rules-standard` depends on `@asciidoclint/core`
+* `@asciidoclint/core` is independent with only external dependencies
+* Examples use `workspace:*` protocol for internal dependencies during development
+
+=== Development Workflow
+
+1. *Core Changes*: Modify `@asciidoclint/core` for engine improvements
+2. *Rule Development*: Add rules to `@asciidoclint/rules-standard`
+3. *CLI Features*: Extend `@asciidoclint/cli` for user interface improvements
+4. *Integration Testing*: Update example projects to test new features
+5. *Documentation*: Update README and example documentation
+
+== Contributing
+
+=== Development Setup
+
+1. Fork and clone the repository
+2. Install dependencies: `pnpm install`
+3. Make your changes in the appropriate package
+4. Add tests for new functionality
+5. Run the full test suite: `pnpm test`
+6. Create a changeset: `pnpm changeset`
+7. Submit a pull request
+
+=== Code Standards
+
+* TypeScript with strict mode enabled
+* ESLint for code quality
+* Prettier for formatting
+* Jest for testing
+* Conventional commits for change tracking
+
+=== Adding New Rules
+
+1. Create rule file in `packages/rules-standard/src/rules/`
+2. Implement the `LintRule` interface
+3. Add tests for the rule
+4. Export from `packages/rules-standard/src/index.ts`
+5. Update documentation and examples
+
+== CI/CD Pipeline
+
+The project includes comprehensive GitHub Actions workflows:
+
+=== Continuous Integration
+
+* *Linting & Type Checking*: Code quality validation
+* *Multi-Version Testing*: Node.js 18, 20, 21 compatibility 
+* *Cross-Platform Testing*: Linux, macOS, Windows support
+* *Build Verification*: All packages build successfully
+* *Integration Testing*: Example projects work correctly
+
+=== Release Automation
+
+* *Staging Publication*: Publish to `@next` tag for validation
+* *Release Validation*: Comprehensive testing of published packages
+* *Stable Promotion*: Promote validated packages to `@latest`
+* *GitHub Releases*: Automated release notes and asset management
+* *Rollback Protection*: Automatic issue creation for failed validations
+
+=== Monitoring & Alerts
+
+* Build status notifications
+* Release validation reports  
+* Security vulnerability alerts
+* Performance regression detection
+
+== Troubleshooting
+
+=== Common Issues
+
+*Package not found after installation*::
+Verify NPM registry permissions and package publication status.
+
+*CLI command not available*::
+Ensure CLI package is installed globally or use `npx asciidoclint`.
+
+*Configuration not loading*::
+Check configuration file syntax and placement in project root.
+
+*Rules not working*::
+Verify rule names match exported rules from `@asciidoclint/rules-standard`.
+
+*Build failures in CI*::
+Check Node.js version compatibility and dependency installation.
+
+=== Development Issues
+
+*TypeScript errors in packages*::
+Run `pnpm type-check` to identify type issues across packages.
+
+*Test failures*::
+Use `pnpm test` to run all tests or target specific packages.
+
+*Linting errors*::
+Run `pnpm lint` to identify and fix code style issues.
+
+*Workspace dependency issues*::
+Use `pnpm install` to refresh workspace links and dependencies.
+
+== License
+
+This project is licensed under the MIT License - see the link:LICENSE[LICENSE] file for details.
+
+== Support
+
+* 📚 Documentation: Available in this README and package-specific docs
+* 🐛 Bug Reports: Use GitHub issues with bug report template  
+* 💡 Feature Requests: Use GitHub issues with feature request template
+* 💬 Discussions: Use GitHub Discussions for questions and community support
+* 🔒 Security Issues: Follow responsible disclosure in SECURITY.md

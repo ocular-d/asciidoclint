@@ -1,0 +1,78 @@
+= User Guide for Basic Project
+:toc:
+:toclevels: 3
+
+This document demonstrates basic AsciiDoc linting with various common issues.
+
+== Getting Started
+
+Welcome to the basic project user guide. This section covers the fundamental concepts.
+
+=== Installation
+
+To install the basic project:
+
+[source,bash]
+----
+npm install basic-project
+----
+
+=== Configuration
+
+The configuration file should be placed in the root directory.
+
+== Features
+
+The basic project includes the following features:
+
+* Simple linting rules
+* Configuration management
+* CLI integration
+
+=== Rule Configuration
+
+Rules can be configured in the `.asciidoclintrc.json` file:
+
+[source,json]
+----
+{
+  "rules": {
+    "title-case": "error",
+    "no-trailing-spaces": "warning"
+  }
+}
+----
+
+== Usage Examples
+
+This section provides practical examples of using the linter.
+
+=== Basic Usage
+
+Run the linter on your AsciiDoc files:
+
+[source,bash]
+----
+asciidoclint docs/*.adoc
+----
+
+=== Advanced Usage
+
+For more detailed output:
+
+[source,bash]
+----
+asciidoclint docs/*.adoc --format stylish
+----
+
+== Troubleshooting
+
+Common issues and their solutions:
+
+. *Permission denied*: Check file permissions
+. *Config not found*: Ensure `.asciidoclintrc.json` exists
+. *Rule errors*: Verify rule configuration syntax
+
+== Conclusion
+
+This guide covers the basic usage of the AsciiDoc linter. For more advanced topics, see the advanced examples.

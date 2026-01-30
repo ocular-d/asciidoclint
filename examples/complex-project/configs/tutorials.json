@@ -1,0 +1,7 @@
+{
+  "rules": {
+    "title-case": "info",
+    "no-trailing-spaces": "warning",
+    "max-line-length": "off"
+  }
+}

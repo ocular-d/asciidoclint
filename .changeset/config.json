@@ -1,0 +1,22 @@
+{
+  "changelog": [
+    "@changesets/changelog-github",
+    { 
+      "repo": "ocld/asciidoclint",
+      "generateNotes": true 
+    }
+  ],
+  "commit": false,
+  "fixed": [],
+  "linked": [],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": [
+    "@asciidoclint/examples-*"
+  ],
+  "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
+    "onlyUpdatePeerDependentsWhenOutOfRange": true,
+    "useCalculatedVersionForSnapshots": true
+  }
+}

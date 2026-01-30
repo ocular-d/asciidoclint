@@ -1,0 +1,17 @@
+packages:
+  - 'packages/*'
+  - 'examples/*'
+  - 'tools/*'
+
+# Shared dependencies
+sharedWorkspaceLockfile: true
+
+# Dependency overrides for consistency
+dependencyOverrides:
+  typescript: ^5.3.3
+  "@types/node": ^20.11.0
+
+# Publishing configuration
+publishConfig:
+  registry: https://registry.npmjs.org/
+  access: public
