@@ -174,9 +174,6 @@ importers:
       '@fontsource/roboto-mono':
         specifier: ~5.2.0
         version: 5.2.8
-      '@stylistic/eslint-plugin':
-        specifier: ~5.7.1
-        version: 5.7.1(eslint@9.37.0)
       '@vscode/gulp-vinyl-zip':
         specifier: ~2.6.0
         version: 2.6.0
@@ -204,6 +201,9 @@ importers:
       eslint-plugin-promise:
         specifier: ~7.2.0
         version: 7.2.1(eslint@9.37.0)
+      eslint-plugin-standard:
+        specifier: ~5.0
+        version: 5.0.0(eslint@9.37.0)
       fancy-log:
         specifier: ~2.0.0
         version: 2.0.0
@@ -228,9 +228,9 @@ importers:
       gulp-postcss:
         specifier: ~10.0.0
         version: 10.0.0(postcss@8.5.6)
-      gulp-stylelint:
-        specifier: ~13.0.0
-        version: 13.0.0(stylelint@16.25.0)
+      gulp-stylelint-esm:
+        specifier: ~3.0.0
+        version: 3.0.0(stylelint@16.25.0)
       gulp-uglify:
         specifier: ~3.0
         version: 3.0.2
@@ -285,6 +285,9 @@ importers:
       '@antora/lunr-extension':
         specifier: 1.0.0-alpha.10
         version: 1.0.0-alpha.10
+      '@asciidoctor/tabs':
+        specifier: ^1.0.0-beta.6
+        version: 1.0.0-beta.6
     devDependencies:
       '@antora/cli':
         specifier: ^3.1.0
@@ -300,6 +303,12 @@ importers:
         version: 3.1.11
 
 packages:
+
+  /@adorade/plugin-error@2.0.1:
+    resolution: {integrity: sha512-eY9IPPZoyJpNkwahjF3QtmlTwgeGL88XM+xZRdEuZhQj4WOER5Xp8lAVKHGpJ57GsthlzEzuu/4t+3ZACF+OpA==}
+    dependencies:
+      ansi-colors: 4.1.3
+    dev: true
 
   /@alloc/quick-lru@5.2.0:
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
@@ -535,6 +544,11 @@ packages:
     dependencies:
       glob: 8.1.0
       unxhr: 1.2.0
+
+  /@asciidoctor/tabs@1.0.0-beta.6:
+    resolution: {integrity: sha512-gGZnW7UfRXnbiyKNd9PpGKtSuD8+DsqaaTSbQ1dHVkZ76NaolLhdQg8RW6/xqN3pX1vWZEcF4e81+Oe9rNRWxg==}
+    engines: {node: '>=16.0.0'}
+    dev: false
 
   /@babel/code-frame@7.28.6:
     resolution: {integrity: sha512-JYgintcMjRiCvS8mMECzaEn+m3PfoQiyqukOMCCVQtoJGYJw8j/8LBJEiqkHLkfwCcs74E3pbAUFNg7d9VNJ+Q==}
@@ -1661,6 +1675,13 @@ packages:
   /@jridgewell/sourcemap-codec@1.5.5:
     resolution: {integrity: sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==}
 
+  /@jridgewell/trace-mapping@0.3.25:
+    resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+    dependencies:
+      '@jridgewell/resolve-uri': 3.1.2
+      '@jridgewell/sourcemap-codec': 1.5.5
+    dev: true
+
   /@jridgewell/trace-mapping@0.3.31:
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
     dependencies:
@@ -1812,21 +1833,6 @@ packages:
     resolution: {integrity: sha512-36/hTbH2uaWuGVERyC6da9YwGWnzUZXuPro/F2LfsdOsLnCojz/iSH8MxUt/FD2S5XBSVPhmArFUXcpCQ2Hkiw==}
     dependencies:
       '@sinonjs/commons': 3.0.1
-    dev: true
-
-  /@stylistic/eslint-plugin@5.7.1(eslint@9.37.0):
-    resolution: {integrity: sha512-zjTUwIsEfT+k9BmXwq1QEFYsb4afBlsI1AXFyWQBgggMzwBFOuu92pGrE5OFx90IOjNl+lUbQoTG7f8S0PkOdg==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-    peerDependencies:
-      eslint: '>=9.0.0'
-    dependencies:
-      '@eslint-community/eslint-utils': 4.9.1(eslint@9.37.0)
-      '@typescript-eslint/types': 8.54.0
-      eslint: 9.37.0
-      eslint-visitor-keys: 4.2.1
-      espree: 10.4.0
-      estraverse: 5.3.0
-      picomatch: 4.0.3
     dev: true
 
   /@tailwindcss/node@4.1.18:
@@ -3522,14 +3528,6 @@ packages:
       supports-color: 5.5.0
     dev: true
 
-  /chalk@3.0.0:
-    resolution: {integrity: sha512-4D3B6Wf41KOYRFdszmDqMCGq5VV/uMAB273JILmO+3jAlh8X4qDtdtgCR3fxtbLEMzSx22QdhnDcJvu2u1fVwg==}
-    engines: {node: '>=8'}
-    dependencies:
-      ansi-styles: 4.3.0
-      supports-color: 7.2.0
-    dev: true
-
   /chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
@@ -4937,6 +4935,15 @@ packages:
       eslint: ^7.0.0 || ^8.0.0 || ^9.0.0
     dependencies:
       '@eslint-community/eslint-utils': 4.9.1(eslint@9.37.0)
+      eslint: 9.37.0
+    dev: true
+
+  /eslint-plugin-standard@5.0.0(eslint@9.37.0):
+    resolution: {integrity: sha512-eSIXPc9wBM4BrniMzJRBm2uoVuXz2EPa+NXPk2+itrVt+r5SbKFERx/IgrK/HmfjddyKVz2f+j+7gBRvu19xLg==}
+    deprecated: 'standard 16.0.0 and eslint-config-standard 16.0.0 no longer require the eslint-plugin-standard package. You can remove it from your dependencies with ''npm rm eslint-plugin-standard''. More info here: https://github.com/standard/standard/issues/1316'
+    peerDependencies:
+      eslint: '>=5.0.0'
+    dependencies:
       eslint: 9.37.0
     dev: true
 
@@ -6489,19 +6496,19 @@ packages:
       - tsx
     dev: true
 
-  /gulp-stylelint@13.0.0(stylelint@16.25.0):
-    resolution: {integrity: sha512-qFWBXnYDsGy6ttzqptctMZjJhhGc0FdFE+UNPlj/5fTyuUo5mfxcc7pzN4hIJnvB79BO1WikLtdtXuC/G2AhGA==}
-    engines: {node: '>=10.12.0'}
+  /gulp-stylelint-esm@3.0.0(stylelint@16.25.0):
+    resolution: {integrity: sha512-/NE7lcLdiEpKnyuIvMj3/CMNO+X5jUGa3/RdOk4S4jVY00V5ejYwvylWssoaXYsafXQDyvbX5jzN8gt2EO1SCg==}
+    engines: {node: '>=18.12.0'}
     peerDependencies:
-      stylelint: ^13.0.0
+      stylelint: '16'
     dependencies:
-      chalk: 3.0.0
-      fancy-log: 1.3.3
-      plugin-error: 1.0.1
-      source-map: 0.7.6
-      strip-ansi: 6.0.1
+      '@adorade/plugin-error': 2.0.1
+      '@jridgewell/trace-mapping': 0.3.25
+      ansi-colors: 4.1.3
+      fancy-log: 2.0.0
       stylelint: 16.25.0(typescript@5.9.3)
-      through2: 3.0.2
+      text-table: 0.2.0
+      write-file-atomic: 6.0.0
     dev: true
 
   /gulp-uglify@3.0.2:
@@ -10808,11 +10815,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /source-map@0.7.6:
-    resolution: {integrity: sha512-i5uvt8C3ikiWeNZSVZNWcfZPItFQOsYTUAOkcUPGd8DqDy1uOUikjt5dG+uRlwyvR108Fb9DOd4GvXfT0N2/uQ==}
-    engines: {node: '>= 12'}
-    dev: true
-
   /sourcemap-codec@1.4.8:
     resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
     deprecated: Please use @jridgewell/sourcemap-codec instead
@@ -12268,6 +12270,14 @@ packages:
   /write-file-atomic@5.0.1:
     resolution: {integrity: sha512-+QU2zd6OTD8XWIJCbffaiQeH9U73qIqafo1x6V1snCWYGJf6cVE0cDR4D8xRzcEnfI21IFrUPzPGtcPf8AC+Rw==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+    dependencies:
+      imurmurhash: 0.1.4
+      signal-exit: 4.1.0
+    dev: true
+
+  /write-file-atomic@6.0.0:
+    resolution: {integrity: sha512-GmqrO8WJ1NuzJ2DrziEI2o57jKAVIQNf8a18W3nCYU3H7PNWqCCVTeH6/NQE93CIllIgQS98rrmVkYgTX9fFJQ==}
+    engines: {node: ^18.17.0 || >=20.5.0}
     dependencies:
       imurmurhash: 0.1.4
       signal-exit: 4.1.0

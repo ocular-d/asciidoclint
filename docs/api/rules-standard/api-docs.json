@@ -1,4 +1,5 @@
 {
+	"schemaVersion": "2.0",
 	"id": 0,
 	"name": "@testthedocs/rules-standard",
 	"variant": "project",
@@ -44,7 +45,8 @@
 							"type": {
 								"type": "reference",
 								"target": {
-									"sourceFileName": "../core/src/index.ts",
+									"packageName": "@testthedocs/core",
+									"packagePath": "src/index.ts",
 									"qualifiedName": "AsciiDocLinter"
 								},
 								"name": "AsciiDocLinter",
@@ -78,7 +80,8 @@
 			"type": {
 				"type": "reference",
 				"target": {
-					"sourceFileName": "../core/src/types/index.ts",
+					"packageName": "@testthedocs/core",
+					"packagePath": "src/types/index.ts",
 					"qualifiedName": "LintRule"
 				},
 				"name": "LintRule",
@@ -105,7 +108,8 @@
 			"type": {
 				"type": "reference",
 				"target": {
-					"sourceFileName": "../core/src/types/index.ts",
+					"packageName": "@testthedocs/core",
+					"packagePath": "src/types/index.ts",
 					"qualifiedName": "LintRule"
 				},
 				"name": "LintRule",
@@ -132,7 +136,8 @@
 			"type": {
 				"type": "reference",
 				"target": {
-					"sourceFileName": "../core/src/types/index.ts",
+					"packageName": "@testthedocs/core",
+					"packagePath": "src/types/index.ts",
 					"qualifiedName": "LintRule"
 				},
 				"name": "LintRule",
@@ -160,32 +165,47 @@
 	"packageName": "@testthedocs/rules-standard",
 	"symbolIdMap": {
 		"0": {
-			"sourceFileName": "src/index.ts",
+			"packageName": "@testthedocs/rules-standard",
+			"packagePath": "src/index.ts",
 			"qualifiedName": ""
 		},
 		"1": {
-			"sourceFileName": "src/index.ts",
+			"packageName": "@testthedocs/rules-standard",
+			"packagePath": "src/index.ts",
 			"qualifiedName": "loadStandardRules"
 		},
 		"2": {
-			"sourceFileName": "src/index.ts",
+			"packageName": "@testthedocs/rules-standard",
+			"packagePath": "src/index.ts",
 			"qualifiedName": "loadStandardRules"
 		},
 		"3": {
-			"sourceFileName": "src/index.ts",
+			"packageName": "@testthedocs/rules-standard",
+			"packagePath": "src/index.ts",
 			"qualifiedName": "linter"
 		},
 		"4": {
-			"sourceFileName": "src/rules/title-case.ts",
+			"packageName": "@testthedocs/rules-standard",
+			"packagePath": "src/rules/title-case.ts",
 			"qualifiedName": "titleCaseRule"
 		},
 		"5": {
-			"sourceFileName": "src/rules/no-trailing-spaces.ts",
+			"packageName": "@testthedocs/rules-standard",
+			"packagePath": "src/rules/no-trailing-spaces.ts",
 			"qualifiedName": "noTrailingSpacesRule"
 		},
 		"6": {
-			"sourceFileName": "src/rules/max-line-length.ts",
+			"packageName": "@testthedocs/rules-standard",
+			"packagePath": "src/rules/max-line-length.ts",
 			"qualifiedName": "maxLineLengthRule"
+		}
+	},
+	"files": {
+		"entries": {
+			"1": "src/index.ts"
+		},
+		"reflections": {
+			"1": 0
 		}
 	}
 }

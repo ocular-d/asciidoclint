@@ -15,8 +15,21 @@ ui:
 asciidoc:
     attributes:
         source-highlighter: highlight.js
-antora:
+        idprefix: ''
+        idseparator: '-'
+        experimental: ''
+        page-pagination: '@'
+        tabs-sync-option: ''
+        lang: en
+        figure-caption!: ''
+        table-caption!: ''
+
     extensions:
-      - '@antora/lunr-extension'
+      - '@asciidoctor/tabs'
+
+antora:
+  extensions:
+    - '@antora/lunr-extension'
+
 output:
     dir: ./build/site

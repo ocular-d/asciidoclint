@@ -1,6 +1,6 @@
 'use strict'
 
-const stylelint = require('gulp-stylelint')
+const { default: stylelint } = require('gulp-stylelint-esm')
 const vfs = require('vinyl-fs')
 
 module.exports = (files) => (done) =>

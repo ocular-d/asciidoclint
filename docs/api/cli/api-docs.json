@@ -1,4 +1,5 @@
 {
+	"schemaVersion": "2.0",
 	"id": 0,
 	"name": "@testthedocs/cli",
 	"variant": "project",
@@ -7,8 +8,17 @@
 	"packageName": "@testthedocs/cli",
 	"symbolIdMap": {
 		"0": {
-			"sourceFileName": "src/index.ts",
+			"packageName": "@testthedocs/cli",
+			"packagePath": "src/index.ts",
 			"qualifiedName": ""
+		}
+	},
+	"files": {
+		"entries": {
+			"1": "src/index.ts"
+		},
+		"reflections": {
+			"1": 0
 		}
 	}
 }
