@@ -1,0 +1,593 @@
+= Configuration
+:page-aliases: linting-configuration
+
+AsciiDocLint uses configuration files to customize linting behavior for your project.
+Configuration files allow you to specify which rules to enable, set severity levels, and control advanced features like inline directives.
+
+== Configuration Files
+
+AsciiDocLint automatically discovers configuration files in your project using a specific search order.
+This allows you to use the configuration format that best fits your project setup.
+
+=== Supported Formats
+
+The linter supports both JSON and JavaScript configuration files:
+
+.JSON Configuration
+[source,json]
+----
+{
+  "rules": {
+    "title-case": "error",
+    "no-trailing-spaces": "warning",
+    "max-line-length": "warning"
+  },
+  "enableInlineDirectives": true
+}
+----
+
+.JavaScript Configuration  
+[source,javascript]
+----
+module.exports = {
+  rules: {
+    "title-case": "error",
+    "no-trailing-spaces": "warning", 
+    "max-line-length": "warning"
+  },
+  enableInlineDirectives: true
+};
+----
+
+=== File Discovery Order
+
+AsciiDocLint searches for configuration files in the following order:
+
+1. **Explicitly specified file** via `--config` flag (highest priority)
+2. **`.adoc-lintrc.json`** in current directory  
+3. **`.adoc-lintrc.js`** in current directory
+4. **`adoc-lint.config.js`** in current directory
+5. **`adoc-lint.config.json`** in current directory (lowest priority)
+
+The first configuration file found is used, and the search stops.
+If no configuration file is found, the default configuration is applied.
+
+.Using explicit configuration
+[source,bash]
+----
+$ adoc-lint docs/ --config configs/api.json
+$ adoc-lint docs/ --config .adoc-lintrc.js
+----
+
+== Configuration Schema
+
+The configuration object supports the following properties:
+
+rules:: 
+Object defining rule names and their severity levels.
+Each rule can be set to `"error"`, `"warning"`, `"info"`, or `"off"`.
+
+enableInlineDirectives::
+Boolean controlling whether inline directive comments are processed.
+Default: `true`. When `false`, all `// adoc-lint` comments are ignored.
+
+extends::  
+Array of configuration files or presets to inherit from.
+*Future feature - not currently implemented.*
+
+plugins::
+Array of plugin names to load additional rules.
+*Future feature - not currently implemented.*
+
+=== Severity Levels
+
+Each rule can be configured with one of four severity levels:
+
+`"error"`:: 
+Treated as an error. Causes non-zero exit code (1) and displayed with red styling in output.
+
+`"warning"`::
+Treated as a warning. Allows successful exit but displayed with yellow styling in output.
+
+`"info"`::
+Treated as informational. Displayed with blue styling and does not affect exit code.
+
+`"off"`::
+Disables the rule completely. No messages will be generated for this rule.
+
+=== Rule-Specific Options
+
+Some rules accept additional configuration options beyond severity level:
+
+max-line-length::
+Accepts a `maxLength` option to customize the line length limit.
++
+[source,json]
+----
+{
+  "rules": {
+    "max-line-length": ["warning", { "maxLength": 100 }]
+  }
+}
+----
+
+== Default Configuration  
+
+When no configuration file is found, AsciiDocLint uses these default settings:
+
+[source,json]
+----
+{
+  "rules": {
+    "title-case": "error",
+    "no-trailing-spaces": "warning",
+    "max-line-length": "warning"
+  },
+  "enableInlineDirectives": true
+}
+----
+
+== Configuration Examples
+
+Different types of projects benefit from different linting configurations.
+Here are recommended setups for common use cases.
+
+=== API Documentation
+
+API documentation requires strict consistency and professionalism.
+All formatting rules should be enforced as errors.
+
+.configs/api.json
+[source,json]
+----
+{
+  "rules": {
+    "title-case": "error",
+    "no-trailing-spaces": "error",
+    "max-line-length": "warning"
+  },
+  "enableInlineDirectives": true
+}
+----
+
+**Usage:**
+[source,bash]
+----
+$ adoc-lint docs/api/ --config configs/api.json
+----
+
+**Rationale:** API docs are often the first impression developers have of your project.
+Strict formatting ensures professionalism and consistency.
+
+=== User Guides
+
+User guides balance quality with flexibility, allowing some formatting variation while maintaining readability.
+
+.configs/guides.json
+[source,json]
+----
+{
+  "rules": {
+    "title-case": "warning",
+    "no-trailing-spaces": "warning",
+    "max-line-length": "info"
+  },
+  "enableInlineDirectives": true
+}
+----
+
+**Usage:**
+[source,bash]
+----
+$ adoc-lint docs/guides/ --config configs/guides.json
+----
+
+**Rationale:** User guides prioritize content clarity over strict formatting.
+Line length is informational only since explanatory content may need longer lines.
+
+=== Tutorials
+
+Tutorials focus on learning outcomes and may include informal language or long command examples.
+
+.configs/tutorials.json
+[source,json]
+----
+{
+  "rules": {
+    "title-case": "info",
+    "no-trailing-spaces": "warning",
+    "max-line-length": "off"
+  },
+  "enableInlineDirectives": true
+}
+----
+
+**Usage:**
+[source,bash]
+----
+$ adoc-lint docs/tutorials/ --config configs/tutorials.json
+----
+
+**Rationale:** Tutorial content often includes step-by-step instructions and conversational language.
+Only trailing spaces are enforced as they can cause copy-paste issues.
+
+=== Multi-Configuration Workflow
+
+For projects with multiple documentation types, you can use different configurations:
+
+[source,bash]
+----
+# Lint different content types with appropriate configs
+$ adoc-lint docs/api/ --config configs/api.json
+$ adoc-lint docs/guides/ --config configs/guides.json  
+$ adoc-lint docs/tutorials/ --config configs/tutorials.json
+
+# Or create a master script
+$ npm run lint:api
+$ npm run lint:guides
+$ npm run lint:tutorials
+----
+
+== CLI Integration
+
+Command-line options interact with configuration files in predictable ways.
+
+=== Command-Line Options
+
+`--config <path>`::
+Explicitly specify a configuration file path.
+Overrides automatic file discovery.
+
+`--disable-inline-directives`::
+Disable processing of inline directive comments.
+Overrides `enableInlineDirectives` setting in configuration file.
+
+`--format <format>`::
+Set output format (`stylish`, `json`).
+Does not affect configuration file settings.
+
+`--quiet`::
+Report errors only, suppress warnings and info.
+Works with any configuration file.
+
+`--max-warnings <number>`::
+Set maximum warnings before exit code 2.
+Applied after configuration-based rule evaluation.
+
+=== Priority Order
+
+Configuration values are applied in this priority order (highest to lowest):
+
+1. **Command-line flags** (e.g., `--disable-inline-directives`)
+2. **Configuration file settings** (e.g., `enableInlineDirectives: true`)
+3. **Built-in defaults**
+
+=== Exit Codes
+
+The linter returns different exit codes based on configuration and results:
+
+`0`:: No issues found or only info-level messages
+`1`:: Configuration error, file not found, or runtime error
+`2`:: Error-level or warning-level issues found (depending on `--quiet` and `--max-warnings`)
+
+.Example: Configuration file not found
+[source,console]
+----
+$ adoc-lint docs/ --config missing.json
+
+Error: Configuration file not found: missing.json
+$ echo $?
+1
+----
+
+== Inline Directives
+
+When `enableInlineDirectives` is `true` (default), you can control linting behavior within your documents using special comments.
+
+=== Basic Syntax
+
+.Disable and enable single rules
+[source,asciidoc]
+----
+// adoc-lint disable max-line-length
+This line can be as long as needed without triggering warnings.
+// adoc-lint enable max-line-length
+----
+
+.Disable and enable multiple rules
+[source,asciidoc]
+----
+// adoc-lint disable title-case, no-trailing-spaces
+== improper title case
+This content can have trailing spaces.   
+// adoc-lint enable title-case, no-trailing-spaces
+----
+
+=== Advanced Directives
+
+.Disable all rules
+[source,asciidoc]
+----
+// adoc-lint disable-all
+This section ignores all linting rules completely.
+// adoc-lint enable-all
+----
+
+.Nested directives
+[source,asciidoc]
+----
+// adoc-lint disable-all
+// adoc-lint enable max-line-length
+This line is still checked for length despite disable-all.
+But trailing spaces are ignored.   
+// adoc-lint enable-all
+----
+
+=== Configuration Integration
+
+Inline directives respect your configuration settings:
+
+.Disable inline directives globally
+[source,json]
+----
+{
+  "rules": {
+    "title-case": "error"
+  },
+  "enableInlineDirectives": false
+}
+----
+
+.Disable via CLI
+[source,bash]
+----
+$ adoc-lint docs/ --disable-inline-directives
+----
+
+When inline directives are disabled, all `// adoc-lint` comments are ignored, and rules are applied consistently based on configuration file settings.
+
+== Troubleshooting
+
+Common configuration issues and their solutions, organized by error type.
+
+=== Syntax Errors
+
+Configuration files must be valid JSON or JavaScript.
+Syntax errors prevent the linter from starting.
+
+==== Malformed JSON
+
+.Invalid JSON configuration
+[source,json]
+----
+{
+  "rules": {
+    "title-case": "error",  // Comments not allowed in JSON
+    "max-line-length": "warning"
+  }
+}
+----
+
+.Error output
+[source,console]
+----
+$ adoc-lint docs/
+
+Error: Failed to parse configuration file '.adoc-lintrc.json'
+SyntaxError: Unexpected token / in JSON at position 45
+$ echo $?
+1
+----
+
+.Solution: Remove comments or use JavaScript format
+[source,json]
+----
+{
+  "rules": {
+    "title-case": "error",
+    "max-line-length": "warning"
+  }
+}
+----
+
+==== Invalid JavaScript Module
+
+.Invalid JavaScript configuration
+[source,javascript]
+----
+module.exports = {
+  rules: {
+    "title-case": "error"
+    "max-line-length": "warning"  // Missing comma
+  }
+};
+----
+
+.Error output
+[source,console]
+----
+$ adoc-lint docs/
+
+Error: Failed to load configuration file '.adoc-lintrc.js'
+SyntaxError: Unexpected string
+$ echo $?
+1
+----
+
+.Solution: Fix JavaScript syntax
+[source,javascript]
+----
+module.exports = {
+  rules: {
+    "title-case": "error",
+    "max-line-length": "warning"
+  }
+};
+----
+
+=== Validation Errors
+
+Configuration content is validated after parsing.
+Invalid values cause startup errors with helpful messages.
+
+==== Invalid Rule Name
+
+.Configuration with unknown rule
+[source,json]
+----
+{
+  "rules": {
+    "title-case": "error",
+    "unknown-rule": "warning"
+  }
+}
+----
+
+.Error output
+[source,console]
+----
+$ adoc-lint docs/
+
+Error: Unknown rule 'unknown-rule' in configuration
+Available rules: title-case, max-line-length, no-trailing-spaces
+$ echo $?
+1
+----
+
+.Solution: Use valid rule names
+[source,json]
+----
+{
+  "rules": {
+    "title-case": "error",
+    "no-trailing-spaces": "warning"
+  }
+}
+----
+
+==== Invalid Severity Level
+
+.Configuration with invalid severity
+[source,json]
+----
+{
+  "rules": {
+    "title-case": "critical",
+    "max-line-length": "warning"
+  }
+}
+----
+
+.Error output
+[source,console]
+----
+$ adoc-lint docs/
+
+Error: Invalid severity level 'critical' for rule 'title-case'
+Valid levels: error, warning, info, off
+$ echo $?
+1
+----
+
+.Solution: Use valid severity levels
+[source,json]
+----
+{
+  "rules": {
+    "title-case": "error",
+    "max-line-length": "warning"
+  }
+}
+----
+
+=== Discovery Issues
+
+Problems finding or accessing configuration files cause startup errors.
+
+==== File Not Found
+
+.Explicit configuration file missing
+[source,console]
+----
+$ adoc-lint docs/ --config configs/missing.json
+
+Error: Configuration file not found: configs/missing.json
+$ echo $?
+1
+----
+
+.Solution: Check file path and existence
+[source,bash]
+----
+$ ls -la configs/
+total 16
+drwxr-xr-x  2 user  staff   64 Jan 30 10:30 .
+drwxr-xr-x  8 user  staff  256 Jan 30 10:30 ..
+-rw-r--r--  1 user  staff  156 Jan 30 10:30 api.json
+
+$ adoc-lint docs/ --config configs/api.json  # Use correct path
+----
+
+==== Permission Denied
+
+.Configuration file not readable
+[source,console]
+----
+$ adoc-lint docs/ --config .adoc-lintrc.json
+
+Error: Cannot read configuration file '.adoc-lintrc.json': Permission denied
+$ echo $?
+1
+----
+
+.Solution: Fix file permissions
+[source,bash]
+----
+$ chmod 644 .adoc-lintrc.json
+$ adoc-lint docs/ --config .adoc-lintrc.json
+----
+
+=== Configuration Conflicts
+
+Multiple configuration sources can create unexpected behavior.
+
+==== CLI vs Configuration File
+
+When CLI options conflict with configuration file settings, CLI takes precedence:
+
+.Configuration enables inline directives
+[source,json]
+----
+{
+  "rules": {
+    "title-case": "error"
+  },
+  "enableInlineDirectives": true
+}
+----
+
+.CLI disables them
+[source,bash]
+----
+$ adoc-lint docs/ --disable-inline-directives
+----
+
+**Result:** Inline directives are disabled despite configuration file setting.
+
+.Solution: Use consistent settings or rely on CLI precedence
+[source,bash]
+----
+# Remove CLI flag to use config file setting
+$ adoc-lint docs/
+
+# Or update config file to match CLI preference
+{
+  "enableInlineDirectives": false
+}
+----
+
+== Related Documentation
+
+* xref:installation.adoc[Installation] - Setting up AsciiDocLint
+* xref:usage.adoc[Usage] - Command-line usage examples  
+* xref:rules.adoc[Rules] - Detailed rule documentation and examples

@@ -1,6 +1,6 @@
 * xref:index.adoc[Home]
 * xref:installation.adoc[Installation]
+* xref:configuration.adoc[Configuration]
 * xref:usage.adoc[Usage]
-//* xref:rules.adoc[Rules]
-//* xref:configuration.adoc[Configuration]
+* xref:rules.adoc[Rules]
 //* xref:development.adoc[Development]

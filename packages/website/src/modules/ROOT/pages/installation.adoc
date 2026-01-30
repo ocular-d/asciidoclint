@@ -9,32 +9,27 @@
 
 [tabs]
 ====
-Tab A:: Contents of Tab A.
-
-Tab B::
+pnpm::
 +
-Contents of Tab B.
-
-Tab C::
-+
---
-Contents of Tab C.
-
-Contains more than one block.
---
-====
-
 [source,bash]
 ----
-# Using pnpm (recommended)
 pnpm add @testthedocs/asciidoc-linter
+----
 
-# Using npm
+npm::
++
+[source,shell]
+----
 npm install @testthedocs/asciidoc-linter
+----
 
-# Using yarn
+yarn::
++
+[source,shell]
+----
 yarn add @testthedocs/asciidoc-linter
 ----
+====
 
 == Global installation
 
@@ -50,6 +45,13 @@ pnpm add -g @testthedocs/asciidoc-linter
 [source,bash]
 ----
 adoc-lint --version
+----
+
+.Output
+[literal]
+----
+node bin/cli.js --version
+1.0.0
 ----
 
 == Development installation

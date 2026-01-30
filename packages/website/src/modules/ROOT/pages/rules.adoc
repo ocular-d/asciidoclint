@@ -1,0 +1,446 @@
+= Rules
+:page-aliases: linting-rules
+
+AsciiDocLint includes three standard rules that help maintain consistent, high-quality AsciiDoc content.
+Each rule can be configured with different severity levels (`error`, `warning`, `info`, or `off`) to match your project's needs.
+
+== Available Rules
+
+* **title-case**: Enforces proper title case formatting for document and section titles
+* **max-line-length**: Limits line length to improve readability and code review experience
+* **no-trailing-spaces**: Removes trailing whitespace that can cause formatting issues
+
+== Rule Details
+
+=== title-case
+
+Ensures document and section titles follow proper title case formatting with consistent capitalization rules.
+
+==== Description
+
+The title-case rule enforces these formatting standards:
+
+* First and last words are always capitalized
+* Articles, conjunctions, and short prepositions are lowercase (unless first/last word)
+* Lowercase words: 'a', 'an', 'and', 'as', 'at', 'but', 'by', 'for', 'in', 'nor', 'of', 'on', 'or', 'so', 'the', 'to', 'up', 'yet'
+
+==== Examples
+
+.Before (violates rule)
+[source,asciidoc]
+----
+= user guide for basic project
+== getting started
+== improper title case  
+== Best practices
+----
+
+.After (correct)
+[source,asciidoc]
+----
+= User Guide for Basic Project
+== Getting Started
+== Improper Title Case
+== Best Practices
+----
+
+==== CLI Output
+
+.Stylish Format
+[source,console]
+----
+$ adoc-lint docs/user-guide.adoc
+
+docs/user-guide.adoc
+  1:1  warning  Title should be in title case: "User Guide for Basic Project"  title-case
+  3:1  warning  Title should be in title case: "Getting Started"               title-case
+
+✖ 2 problems (0 errors, 2 warnings)
+----
+
+.JSON Format
+[source,console]
+----
+$ adoc-lint docs/user-guide.adoc --format json
+
+[
+  {
+    "filePath": "docs/user-guide.adoc",
+    "messages": [
+      {
+        "ruleId": "title-case",
+        "severity": 1,
+        "message": "Title should be in title case: \"User Guide for Basic Project\"",
+        "line": 1,
+        "column": 1
+      }
+    ],
+    "errorCount": 0,
+    "warningCount": 1
+  }
+]
+----
+
+=== max-line-length
+
+Enforces a maximum line length to improve readability and maintainability of AsciiDoc documents.
+
+==== Description
+
+The max-line-length rule checks that lines do not exceed the configured maximum length.
+The default limit is 120 characters, but this can be customized per project needs.
+
+==== Configuration Options
+
+* `maxLength`: Maximum allowed line length (default: 120 characters)
+
+.Custom line length configuration
+[source,json]
+----
+{
+  "rules": {
+    "max-line-length": ["warning", { "maxLength": 100 }]
+  }
+}
+----
+
+==== Examples
+
+.Before (violates rule)
+[source,asciidoc]
+----
+This line is intentionally very long and would normally trigger the max-line-length rule, but it's disabled for this section so no warning should be generated.
+
+AsciiDocLint supports inline directives to disable or enable specific rules within your documents. This is useful when you need to temporarily ignore certain rules for specific content that requires longer lines.
+----
+
+.After (correct)
+[source,asciidoc]
+----
+This line is intentionally very long and would normally trigger the max-line-length rule, 
+but it's disabled for this section so no warning should be generated.
+
+AsciiDocLint supports inline directives to disable or enable specific rules within your documents. 
+This is useful when you need to temporarily ignore certain rules for specific content that 
+requires longer lines.
+----
+
+==== CLI Output
+
+.Stylish Format
+[source,console]
+----
+$ adoc-lint docs/user-guide.adoc
+
+docs/user-guide.adoc
+  5:121  warning  Line too long (145/120)  max-line-length
+  7:121  warning  Line too long (156/120)  max-line-length
+
+✖ 2 problems (0 errors, 2 warnings)
+----
+
+.JSON Format
+[source,console]
+----
+$ adoc-lint docs/user-guide.adoc --format json
+
+[
+  {
+    "filePath": "docs/user-guide.adoc",
+    "messages": [
+      {
+        "ruleId": "max-line-length",
+        "severity": 1,
+        "message": "Line too long (145/120)",
+        "line": 5,
+        "column": 121
+      }
+    ],
+    "errorCount": 0,
+    "warningCount": 1
+  }
+]
+----
+
+=== no-trailing-spaces
+
+Removes trailing whitespace at the end of lines that can cause formatting inconsistencies.
+
+==== Description
+
+The no-trailing-spaces rule detects and reports any trailing spaces or tabs at the end of lines.
+Trailing whitespace can cause unexpected formatting behavior and should be removed.
+
+==== Examples
+
+.Before (violates rule)
+[source,asciidoc]
+----
+This section allows both long lines and trailing spaces without warnings.   
+Another line with trailing spaces that should be ignored.    
+This line has trailing spaces and should trigger a warning.   
+----
+
+.After (correct)
+[source,asciidoc]
+----
+This section allows both long lines and trailing spaces without warnings.
+Another line with trailing spaces that should be ignored.
+This line has trailing spaces and should trigger a warning.
+----
+
+==== CLI Output
+
+.Stylish Format
+[source,console]
+----
+$ adoc-lint docs/user-guide.adoc
+
+docs/user-guide.adoc
+  3:74  warning  Trailing spaces found  no-trailing-spaces
+  4:69  warning  Trailing spaces found  no-trailing-spaces
+  5:66  warning  Trailing spaces found  no-trailing-spaces
+
+✖ 3 problems (0 errors, 3 warnings)
+----
+
+.JSON Format
+[source,console]
+----
+$ adoc-lint docs/user-guide.adoc --format json
+
+[
+  {
+    "filePath": "docs/user-guide.adoc",
+    "messages": [
+      {
+        "ruleId": "no-trailing-spaces",
+        "severity": 1,
+        "message": "Trailing spaces found",
+        "line": 3,
+        "column": 74
+      }
+    ],
+    "errorCount": 0,
+    "warningCount": 1
+  }
+]
+----
+
+== Configuration by Use Case
+
+Different types of documentation have different quality requirements.
+Here are recommended configurations for common use cases.
+
+=== API Documentation
+
+API documentation requires the highest level of consistency and professionalism.
+All rules should be strictly enforced.
+
+.api.json
+[source,json]
+----
+{
+  "rules": {
+    "title-case": "error",
+    "no-trailing-spaces": "error", 
+    "max-line-length": "warning"
+  },
+  "enableInlineDirectives": true
+}
+----
+
+**Rationale:** API docs are often the first impression developers have of your project.
+Strict formatting ensures professionalism and consistency across all technical documentation.
+
+.Example usage
+[source,bash]
+----
+$ adoc-lint docs/api/ --config configs/api.json
+----
+
+=== User Guides  
+
+User guides balance quality with flexibility, allowing some formatting variation while maintaining readability.
+
+.guides.json
+[source,json]
+----
+{
+  "rules": {
+    "title-case": "warning",
+    "no-trailing-spaces": "warning",
+    "max-line-length": "info"
+  },
+  "enableInlineDirectives": true
+}
+----
+
+**Rationale:** User guides prioritize content clarity over strict formatting.
+Line length is informational only since explanatory content may legitimately need longer lines.
+
+.Example usage
+[source,bash]
+----
+$ adoc-lint docs/guides/ --config configs/guides.json
+----
+
+=== Tutorials
+
+Tutorials focus on learning outcomes and may include informal language or long command examples.
+Configuration is most relaxed here.
+
+.tutorials.json
+[source,json]
+----
+{
+  "rules": {
+    "title-case": "info",
+    "no-trailing-spaces": "warning", 
+    "max-line-length": "off"
+  },
+  "enableInlineDirectives": true
+}
+----
+
+**Rationale:** Tutorial content often includes step-by-step instructions, command examples, and conversational language.
+Only trailing spaces are enforced as warnings since they can cause copy-paste issues.
+
+.Example usage
+[source,bash]
+----
+$ adoc-lint docs/tutorials/ --config configs/tutorials.json
+----
+
+== Inline Directives
+
+AsciiDocLint supports inline directives that let you control rules within your documents using special comments.
+This is useful for handling exceptional content that doesn't fit standard formatting rules.
+
+=== Basic Usage
+
+==== Disable/Enable Single Rules
+
+.Disable a specific rule temporarily
+[source,asciidoc]
+----
+// adoc-lint disable max-line-length
+This line is intentionally very long and would normally trigger the max-line-length rule, but it's disabled for this section so no warning should be generated.
+// adoc-lint enable max-line-length
+----
+
+==== Disable/Enable Multiple Rules
+
+.Disable multiple rules at once
+[source,asciidoc]
+----
+// adoc-lint disable max-line-length, no-trailing-spaces
+This section allows both long lines and trailing spaces without warnings.   
+Another line with trailing spaces that should be ignored.    
+// adoc-lint enable max-line-length, no-trailing-spaces
+----
+
+=== Advanced Patterns
+
+==== Disable/Enable All Rules
+
+.Disable all rules for legacy content
+[source,asciidoc]
+----
+// adoc-lint disable-all
+== improper title case
+This section violates multiple rules: long lines, trailing spaces   , and improper title case.
+But no warnings should be generated because all rules are disabled.
+// adoc-lint enable-all
+----
+
+==== Nested Directives
+
+.Complex directive combinations
+[source,asciidoc]
+----
+// adoc-lint disable-all
+// adoc-lint enable max-line-length
+This line will still be checked for length despite disable-all.
+Has trailing spaces but no warning since that rule is still disabled.   
+// adoc-lint enable-all
+----
+
+=== Real-World Scenarios
+
+==== Long Command Examples
+
+.Disabling line length for code blocks
+[source,asciidoc]
+----
+// adoc-lint disable max-line-length
+[source,bash]
+----
+curl -X POST "https://api.example.com/v1/very-long-endpoint-name" -H "Authorization: Bearer very-long-token-that-exceeds-line-limit" -d '{"data": "value"}'
+----
+// adoc-lint enable max-line-length
+----
+
+==== External Content Integration
+
+.Handling third-party content
+[source,asciidoc]
+----
+The following section is imported from external documentation:
+
+// adoc-lint disable title-case, no-trailing-spaces
+== third party integration guide
+This content comes from a third-party source and may not follow our style guide.   
+We preserve it as-is to maintain accuracy.
+// adoc-lint enable title-case, no-trailing-spaces
+----
+
+=== CLI Output for Inline Directives
+
+.Before applying inline directives
+[source,console]
+----
+$ adoc-lint docs/inline-example.adoc
+
+docs/inline-example.adoc
+  3:1    warning  Title should be in title case: "Third Party Integration Guide"  title-case
+  4:92   warning  Trailing spaces found                                           no-trailing-spaces
+  5:121  warning  Line too long (134/120)                                         max-line-length
+
+✖ 3 problems (0 errors, 3 warnings)
+----
+
+.After applying inline directives
+[source,console]
+----
+$ adoc-lint docs/inline-example.adoc
+
+✓ No problems found!
+----
+
+== Quick Reference
+
+[cols="1,2,1,2,1", options="header"]
+|===
+|Rule Name |Description |Default Severity |Configuration Options |Example
+
+|max-line-length
+|Enforces maximum line length for readability
+|warning
+|`maxLength` (default: 120)
+|`["warning", { "maxLength": 100 }]`
+
+|no-trailing-spaces  
+|Removes trailing whitespace at end of lines
+|warning
+|None
+|`"error"`
+
+|title-case
+|Ensures proper title case for headings
+|warning
+|None  
+|`"off"`
+|===
+
+For detailed configuration examples, see the xref:installation.adoc#configuration[Configuration] section.
