@@ -1,0 +1,11 @@
+{
+  "rules": {
+    "heading-spacing": ["error", {
+      "requireBefore": false,
+      "requireAfter": true,
+      "exceptions": [],
+      "allowConsecutiveHeadings": false,
+      "ignoreAttributeBlocks": true
+    }]
+  }
+}

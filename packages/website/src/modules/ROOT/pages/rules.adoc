@@ -6,7 +6,7 @@ Each rule can be configured with different severity levels (`error`, `warning`, 
 
 == Available Rules
 
-* **heading-spacing**: Requires blank lines around headings (except level 1) for better document structure
+* **heading-spacing**: Requires blank lines around headings (except level 1) for better document structure. Supports ignoring AsciiDoc attribute lines before headings
 * **title-case**: Enforces proper title case formatting for document and section titles
 * **max-line-length**: Limits line length to improve readability and code review experience
 * **no-trailing-spaces**: Removes trailing whitespace that can cause formatting issues
@@ -31,6 +31,9 @@ The heading-spacing rule enforces consistent spacing around headings to create b
 * `requireAfter`: Require blank line after headings (default: `true`)
 * `exceptions`: Array of heading levels to skip checking (default: `[]`)
 * `allowConsecutiveHeadings`: Allow headings without spacing when they appear consecutively (default: `false`)
+* `ignoreAttributeBlocks`: Ignore simple attribute lines before headings like `[#anchor]` and `[.role]` (default: `false`)
+* `ignoreComplexAttributes`: Ignore complex attribute patterns like `[#id.role1.role2]` and block shortcuts (default: `false`)
+* `maxAttributeDepthScan`: Maximum number of consecutive attribute lines to scan backwards (default: `10`)
 
 .Basic configuration
 [source,json]
@@ -52,6 +55,21 @@ The heading-spacing rule enforces consistent spacing around headings to create b
       "requireAfter": true,
       "exceptions": [3],
       "allowConsecutiveHeadings": false
+    }]
+  }
+}
+----
+
+.Attribute handling configuration
+[source,json]
+----
+{
+  "rules": {
+    "heading-spacing": ["warning", {
+      "requireBefore": true,
+      "requireAfter": true,
+      "ignoreAttributeBlocks": true,
+      "ignoreComplexAttributes": true
     }]
   }
 }
@@ -88,6 +106,29 @@ Content with proper spacing.
 Proper spacing around this heading.
 
 == Section Two
+
+Final content.
+----
+
+.Attribute handling (with ignoreAttributeBlocks: true)
+[source,asciidoc]
+----
+= Document Title
+
+Content here.
+[#anchor-id]
+== Section With Anchor
+
+[.role-class]
+== Section With Role
+
+[source,javascript]
+[#code-example]
+[.highlighted]
+=== Multiple Attributes
+
+Regular content.
+== Section Without Attributes (still requires spacing)
 
 Final content.
 ----
@@ -134,10 +175,28 @@ $ adoc-lint docs/user-guide.adoc --format json
 
 The heading-spacing rule uses caching to optimize performance when processing large documents with many headings. It executes before other rules like `max-line-length` to ensure optimal rule interaction.
 
+==== Attribute Handling
+
+The heading-spacing rule includes advanced support for ignoring AsciiDoc attribute lines that appear immediately before headings. This feature prevents false violations when using common AsciiDoc patterns:
+
+.Supported attribute patterns:
+* **Simple anchors**: `[#anchor-id]`
+* **Role attributes**: `[.role-name]`
+* **Block shortcuts**: `[source,javascript]`, `[NOTE]`, `[TIP]`, `[WARNING]`
+* **Language shortcuts**: `[,python]`, `[,javascript]`
+* **Complex combinations**: `[#id.role1.role2]`, `[.role1#id.role2]`
+* **Named attributes**: `[key=value]`, `[title="Section Title"]`
+
+When `ignoreAttributeBlocks` is enabled, the rule treats attribute lines as "transparent" for spacing purposes, checking spacing requirements before the entire attribute block rather than immediately before the heading.
+
+The rule also includes block context awareness to prevent false positives from bracket syntax inside code blocks or literal text.
+
 ==== Rule Interactions
 
 * **max-line-length**: The `max-line-length` rule ignores blank lines to prevent conflicts when `heading-spacing` adds spacing
 * **Execution Order**: `heading-spacing` runs first to allow other rules to process the properly spaced document
+
+**Note**: When attribute handling is enabled, the rule will generate additional warnings for malformed attribute syntax to help identify potential formatting issues.
 
 === title-case
 

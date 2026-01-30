@@ -112,7 +112,7 @@ Accepts a `maxLength` option to customize the line length limit.
 ----
 
 heading-spacing::
-Accepts options to customize heading spacing requirements.
+Accepts options to customize heading spacing requirements and attribute handling.
 +
 [source,json]
 ----
@@ -122,7 +122,10 @@ Accepts options to customize heading spacing requirements.
       "requireBefore": true,
       "requireAfter": true,
       "exceptions": [3],
-      "allowConsecutiveHeadings": false
+      "allowConsecutiveHeadings": false,
+      "ignoreAttributeBlocks": true,
+      "ignoreComplexAttributes": true,
+      "maxAttributeDepthScan": 10
     }]
   }
 }
@@ -132,6 +135,9 @@ Accepts options to customize heading spacing requirements.
 * `requireAfter`: Require blank line after headings (default: `true`)
 * `exceptions`: Array of heading levels to skip (default: `[]`)
 * `allowConsecutiveHeadings`: Allow consecutive headings without spacing (default: `false`)
+* `ignoreAttributeBlocks`: Ignore simple attribute lines like `[#anchor]`, `[.role]`, `[source,lang]` (default: `false`)
+* `ignoreComplexAttributes`: Ignore complex patterns like `[#id.role1.role2]` and named attributes (default: `false`)
+* `maxAttributeDepthScan`: Maximum consecutive attribute lines to scan backwards for performance (default: `10`)
 
 === Rule Interactions
 
@@ -167,7 +173,9 @@ Valid configuration:
 {
   "rules": {
     "heading-spacing": ["warning", {
-      "exceptions": [2, 3]  // ✅ Array of heading levels
+      "exceptions": [2, 3],  // ✅ Array of heading levels
+      "ignoreAttributeBlocks": true,
+      "ignoreComplexAttributes": true
     }]
   }
 }
@@ -233,7 +241,8 @@ User guides balance quality with flexibility, allowing some formatting variation
 {
   "rules": {
     "heading-spacing": ["warning", {
-      "allowConsecutiveHeadings": true
+      "allowConsecutiveHeadings": true,
+      "ignoreAttributeBlocks": true
     }],
     "title-case": "warning",
     "no-trailing-spaces": "warning",

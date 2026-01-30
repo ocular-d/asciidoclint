@@ -414,3 +414,414 @@ Content.`;
     expect(headingMessages.some(m => m.message.includes('Section'))).toBe(false);
   });
 });
+
+describe('Attribute handling', () => {
+  describe('Simple attribute patterns', () => {
+    it('should ignore simple anchor IDs when ignoreAttributeBlocks is enabled', () => {
+      const customLinter = new AsciiDocLinter({
+        rules: {
+          'heading-spacing': {
+            severity: 'warning',
+            ignoreAttributeBlocks: true
+          }
+        }
+      });
+      customLinter.addRule(headingSpacingRule);
+
+      const content = `= Document Title
+
+Content here.
+[#section-id]
+== Section Heading
+
+More content.`;
+
+      const result = customLinter.lintText(content);
+      const headingMessages = result.messages.filter(m => m.rule === 'heading-spacing');
+      expect(headingMessages).toHaveLength(0);
+    });
+
+    it('should ignore simple role attributes when ignoreAttributeBlocks is enabled', () => {
+      const customLinter = new AsciiDocLinter({
+        rules: {
+          'heading-spacing': {
+            severity: 'warning',
+            ignoreAttributeBlocks: true
+          }
+        }
+      });
+      customLinter.addRule(headingSpacingRule);
+
+      const content = `= Document Title
+
+Content here.
+[.primary-section]
+== Section Heading
+
+More content.`;
+
+      const result = customLinter.lintText(content);
+      const headingMessages = result.messages.filter(m => m.rule === 'heading-spacing');
+      expect(headingMessages).toHaveLength(0);
+    });
+
+    it('should still report violations when ignoreAttributeBlocks is disabled', () => {
+      const content = `= Document Title
+
+Content here.
+[#section-id]
+== Section Heading
+
+More content.`;
+
+      const result = linter.lintText(content);
+      const headingMessages = result.messages.filter(m => m.rule === 'heading-spacing');
+      expect(headingMessages).toHaveLength(1);
+      expect(headingMessages[0].message).toContain('should have blank line before it');
+    });
+  });
+
+  describe('Complex attribute patterns', () => {
+    it('should ignore complex ID-role combinations when ignoreComplexAttributes is enabled', () => {
+      const customLinter = new AsciiDocLinter({
+        rules: {
+          'heading-spacing': {
+            severity: 'warning',
+            ignoreComplexAttributes: true
+          }
+        }
+      });
+      customLinter.addRule(headingSpacingRule);
+
+      const content = `= Document Title
+
+Content here.
+[#main-section.primary.highlighted]
+== Main Section
+
+More content.`;
+
+      const result = customLinter.lintText(content);
+      const headingMessages = result.messages.filter(m => m.rule === 'heading-spacing');
+      expect(headingMessages).toHaveLength(0);
+    });
+
+    it('should ignore block shortcuts like [source,javascript]', () => {
+      const customLinter = new AsciiDocLinter({
+        rules: {
+          'heading-spacing': {
+            severity: 'warning',
+            ignoreAttributeBlocks: true
+          }
+        }
+      });
+      customLinter.addRule(headingSpacingRule);
+
+      const content = `= Document Title
+
+Content here.
+[source,javascript]
+== Code Section
+
+More content.`;
+
+      const result = customLinter.lintText(content);
+      const headingMessages = result.messages.filter(m => m.rule === 'heading-spacing');
+      expect(headingMessages).toHaveLength(0);
+    });
+
+    it('should ignore admonition shortcuts like [NOTE]', () => {
+      const customLinter = new AsciiDocLinter({
+        rules: {
+          'heading-spacing': {
+            severity: 'warning',
+            ignoreAttributeBlocks: true
+          }
+        }
+      });
+      customLinter.addRule(headingSpacingRule);
+
+      const content = `= Document Title
+
+Content here.
+[NOTE]
+== Important Section
+
+More content.`;
+
+      const result = customLinter.lintText(content);
+      const headingMessages = result.messages.filter(m => m.rule === 'heading-spacing');
+      expect(headingMessages).toHaveLength(0);
+    });
+  });
+
+  describe('Multiple consecutive attribute lines', () => {
+    it('should ignore all consecutive attribute lines before heading', () => {
+      const customLinter = new AsciiDocLinter({
+        rules: {
+          'heading-spacing': {
+            severity: 'warning',
+            ignoreAttributeBlocks: true,
+            ignoreComplexAttributes: true
+          }
+        }
+      });
+      customLinter.addRule(headingSpacingRule);
+
+      const content = `= Document Title
+
+Content here.
+[source,javascript]
+[#code-example]
+[.highlighted.example]
+== Code Example Section
+
+More content.`;
+
+      const result = customLinter.lintText(content);
+      const headingMessages = result.messages.filter(m => m.rule === 'heading-spacing');
+      expect(headingMessages).toHaveLength(0);
+    });
+
+    it('should check spacing before the entire attribute block', () => {
+      const customLinter = new AsciiDocLinter({
+        rules: {
+          'heading-spacing': {
+            severity: 'warning',
+            ignoreAttributeBlocks: true
+          }
+        }
+      });
+      customLinter.addRule(headingSpacingRule);
+
+      const content = `= Document Title
+Content directly before attributes.
+[#section-id]
+[.primary]
+== Section Heading
+
+More content.`;
+
+      const result = customLinter.lintText(content);
+      const headingMessages = result.messages.filter(m => m.rule === 'heading-spacing');
+      expect(headingMessages).toHaveLength(1);
+      expect(headingMessages[0].message).toContain('should have blank line before it');
+    });
+  });
+
+  describe('Malformed attribute validation', () => {
+    it('should generate warnings for malformed attribute syntax', () => {
+      const customLinter = new AsciiDocLinter({
+        rules: {
+          'heading-spacing': {
+            severity: 'warning',
+            ignoreAttributeBlocks: true
+          }
+        }
+      });
+      customLinter.addRule(headingSpacingRule);
+
+      const content = `= Document Title
+
+Content here.
+[#invalid id with spaces]
+== Section Heading
+
+More content.`;
+
+      const result = customLinter.lintText(content);
+      const messages = result.messages.filter(m => m.rule === 'heading-spacing');
+      
+      // Should have malformed attribute warning and spacing violation
+      expect(messages.length).toBeGreaterThanOrEqual(1);
+      expect(messages.some(m => m.message.includes('Malformed attribute syntax'))).toBe(true);
+    });
+
+    it('should handle multiple malformed attributes', () => {
+      const customLinter = new AsciiDocLinter({
+        rules: {
+          'heading-spacing': {
+            severity: 'warning',
+            ignoreAttributeBlocks: true
+          }
+        }
+      });
+      customLinter.addRule(headingSpacingRule);
+
+      const content = `= Document Title
+
+Content here.
+[#invalid id]
+[.role with spaces]
+[broken syntax
+== Section Heading
+
+More content.`;
+
+      const result = customLinter.lintText(content);
+      const messages = result.messages.filter(m => m.rule === 'heading-spacing');
+      const malformedMessages = messages.filter(m => m.message.includes('Malformed attribute syntax'));
+      
+      expect(malformedMessages.length).toBeGreaterThanOrEqual(2);
+    });
+  });
+
+  describe('Block context awareness', () => {
+    it('should not treat brackets inside code blocks as attributes', () => {
+      const customLinter = new AsciiDocLinter({
+        rules: {
+          'heading-spacing': {
+            severity: 'warning',
+            ignoreAttributeBlocks: true
+          }
+        }
+      });
+      customLinter.addRule(headingSpacingRule);
+
+      const content = `= Document Title
+
+Some content.
+
+----
+[this-looks-like-attribute-but-its-code]
+function example() {
+  return [array, elements];
+}
+----
+== Code Section
+
+More content.`;
+
+      const result = customLinter.lintText(content);
+      const headingMessages = result.messages.filter(m => m.rule === 'heading-spacing');
+      expect(headingMessages).toHaveLength(0);
+    });
+
+    it('should detect code blocks with different delimiters', () => {
+      const customLinter = new AsciiDocLinter({
+        rules: {
+          'heading-spacing': {
+            severity: 'warning',
+            ignoreAttributeBlocks: true
+          }
+        }
+      });
+      customLinter.addRule(headingSpacingRule);
+
+      const content = `= Document Title
+
+Some content.
+
+====
+[this-is-in-example-block]
+====
+== Example Section
+
+More content.`;
+
+      const result = customLinter.lintText(content);
+      const headingMessages = result.messages.filter(m => m.rule === 'heading-spacing');
+      expect(headingMessages).toHaveLength(0);
+    });
+  });
+
+  describe('Document boundaries', () => {
+    it('should handle attributes at document start', () => {
+      const customLinter = new AsciiDocLinter({
+        rules: {
+          'heading-spacing': {
+            severity: 'warning',
+            ignoreAttributeBlocks: true
+          }
+        }
+      });
+      customLinter.addRule(headingSpacingRule);
+
+      const content = `[#document-attrs]
+= Document Title
+
+== Section`;
+
+      const result = customLinter.lintText(content);
+      const headingMessages = result.messages.filter(m => m.rule === 'heading-spacing');
+      expect(headingMessages).toHaveLength(0);
+    });
+
+    it('should respect maxAttributeDepthScan limit', () => {
+      const customLinter = new AsciiDocLinter({
+        rules: {
+          'heading-spacing': {
+            severity: 'warning',
+            ignoreAttributeBlocks: true,
+            maxAttributeDepthScan: 2
+          }
+        }
+      });
+      customLinter.addRule(headingSpacingRule);
+
+      // More attributes than scan limit
+      const attributes = Array.from({length: 5}, (_, i) => `[.role-${i}]`).join('\n');
+      const content = `= Document Title
+
+Content.
+${attributes}
+== Section`;
+
+      const result = customLinter.lintText(content);
+      const headingMessages = result.messages.filter(m => m.rule === 'heading-spacing');
+      // Should report violation because scan depth limit was reached
+      expect(headingMessages.length).toBeGreaterThanOrEqual(1);
+    });
+  });
+
+  describe('Language shortcuts', () => {
+    it('should ignore language shortcut attributes', () => {
+      const customLinter = new AsciiDocLinter({
+        rules: {
+          'heading-spacing': {
+            severity: 'warning',
+            ignoreAttributeBlocks: true
+          }
+        }
+      });
+      customLinter.addRule(headingSpacingRule);
+
+      const content = `= Document Title
+
+Content here.
+[,python]
+== Python Section
+
+More content.`;
+
+      const result = customLinter.lintText(content);
+      const headingMessages = result.messages.filter(m => m.rule === 'heading-spacing');
+      expect(headingMessages).toHaveLength(0);
+    });
+
+    it('should handle complex language shortcuts with additional attributes', () => {
+      const customLinter = new AsciiDocLinter({
+        rules: {
+          'heading-spacing': {
+            severity: 'warning',
+            ignoreAttributeBlocks: true
+          }
+        }
+      });
+      customLinter.addRule(headingSpacingRule);
+
+      const content = `= Document Title
+
+Content here.
+[,javascript]
+[#code-example.highlighted]
+== JavaScript Example
+
+More content.`;
+
+      const result = customLinter.lintText(content);
+      const headingMessages = result.messages.filter(m => m.rule === 'heading-spacing');
+      expect(headingMessages).toHaveLength(0);
+    });
+  });
+});
