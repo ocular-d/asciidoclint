@@ -9,10 +9,18 @@ A comprehensive workspace for AsciiDoc linting, documentation quality assurance,
 
 This repository contains multiple related packages that work together to provide comprehensive AsciiDoc linting capabilities:
 
-* *@asciidoclint/core* - TypeScript-based AsciiDoc linting engine with configurable rules
+* *@asciidoclint/core* - TypeScript-based AsciiDoc linting engine with configurable rules and inline directive support
 * *@asciidoclint/cli* - Command-line interface for interactive linting
 * *@asciidoclint/rules-standard* - Standard rule set for common documentation quality checks
 * *examples/* - Integration test examples and usage demonstrations
+
+== Key Features
+
+* *Configurable Rules* - Enable, disable, or adjust severity of linting rules
+* *Inline Directives* - Use `// adoc-lint disable/enable <rule>` comments to control rules within documents
+* *Multiple Output Formats* - Stylish, JSON, and compact output formatters
+* *CLI Integration* - Easy command-line usage with glob pattern support
+* *TypeScript Support* - Built with TypeScript for robust type safety and IDE support
 
 == Quick Start
 
@@ -110,7 +118,7 @@ The CLI provides user-friendly access to linting:
 
 * Multiple output formats (stylish, json, compact)
 * Configuration file support
-* Glob pattern file matching  
+* Glob pattern file matching
 * Exit codes for CI integration
 
 ==== Standard Rules (@asciidoclint/rules-standard)
@@ -138,7 +146,7 @@ Test your changes with the included example projects:
 
 [source,bash]
 ----
-# Test basic project example  
+# Test basic project example
 cd examples/basic-project
 pnpm install
 pnpm test
@@ -202,7 +210,7 @@ For maintainers setting up automated releases:
 
 1. *NPM Registry Token*:
    - Create automation token at https://npmjs.com
-   - Add to repository secrets as `NPM_TOKEN` 
+   - Add to repository secrets as `NPM_TOKEN`
    - Ensure token has publish permissions for `@asciidoclint/*` scope
 
 2. *GitHub Permissions*:
@@ -226,7 +234,7 @@ Create `.asciidoclintrc.json` in your project root:
 {
   "rules": {
     "title-case": "error",
-    "no-trailing-spaces": "warning", 
+    "no-trailing-spaces": "warning",
     "max-line-length": {
       "severity": "warning",
       "maxLength": 120
@@ -251,7 +259,7 @@ Create `.asciidoclintrc.json` in your project root:
     "title-case": "error",
     "no-trailing-spaces": "warning",
     "max-line-length": {
-      "severity": "warning", 
+      "severity": "warning",
       "maxLength": 100,
       "ignoreUrls": true,
       "ignoreCodeBlocks": true
@@ -278,6 +286,51 @@ asciidoclint README.adoc docs/user-guide.adoc
 
 # Use specific configuration file
 asciidoclint docs/*.adoc --config custom-config.json
+----
+
+=== Inline Directives
+
+Control rule enforcement within your AsciiDoc documents using inline comments:
+
+[source,asciidoc]
+----
+= My Document
+
+Normal content follows all rules.
+
+// adoc-lint disable max-line-length
+This line can be as long as needed without triggering the max-line-length rule violation.
+// adoc-lint enable max-line-length
+
+This line will again be checked for length.
+
+// adoc-lint disable-all
+This section ignores all linting rules completely.
+== improper title case
+Long lines with trailing spaces are ignored here.   
+// adoc-lint enable-all
+----
+
+Supported directive commands:
+
+* `// adoc-lint disable <rule>` - Disable specific rule from this point
+* `// adoc-lint enable <rule>` - Re-enable specific rule from this point
+* `// adoc-lint disable <rule1>, <rule2>` - Disable multiple rules
+* `// adoc-lint disable-all` - Disable all rules from this point
+* `// adoc-lint enable-all` - Re-enable all rules from this point
+
+Disable inline directives globally:
+
+[source,bash]
+----
+# Disable directive processing via CLI
+asciidoclint docs/*.adoc --disable-inline-directives
+
+# Or via configuration
+{
+  "rules": { "title-case": "error" },
+  "enableInlineDirectives": false
+}
 ----
 
 === Output Formats
@@ -362,7 +415,7 @@ The project includes comprehensive GitHub Actions workflows:
 === Continuous Integration
 
 * *Linting & Type Checking*: Code quality validation
-* *Multi-Version Testing*: Node.js 18, 20, 21 compatibility 
+* *Multi-Version Testing*: Node.js 18, 20, 21 compatibility
 * *Cross-Platform Testing*: Linux, macOS, Windows support
 * *Build Verification*: All packages build successfully
 * *Integration Testing*: Example projects work correctly
@@ -378,7 +431,7 @@ The project includes comprehensive GitHub Actions workflows:
 === Monitoring & Alerts
 
 * Build status notifications
-* Release validation reports  
+* Release validation reports
 * Security vulnerability alerts
 * Performance regression detection
 
@@ -421,8 +474,8 @@ This project is licensed under the MIT License - see the link:LICENSE[LICENSE] f
 
 == Support
 
-* 📚 Documentation: Available in this README and package-specific docs
-* 🐛 Bug Reports: Use GitHub issues with bug report template  
-* 💡 Feature Requests: Use GitHub issues with feature request template
-* 💬 Discussions: Use GitHub Discussions for questions and community support
-* 🔒 Security Issues: Follow responsible disclosure in SECURITY.md
+* Documentation: Available in this README and package-specific docs
+* Bug Reports: Use GitHub issues with bug report template
+* Feature Requests: Use GitHub issues with feature request template
+* Discussions: Use GitHub Discussions for questions and community support
+* Security Issues: Follow responsible disclosure in SECURITY.md

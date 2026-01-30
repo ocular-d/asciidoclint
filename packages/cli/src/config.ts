@@ -5,12 +5,13 @@ import Debug from 'debug';
 
 const debug = Debug('asciidoclint:config');
 
-const DEFAULT_CONFIG: LintConfig = {
+const DEFAULT_CONFIG: LintConfig & { enableInlineDirectives: boolean } = {
   rules: {
     'title-case': 'error',
     'no-trailing-spaces': 'warning',
     'max-line-length': 'warning'
-  }
+  },
+  enableInlineDirectives: true
 };
 
 export async function loadConfig(configPath?: string): Promise<LintConfig> {

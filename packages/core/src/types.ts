@@ -17,12 +17,14 @@ export interface LintMessage {
 export interface LintContext {
   filename?: string;
   options: Record<string, any>;
+  directiveManager?: any; // Will be DirectiveManager when imported
 }
 
 export interface LintConfig {
   rules: Record<string, 'error' | 'warning' | 'info' | 'off'>;
   extends?: string[];
   plugins?: string[];
+  enableInlineDirectives?: boolean;
 }
 
 export interface LintResult {

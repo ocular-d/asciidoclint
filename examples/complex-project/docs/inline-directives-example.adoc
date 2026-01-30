@@ -1,0 +1,112 @@
+= Inline Directives Example
+:toc:
+:toclevels: 2
+
+This document demonstrates various inline directive usage patterns for AsciiDocLint.
+
+== Basic Directive Usage
+
+=== Single Rule Control
+
+Here we disable the max-line-length rule for a specific section:
+
+// adoc-lint disable max-line-length
+This line is intentionally very long and would normally trigger the max-line-length rule, but it's disabled for this section so no warning should be generated.
+// adoc-lint enable max-line-length
+
+This line is also long and should trigger a max-line-length warning since the rule is re-enabled.
+
+=== Multiple Rule Control
+
+You can control multiple rules at once:
+
+// adoc-lint disable max-line-length, no-trailing-spaces
+This section allows both long lines and trailing spaces without warnings.   
+Another line with trailing spaces that should be ignored.    
+// adoc-lint enable max-line-length, no-trailing-spaces
+
+This line has trailing spaces and should trigger a warning.   
+
+== Global Rule Control
+
+=== Disable All Rules
+
+Sometimes you need to disable all linting for a section:
+
+// adoc-lint disable-all
+== improper title case
+This section violates multiple rules: long lines, trailing spaces   , and improper title case.
+But no warnings should be generated because all rules are disabled.
+// adoc-lint enable-all
+
+== Another Improper Title Case
+
+This line also has trailing spaces and should generate warnings.   
+
+== Priority and Nesting Examples
+
+=== Specific Rules Override Global Settings
+
+// adoc-lint disable-all
+// adoc-lint enable max-line-length
+This line is very long and should still trigger max-line-length warning despite disable-all.
+Has trailing spaces but no warning since that rule is still disabled.   
+// adoc-lint enable-all
+
+=== Complex Nesting Scenario
+
+// adoc-lint disable-all
+Line with all rules disabled - long with trailing spaces   
+// adoc-lint enable max-line-length
+Line with only max-line-length enabled - long with trailing spaces   
+// adoc-lint disable max-line-length, no-trailing-spaces  
+Line with specific rules disabled - long with trailing spaces   
+// adoc-lint enable-all
+Line with all rules enabled - long with trailing spaces   
+
+== Error Handling Examples
+
+These directives contain errors and should generate warnings:
+
+// adoc-lint disable unknown-rule-name
+This should generate a warning about unknown rule.
+
+// adoc-lint disable-all extra-arguments
+This should warn about extra arguments.
+
+// adoc-lint disable
+This should warn about missing rule names.
+
+// adoc-lint enable
+This should also warn about missing rule names.
+
+== Integration with Code Blocks
+
+Directives work around code blocks too:
+
+// adoc-lint disable max-line-length
+[source,bash]
+----
+very-long-command-that-would-normally-trigger-max-line-length-but-code-blocks-are-usually-exempt-anyway
+----
+// adoc-lint enable max-line-length
+
+But this line after the code block is long and should trigger a warning.
+
+== Advanced Configuration Examples
+
+=== Temporary Rule Adjustments
+
+Sometimes you need to temporarily adjust multiple rules:
+
+// adoc-lint disable max-line-length, title-case, no-trailing-spaces
+== temporary section with relaxed rules
+This entire section can have long lines, improper titles, and trailing spaces.   
+Perfect for including legacy content or external quotes that don't follow your style guide.
+// adoc-lint enable max-line-length, title-case, no-trailing-spaces
+
+== Conclusion
+
+These examples demonstrate the flexibility of inline directives for managing AsciiDoc linting rules. Use them judiciously to maintain code quality while accommodating special cases.
+
+This final line has trailing spaces and should be flagged since all rules are enabled.   

@@ -1,6 +1,7 @@
 import asciidoctor from '@asciidoctor/core';
 import Debug from 'debug';
 import { LintRule, LintContext, LintResult, LintMessage, LintConfig } from './types/index';
+import { DirectiveManager } from './directive-manager';
 
 const debug = Debug('asciidoclint:core');
 
@@ -10,7 +11,12 @@ export class AsciiDocLinter {
   private asciidoc = asciidoctor();
 
   constructor(config: LintConfig = { rules: {} }) {
-    this.config = config;
+    // Set default for enableInlineDirectives if not specified
+    const configWithDefaults = config as LintConfig & { enableInlineDirectives?: boolean };
+    if (configWithDefaults.enableInlineDirectives === undefined) {
+      configWithDefaults.enableInlineDirectives = true;
+    }
+    this.config = configWithDefaults;
     debug('Linter initialized with config: %O', config);
   }
 
@@ -28,14 +34,39 @@ export class AsciiDocLinter {
     debug('Linting content for file: %s', filename || 'unnamed');
     
     const document = this.asciidoc.load(content);
-    const context: LintContext = {
-      filename,
-      options: this.config
-    };
-
     const messages: LintMessage[] = [];
     let errorCount = 0;
     let warningCount = 0;
+
+    // Initialize directive manager if enabled
+    let directiveManager: DirectiveManager | undefined;
+    const configWithDirectives = this.config as LintConfig & { enableInlineDirectives?: boolean };
+    if (configWithDirectives.enableInlineDirectives !== false) {
+      const ruleNames = Array.from(this.rules.keys());
+      directiveManager = new DirectiveManager(ruleNames);
+      
+      // Parse directives from source lines
+      const lines = content.split('\n');
+      const contentHash = DirectiveManager.generateContentHash(content);
+      const directiveMessages = directiveManager.parseDirectives(lines, contentHash);
+      
+      // Add directive warnings to messages
+      messages.push(...directiveMessages);
+      directiveMessages.forEach(msg => {
+        if (msg.severity === 'error') errorCount++;
+        else if (msg.severity === 'warning') warningCount++;
+      });
+      
+      debug('Parsed %d directives with %d warnings', 
+            directiveManager.getDirectiveLines().length, 
+            directiveMessages.length);
+    }
+
+    const context: LintContext & { directiveManager?: DirectiveManager } = {
+      filename,
+      options: this.config,
+      directiveManager
+    };
 
     for (const [ruleName, rule] of this.rules) {
       const ruleConfig = this.config.rules[ruleName];
@@ -48,6 +79,18 @@ export class AsciiDocLinter {
         const ruleMessages = rule.check(document, context);
         
         for (const message of ruleMessages) {
+          // Skip messages for directive lines
+          if (directiveManager && message.line && directiveManager.isDirectiveLine(message.line)) {
+            debug('Skipping message for directive line %d', message.line);
+            continue;
+          }
+
+          // Skip messages for disabled rules
+          if (directiveManager && message.line && directiveManager.isRuleDisabled(ruleName, message.line)) {
+            debug('Skipping message for disabled rule %s on line %d', ruleName, message.line);
+            continue;
+          }
+
           // Override severity based on config
           const severity = ruleConfig || rule.severity;
           const lintMessage: LintMessage = {
@@ -94,4 +137,5 @@ export class AsciiDocLinter {
 }
 
 export * from './types/index';
+export { DirectiveManager } from './directive-manager';
 export { AsciiDocLinter as default };

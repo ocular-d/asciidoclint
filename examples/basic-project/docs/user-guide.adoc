@@ -76,3 +76,74 @@ Common issues and their solutions:
 == Conclusion
 
 This guide covers the basic usage of the AsciiDoc linter. For more advanced topics, see the advanced examples.
+
+== Inline Directive Usage
+
+AsciiDocLint supports inline directives to disable or enable specific rules within your documents. This is useful when you need to temporarily ignore certain rules for specific content.
+
+=== Basic Directive Syntax
+
+Use `// adoc-lint` comments to control rule enforcement:
+
+[source,asciidoc]
+----
+// adoc-lint disable max-line-length
+This line can be as long as you need it to be without triggering the max-line-length rule.
+// adoc-lint enable max-line-length
+----
+
+=== Supported Directives
+
+* `// adoc-lint disable <rule>` - Disable a specific rule from this point forward
+* `// adoc-lint enable <rule>` - Re-enable a specific rule from this point forward  
+* `// adoc-lint disable-all` - Disable all rules from this point forward
+* `// adoc-lint enable-all` - Re-enable all rules from this point forward
+
+=== Multiple Rules
+
+You can specify multiple rules in a single directive using comma separation:
+
+[source,asciidoc]
+----
+// adoc-lint disable max-line-length, no-trailing-spaces
+This content can have long lines and trailing spaces without warnings.
+// adoc-lint enable max-line-length, no-trailing-spaces
+----
+
+=== Priority Rules
+
+When using nested directives, specific rule controls take priority over `disable-all` and `enable-all`:
+
+[source,asciidoc]
+----
+// adoc-lint disable-all
+// adoc-lint enable max-line-length
+This line will still be checked for length despite disable-all.
+----
+
+=== Configuration
+
+Inline directives are enabled by default. You can disable them globally in your configuration:
+
+[source,json]
+----
+{
+  "rules": {
+    "title-case": "error"
+  },
+  "enableInlineDirectives": false
+}
+----
+
+Or via the CLI:
+
+[source,bash]
+----
+asciidoclint docs/*.adoc --disable-inline-directives
+----
+
+== Test heading
+
+// adoc-lint disable max-line-length
+This line is intentionally way too long and would normally trigger line-length but we are ignoring it. This is very long yes and it should be ignored.
+// adoc-lint enable max-line-length

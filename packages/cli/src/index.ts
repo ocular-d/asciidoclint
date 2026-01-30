@@ -2,7 +2,7 @@
 
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { AsciiDocLinter } from '@asciidoclint/core';
+import { AsciiDocLinter, LintConfig } from '@asciidoclint/core';
 import { loadConfig } from './config';
 import { formatResults } from './formatters';
 import { glob } from 'glob';
@@ -21,12 +21,21 @@ program
   .option('--fix', 'Automatically fix problems')
   .option('--quiet', 'Report errors only')
   .option('--max-warnings <number>', 'Number of warnings to trigger nonzero exit code', parseInt)
+  .option('--disable-inline-directives', 'Disable processing of inline directive comments')
   .action(async (files, options) => {
     try {
       debug('CLI started with files: %O, options: %O', files, options);
       
       const config = await loadConfig(options.config);
-      const linter = new AsciiDocLinter(config);
+      
+      // Override inline directives setting from CLI option
+      const configWithDirectives = config as LintConfig & { enableInlineDirectives?: boolean };
+      if (options.disableInlineDirectives) {
+        configWithDirectives.enableInlineDirectives = false;
+        debug('Inline directives disabled via CLI option');
+      }
+      
+      const linter = new AsciiDocLinter(configWithDirectives);
       
       // Load standard rules
       const { loadStandardRules } = await import('@asciidoclint/rules-standard');
