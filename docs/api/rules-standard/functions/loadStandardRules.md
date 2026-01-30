@@ -8,7 +8,7 @@
 
 > **loadStandardRules**(`linter`): `void`
 
-Defined in: [index.ts:6](https://github.com/ocular-d/asciidoclint/blob/main/packages/rules-standard/src/index.ts#L6)
+Defined in: [index.ts:7](https://github.com/ocular-d/asciidoclint/blob/main/packages/rules-standard/src/index.ts#L7)
 
 ## Parameters
 

@@ -15,9 +15,9 @@
 			"sources": [
 				{
 					"fileName": "index.ts",
-					"line": 6,
+					"line": 7,
 					"character": 16,
-					"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/rules-standard/src/index.ts#L6"
+					"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/rules-standard/src/index.ts#L7"
 				}
 			],
 			"signatures": [
@@ -30,9 +30,9 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 6,
+							"line": 7,
 							"character": 16,
-							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/rules-standard/src/index.ts#L6"
+							"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/rules-standard/src/index.ts#L7"
 						}
 					],
 					"parameters": [
@@ -60,6 +60,34 @@
 					}
 				}
 			]
+		},
+		{
+			"id": 7,
+			"name": "headingSpacingRule",
+			"variant": "declaration",
+			"kind": 32,
+			"flags": {
+				"isConst": true
+			},
+			"sources": [
+				{
+					"fileName": "rules/heading-spacing.ts",
+					"line": 19,
+					"character": 13,
+					"url": "https://github.com/ocular-d/asciidoclint/blob/main/packages/rules-standard/src/rules/heading-spacing.ts#L19"
+				}
+			],
+			"type": {
+				"type": "reference",
+				"target": {
+					"packageName": "@testthedocs/core",
+					"packagePath": "src/types/index.ts",
+					"qualifiedName": "LintRule"
+				},
+				"name": "LintRule",
+				"package": "@testthedocs/core"
+			},
+			"defaultValue": "..."
 		},
 		{
 			"id": 6,
@@ -150,6 +178,7 @@
 		{
 			"title": "Variables",
 			"children": [
+				7,
 				6,
 				5,
 				4
@@ -198,6 +227,11 @@
 			"packageName": "@testthedocs/rules-standard",
 			"packagePath": "src/rules/max-line-length.ts",
 			"qualifiedName": "maxLineLengthRule"
+		},
+		"7": {
+			"packageName": "@testthedocs/rules-standard",
+			"packagePath": "src/rules/heading-spacing.ts",
+			"qualifiedName": "headingSpacingRule"
 		}
 	},
 	"files": {

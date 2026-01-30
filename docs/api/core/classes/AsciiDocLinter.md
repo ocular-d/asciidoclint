@@ -14,7 +14,7 @@ Defined in: [index.ts:8](https://github.com/ocular-d/asciidoclint/blob/main/pack
 
 > **new AsciiDocLinter**(`config`): `AsciiDocLinter`
 
-Defined in: [index.ts:13](https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/index.ts#L13)
+Defined in: [index.ts:14](https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/index.ts#L14)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [index.ts:13](https://github.com/ocular-d/asciidoclint/blob/main/pac
 
 > **addRule**(`rule`): `void`
 
-Defined in: [index.ts:23](https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/index.ts#L23)
+Defined in: [index.ts:25](https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/index.ts#L25)
 
 #### Parameters
 
@@ -50,7 +50,7 @@ Defined in: [index.ts:23](https://github.com/ocular-d/asciidoclint/blob/main/pac
 
 > **removeRule**(`ruleName`): `void`
 
-Defined in: [index.ts:28](https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/index.ts#L28)
+Defined in: [index.ts:31](https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/index.ts#L31)
 
 #### Parameters
 
@@ -68,7 +68,7 @@ Defined in: [index.ts:28](https://github.com/ocular-d/asciidoclint/blob/main/pac
 
 > **lintText**(`content`, `filename?`): [`LintResult`](../interfaces/LintResult.md)
 
-Defined in: [index.ts:33](https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/index.ts#L33)
+Defined in: [index.ts:37](https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/index.ts#L37)
 
 #### Parameters
 
@@ -90,7 +90,7 @@ Defined in: [index.ts:33](https://github.com/ocular-d/asciidoclint/blob/main/pac
 
 > **lintFile**(`filepath`): `Promise`\<[`LintResult`](../interfaces/LintResult.md)\>
 
-Defined in: [index.ts:132](https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/index.ts#L132)
+Defined in: [index.ts:141](https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/index.ts#L141)
 
 #### Parameters
 
