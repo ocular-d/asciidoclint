@@ -27,7 +27,7 @@ export const titleCaseRule: LintRule = {
         messages.push({
           rule: 'title-case',
           message: `Section title should use proper title case: "${sectionTitle}"`,
-          severity: 'warning',
+          severity: context.options.rules?.['title-case'] || 'warning',
           line: section.getLineNumber?.() || 0
         });
       }

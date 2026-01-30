@@ -1,0 +1,40 @@
+= User Guide for Advanced Features
+:experimental:
+
+This guide covers advanced usage patterns and configuration options.
+
+== Configuration Management
+
+Advanced configuration allows fine-tuned control over linting behavior.
+
+=== Rule Configuration
+
+Rules can be configured at multiple levels:
+
+[source,json]
+----
+{
+  "rules": {
+    "title-case": {
+      "severity": "error",
+      "exceptions": ["API", "URL", "JSON"]
+    }
+  }
+}
+----
+
+=== Environment-Specific Settings
+
+Different environments may require different rule sets:
+
+* Development: Relaxed rules for rapid iteration
+* Staging: Moderate rules for review
+* Production: Strict rules for publication
+
+== Best practices
+
+Follow these guidelines for optimal results:
+
+. Keep line length under 80 characters
+. Use consistent heading styles
+. Avoid trailing whitespace

@@ -14,6 +14,8 @@ export const noTrailingSpacesRule: LintRule = {
       return messages;
     }
     
+    const severity = context.options.rules?.['no-trailing-spaces'] || 'warning';
+    
     for (let i = 0; i < source.length; i++) {
       const line = source[i];
       const lineNumber = i + 1;
@@ -23,7 +25,7 @@ export const noTrailingSpacesRule: LintRule = {
         messages.push({
           rule: 'no-trailing-spaces',
           message: 'Line has trailing whitespace',
-          severity: 'warning',
+          severity,
           line: lineNumber,
           column: line.length,
           source: line

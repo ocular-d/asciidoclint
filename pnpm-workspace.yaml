@@ -8,8 +8,8 @@ sharedWorkspaceLockfile: true
 
 # Dependency overrides for consistency
 dependencyOverrides:
-  typescript: ^5.3.3
-  "@types/node": ^20.11.0
+  typescript: ^5.9.3
+  "@types/node": ^25.1.0
 
 # Publishing configuration
 publishConfig:

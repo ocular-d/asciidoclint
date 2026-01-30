@@ -1,5 +1,5 @@
 import { promises as fs } from 'fs';
-import { resolve, dirname } from 'path';
+import { resolve } from 'path';
 import { LintConfig } from '@asciidoclint/core';
 import Debug from 'debug';
 
@@ -58,6 +58,7 @@ async function loadConfigFile(filepath: string): Promise<LintConfig> {
     
     throw new Error(`Unsupported config file format: ${filepath}`);
   } catch (error) {
-    throw new Error(`Failed to load config file ${filepath}: ${error.message}`);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    throw new Error(`Failed to load config file ${filepath}: ${errorMessage}`);
   }
 }

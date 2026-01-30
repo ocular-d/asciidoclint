@@ -10,7 +10,7 @@
   "scripts": {
     "build": "tsc && chmod +x bin/cli.js",
     "dev": "tsc --watch",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "type-check": "tsc --noEmit",
     "lint": "eslint src/**/*.ts",
     "clean": "rm -rf dist",
@@ -48,8 +48,8 @@
   },
   "devDependencies": {
     "@types/debug": "^4.1.12",
-    "typescript": "workspace:*",
-    "@types/node": "workspace:*",
-    "jest": "workspace:*"
+    "typescript": "^5.9.3",
+    "@types/node": "^25.1.0",
+    "jest": "^30.2.0"
   }
 }

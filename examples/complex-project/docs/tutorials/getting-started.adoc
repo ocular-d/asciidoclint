@@ -1,0 +1,46 @@
+= Getting Started Tutorial
+:icons: font
+
+Step-by-step tutorial for new users.
+
+== Prerequisites
+
+Before starting, ensure you have:
+
+* Node.js 18 or later installed
+* Basic knowledge of AsciiDoc syntax
+* A text editor with AsciiDoc support
+
+== Installation Steps
+
+. Install the CLI package:
++
+[source,bash]
+----
+npm install -g @asciidoclint/cli
+----
+
+. Verify installation:
++
+[source,bash]
+----
+asciidoclint --version
+----
+
+. Create your first configuration:
++
+[source,bash]
+----
+echo '{"rules": {"title-case": "warning"}}' > .asciidoclintrc.json
+----
+
+== First Lint
+
+Try linting this very file:
+
+[source,bash]
+----
+asciidoclint getting-started.adoc
+----
+
+NOTE: This tutorial demonstrates various AsciiDoc features and potential linting issues.

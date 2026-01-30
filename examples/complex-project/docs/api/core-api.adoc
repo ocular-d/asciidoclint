@@ -1,0 +1,34 @@
+= Core API Reference
+:toc:
+
+Comprehensive API documentation for the core linting engine.
+
+== Linter Class
+
+The main linter class provides document analysis capabilities.
+
+=== Constructor
+
+Creates a new linter instance with optional configuration.
+
+[source,typescript]
+----
+new AsciiDocLinter(config?: LintConfig)
+----
+
+=== Methods
+
+==== Lint Text Method
+
+Analyzes AsciiDoc content and returns linting results.
+
+[source,typescript]
+----
+lintText(content: string, filename?: string): LintResult
+----
+
+*Parameters:*
+* `content` - The AsciiDoc content to analyze
+* `filename` - Optional filename for context
+
+*Returns:* `LintResult` object with messages and counts

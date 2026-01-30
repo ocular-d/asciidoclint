@@ -72,7 +72,8 @@ program
       }
       
     } catch (error) {
-      console.error(chalk.red('Error:', error.message));
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      console.error(chalk.red('Error:', errorMessage));
       debug('CLI error: %O', error);
       process.exit(1);
     }

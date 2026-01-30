@@ -1,6 +1,6 @@
 import asciidoctor from '@asciidoctor/core';
 import Debug from 'debug';
-import { LintRule, LintContext, LintResult, LintMessage, LintConfig } from './types';
+import { LintRule, LintContext, LintResult, LintMessage, LintConfig } from './types/index';
 
 const debug = Debug('asciidoclint:core');
 
@@ -65,9 +65,10 @@ export class AsciiDocLinter {
         }
       } catch (error) {
         debug('Error running rule %s: %O', ruleName, error);
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
         messages.push({
           rule: ruleName,
-          message: `Rule error: ${error.message}`,
+          message: `Rule error: ${errorMessage}`,
           severity: 'error'
         });
         errorCount++;
@@ -92,5 +93,5 @@ export class AsciiDocLinter {
   }
 }
 
-export * from './types';
+export * from './types/index';
 export { AsciiDocLinter as default };

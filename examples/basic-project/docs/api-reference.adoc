@@ -5,9 +5,11 @@ Basic API documentation for the project.
 
 == Core Functions
 
-=== `lintDocument(content: string): LintResult`
+=== Lint Document Function
 
 Lints an AsciiDoc document and returns the results.
+
+*Signature:* `lintDocument(content: string): LintResult`
 
 .Parameters
 * `content` - The AsciiDoc content as a string
@@ -22,9 +24,11 @@ const result = lintDocument('= My Document\n\nContent here.');
 console.log(result.messages);
 ----
 
-=== `loadConfig(path?: string): LintConfig`
+=== Load Configuration Function
 
 Loads configuration from a file or uses defaults.
+
+*Signature:* `loadConfig(path?: string): LintConfig`
 
 .Parameters
 * `path` - Optional path to configuration file

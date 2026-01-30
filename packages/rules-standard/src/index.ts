@@ -1,4 +1,4 @@
-import { LintRule, LintMessage, LintContext, AsciiDocLinter } from '@asciidoclint/core';
+import { AsciiDocLinter } from '@asciidoclint/core';
 import { titleCaseRule } from './rules/title-case';
 import { noTrailingSpacesRule } from './rules/no-trailing-spaces';
 import { maxLineLengthRule } from './rules/max-line-length';
