@@ -6,4 +6,7 @@
 {{!-- {{> article-info-bar}} --}}
 {{/if}}
 {{{page.contents}}}
+{{#if (and (ne page.layout '404') (ne page.layout 'subsection'))}}
+{{> page-pagination}}
+{{/if}}
 </article>

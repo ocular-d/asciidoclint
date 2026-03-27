@@ -79,7 +79,7 @@
   --doc-font-size--desktop: 16px;
   --doc-line-height: 1.7;
   --doc-margin: 0 auto;
-  --doc-margin--desktop: 0 2rem;
+  --doc-margin--desktop: 0;
   --heading-font-color: #161616;
   --heading-font-weight: 500;
   --alt-heading-font-weight: 500;
