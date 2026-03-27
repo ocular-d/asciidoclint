@@ -41,6 +41,7 @@ new AsciiDocLinter(config?: LintConfig)
 `addRule(rule: LintRule): void`::
 Registers a custom xref:#lint-rule[`LintRule`] with the linter.
 Use this to extend the linter with rules not included in `@testthedocs/rules-standard`.
+See xref:contributing.adoc[Contributing] for a walkthrough of writing and testing custom rules.
 
 `removeRule(ruleName: string): void`::
 Removes a rule by its `name` string.
@@ -229,4 +230,8 @@ console.log(maxLineLengthRule.severity);     // 'warning'
 linter.addRule(headingSpacingRule);
 ----
 
-For the configuration options each rule accepts, see xref:rules.adoc[Rules].
+== Next Steps
+
+* xref:rules.adoc[Rules]: configuration options accepted by each standard rule
+* xref:configuration.adoc[Configuration]: severity levels, config file formats, and inline directives
+* xref:contributing.adoc[Contributing]: write and test custom rules against a local build

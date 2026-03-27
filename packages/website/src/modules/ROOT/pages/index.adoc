@@ -8,30 +8,32 @@ It helps ensure consistency and quality in your documentation by checking for co
 
 == Features
 
-* **Extensible rule system**: Extend with custom rules without modifying the core engine
-* **Configurable**: Customize rules and their settings
+* **Extensible rule system**: xref:contributing.adoc[Extend with custom rules] without modifying the core engine
+* **Configurable**: xref:configuration.adoc[Customize rules and their settings] per project or document type
 * **Fast**: Built with TypeScript and Node.js for performance
-* **CLI and programmatic API**: Use from the command line or integrate into your build process
+* **CLI and programmatic API**: xref:usage.adoc[Use from the command line] or xref:api-reference.adoc[integrate into your build process]
 
 == Quick Start
 
-.Installation
+See the xref:installation.adoc[Installation] page for all install options, including npm, yarn, and global installs.
+
+.Install the CLI
 [source,bash]
 ----
-pnpm add @testthedocs/asciidoc-linter
+pnpm add -g @testthedocs/cli
 ----
 
-.Basic Usage
+.Lint a document
 [source,bash]
 ----
 adoc-lint my-document.adoc
 ----
 
-== Getting Help
+== Next Steps
 
-* xref:installation.adoc[Installation Guide]
-//* xref:usage.adoc[Usage Examples]
-//* xref:rules.adoc[Available Rules]
-//* xref:configuration.adoc[Configuration Options]
-
-//For development information, see the xref:development.adoc[Development Guide].
+* xref:installation.adoc[Installation]: prerequisites and install options
+* xref:usage.adoc[Usage]: CLI usage, glob patterns, and output formats
+* xref:configuration.adoc[Configuration]: rule severity, config files, and inline directives
+* xref:rules.adoc[Rules]: all available rules with examples and options
+* xref:api-reference.adoc[API Reference]: programmatic API for build integrations
+* xref:contributing.adoc[Contributing]: local development setup and writing custom rules

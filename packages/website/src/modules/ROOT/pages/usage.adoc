@@ -38,6 +38,7 @@ cat document.adoc | adoc-lint
 == Configuration
 
 Pass a configuration file to override default rule settings.
+See xref:configuration.adoc[Configuration] for the full schema, file discovery order, and severity levels.
 
 === Using a Configuration File
 
@@ -59,25 +60,35 @@ adoc-lint --format json document.adoc
 
 == Programmatic API
 
+Use the programmatic API to integrate linting directly into build scripts, editors, or custom tooling.
+See xref:api-reference.adoc[API Reference] for the full type definitions and method signatures.
+
 [source,javascript]
 ----
-import { runRules, loadRules } from '@testthedocs/asciidoc-linter';
+import { AsciiDocLinter } from '@testthedocs/core';
+import { loadStandardRules } from '@testthedocs/rules-standard';
 
-const content = `= My Document
-Some content here.`;
+const linter = new AsciiDocLinter({
+  rules: {
+    'max-line-length': ['warning', { maxLength: 80 }],
+    'heading-spacing': 'warning'
+  }
+});
 
-const rules = await loadRules();
-const config = {
-  'max-line-length': { max: 80 },
-  'heading-spacing': true
-};
+loadStandardRules(linter);
 
-const issues = runRules(content, rules, config);
-console.log(issues);
+const result = await linter.lintFile('my-document.adoc');
+console.log(result);
 ----
 
 == Exit Codes
 
-* `0`: No issues found
-* `1`: Configuration or runtime error
-* `2`: Linting issues found
+* `0`: No issues found, or only info-level messages
+* `1`: Configuration error, file not found, or runtime error
+* `2`: Error-level or warning-level issues found (depending on `--quiet` and `--max-warnings`)
+
+== Next Steps
+
+* xref:configuration.adoc[Configuration]: rule severity, config files, and inline directives
+* xref:rules.adoc[Rules]: all available rules with examples and options
+* xref:api-reference.adoc[API Reference]: full programmatic API documentation

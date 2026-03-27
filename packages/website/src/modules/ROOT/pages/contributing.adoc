@@ -105,3 +105,9 @@ which adoc-lint
 ----
 
 If the command is no longer found, or resolves to a globally installed npm version, the link has been removed successfully.
+
+== Next Steps
+
+* xref:api-reference.adoc#lint-rule[LintRule interface]: the contract every custom rule must implement
+* xref:rules.adoc[Rules]: study the existing standard rules as implementation reference
+* xref:configuration.adoc[Configuration]: understand how severity levels and rule options are applied at runtime

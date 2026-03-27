@@ -16,21 +16,21 @@ pnpm::
 +
 [source,bash]
 ----
-pnpm add @testthedocs/asciidoc-linter
+pnpm add @testthedocs/cli
 ----
 
 npm::
 +
 [source,shell]
 ----
-npm install @testthedocs/asciidoc-linter
+npm install @testthedocs/cli
 ----
 
 yarn::
 +
 [source,shell]
 ----
-yarn add @testthedocs/asciidoc-linter
+yarn add @testthedocs/cli
 ----
 ====
 
@@ -40,7 +40,7 @@ For command-line usage, install globally:
 
 [source,bash]
 ----
-pnpm add -g @testthedocs/asciidoc-linter
+pnpm add -g @testthedocs/cli
 ----
 
 == Verify Installation
@@ -71,3 +71,11 @@ cd asciidoc-linter
 pnpm install
 pnpm run build
 ----
+
+For watch mode, linking the CLI into another project, and running tests, see the xref:contributing.adoc[Contributing] guide.
+
+== Next Steps
+
+* xref:usage.adoc[Usage]: run the linter from the command line
+* xref:configuration.adoc[Configuration]: customize rules and severity levels
+* xref:contributing.adoc[Contributing]: set up a development environment

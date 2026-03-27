@@ -511,6 +511,7 @@ $ adoc-lint docs/tutorials/ --config configs/tutorials.json
 
 AsciiDocLint supports inline directives that let you control rules within your documents using special comments.
 This is useful for handling exceptional content that doesn't fit standard formatting rules.
+The `enableInlineDirectives` setting in your xref:configuration.adoc[configuration file] controls whether directives are processed globally.
 
 === Basic Usage
 
@@ -640,4 +641,8 @@ $ adoc-lint docs/inline-example.adoc
 |None
 |===
 
-For detailed configuration examples, see the xref:configuration.adoc[Configuration] page.
+== Next Steps
+
+* xref:configuration.adoc[Configuration]: rule severity levels, config file formats, and inline directive settings
+* xref:api-reference.adoc[API Reference]: implement the `LintRule` interface to write custom rules
+* xref:contributing.adoc[Contributing]: set up a local development environment to test your changes

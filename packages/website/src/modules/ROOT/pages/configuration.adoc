@@ -661,8 +661,9 @@ adoc-lint docs/
 }
 ----
 
-== Related Documentation
+== Next Steps
 
-* xref:installation.adoc[Installation]: Setting up AsciiDocLint
-* xref:usage.adoc[Usage]: Command-line usage examples
-* xref:rules.adoc[Rules]: Detailed rule documentation and examples
+* xref:installation.adoc[Installation]: setting up AsciiDocLint
+* xref:usage.adoc[Usage]: command-line usage examples
+* xref:rules.adoc[Rules]: detailed rule documentation and examples
+* xref:contributing.adoc[Contributing]: write custom rules and set up a development environment
