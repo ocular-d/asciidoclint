@@ -16,21 +16,21 @@ pnpm::
 +
 [source,bash]
 ----
-pnpm add @testthedocs/cli
+pnpm add @testthedocs/asciidoc-linter
 ----
 
 npm::
 +
 [source,shell]
 ----
-npm install @testthedocs/cli
+npm install @testthedocs/asciidoc-linter
 ----
 
 yarn::
 +
 [source,shell]
 ----
-yarn add @testthedocs/cli
+yarn add @testthedocs/asciidoc-linter
 ----
 ====
 
@@ -40,7 +40,7 @@ For command-line usage, install globally:
 
 [source,bash]
 ----
-pnpm add -g @testthedocs/cli
+pnpm add -g @testthedocs/asciidoc-linter
 ----
 
 == Verify Installation

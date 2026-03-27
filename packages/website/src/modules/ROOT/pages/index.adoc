@@ -20,7 +20,7 @@ See the xref:installation.adoc[Installation] page for all install options, inclu
 .Install the CLI
 [source,bash]
 ----
-pnpm add -g @testthedocs/cli
+pnpm add -g @testthedocs/asciidoc-linter
 ----
 
 .Lint a document
