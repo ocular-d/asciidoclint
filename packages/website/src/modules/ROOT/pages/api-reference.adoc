@@ -1,0 +1,232 @@
+= API Reference
+
+[.lead]
+The programmatic API lets you integrate AsciiDocLint directly into build pipelines, editors, or custom tooling without going through the CLI.
+
+The API spans two packages:
+
+* `@testthedocs/core` — the linting engine, types, and interfaces
+* `@testthedocs/rules-standard` — the standard rule implementations
+
+== @testthedocs/core
+
+=== AsciiDocLinter
+
+The `AsciiDocLinter` class is the main entry point for programmatic use.
+Import it and pass an optional xref:#lint-config[`LintConfig`] to the constructor.
+
+[source,typescript]
+----
+import { AsciiDocLinter } from '@testthedocs/core';
+
+const linter = new AsciiDocLinter({
+  rules: {
+    'title-case': 'error',
+    'max-line-length': ['warning', { maxLength: 100 }]
+  }
+});
+----
+
+==== Constructor
+
+[source,typescript]
+----
+new AsciiDocLinter(config?: LintConfig)
+----
+
+`config`:: Optional xref:#lint-config[`LintConfig`] object. When omitted, the default rule configuration applies.
+
+==== Methods
+
+`addRule(rule: LintRule): void`::
+Registers a custom xref:#lint-rule[`LintRule`] with the linter.
+Use this to extend the linter with rules not included in `@testthedocs/rules-standard`.
+
+`removeRule(ruleName: string): void`::
+Removes a rule by its `name` string.
+Useful when loading the standard rules but disabling specific ones at runtime.
+
+`lintText(content: string, filename?: string): LintResult`::
+Lints a string of AsciiDoc content synchronously.
+Returns a xref:#lint-result[`LintResult`].
+The optional `filename` is used in error messages only.
+
+`lintFile(filepath: string): Promise<LintResult>`::
+Reads and lints a file from disk asynchronously.
+Returns a `Promise` that resolves to a xref:#lint-result[`LintResult`].
+
+.Example: Lint a file
+[source,typescript]
+----
+const result = await linter.lintFile('docs/guide.adoc');
+
+if (result.errorCount > 0) {
+  console.error(`${result.errorCount} errors found`);
+  process.exit(1);
+}
+----
+
+=== Types and Interfaces
+
+[#severity]
+==== Severity
+
+[source,typescript]
+----
+type Severity = 'error' | 'warning' | 'info';
+----
+
+The three severity levels that rules and configurations use.
+`'off'` is accepted in configuration objects but is not part of this type alias — it disables the rule entirely.
+
+[#lint-rule]
+==== LintRule
+
+The interface every rule must implement.
+
+[source,typescript]
+----
+interface LintRule {
+  name: string;
+  description: string;
+  severity: Severity;
+  check(document: any, context: LintContext): LintMessage[];
+}
+----
+
+`name`:: Unique rule identifier used in configuration files (e.g., `'max-line-length'`).
+`description`:: Human-readable description shown in output and tooling.
+`severity`:: Default severity applied when the rule is not explicitly configured.
+`check(document, context)`:: Runs the rule against the parsed document and returns an array of xref:#lint-message[`LintMessage`] objects. Return an empty array when the document passes.
+
+[#lint-config]
+==== LintConfig
+
+The configuration object passed to the `AsciiDocLinter` constructor and accepted by rule configuration files.
+
+[source,typescript]
+----
+interface LintConfig {
+  rules: Record<string, Severity | 'off' | any>;
+}
+----
+
+`rules`:: A map of rule names to either a severity string (`'error'`, `'warning'`, `'info'`, `'off'`) or a tuple of `[severity, options]` for rules that accept additional configuration.
+
+.Example configuration
+[source,typescript]
+----
+const config: LintConfig = {
+  rules: {
+    'title-case': 'error',
+    'no-trailing-spaces': 'warning',
+    'max-line-length': ['warning', { maxLength: 100 }],
+    'heading-spacing': 'off'
+  }
+};
+----
+
+[#lint-context]
+==== LintContext
+
+Passed to every rule's `check()` method, providing access to configuration and file metadata.
+
+[source,typescript]
+----
+interface LintContext {
+  filename?: string;
+  options: LintConfig;
+}
+----
+
+`filename`:: The file path being linted, if available. May be undefined when linting in-memory strings.
+`options`:: The full xref:#lint-config[`LintConfig`] in effect, including rule-specific options. Access per-rule options via `context.options.rules[ruleName]`.
+
+[#lint-result]
+==== LintResult
+
+The object returned by `lintText()` and `lintFile()`.
+
+[source,typescript]
+----
+interface LintResult {
+  filename: string;
+  messages: LintMessage[];
+  errorCount: number;
+  warningCount: number;
+}
+----
+
+`filename`:: The file path that was linted.
+`messages`:: Array of xref:#lint-message[`LintMessage`] objects, one per violation found.
+`errorCount`:: Total number of messages with `severity: 'error'`.
+`warningCount`:: Total number of messages with `severity: 'warning'`.
+
+[#lint-message]
+==== LintMessage
+
+A single violation reported by a rule.
+
+[source,typescript]
+----
+interface LintMessage {
+  rule: string;
+  message: string;
+  severity: Severity;
+  line?: number;
+  column?: number;
+  source?: string;
+}
+----
+
+`rule`:: The `name` of the rule that produced this message.
+`message`:: Human-readable description of the violation.
+`severity`:: The effective severity level (after applying configuration overrides).
+`line`:: 1-based line number where the violation was found. Optional.
+`column`:: 1-based column number. Optional.
+`source`:: The original source text of the offending line. Optional.
+
+== @testthedocs/rules-standard
+
+=== loadStandardRules()
+
+Registers all four standard rules with an `AsciiDocLinter` instance.
+This is the recommended way to set up the linter for typical use.
+
+[source,typescript]
+----
+import { AsciiDocLinter } from '@testthedocs/core';
+import { loadStandardRules } from '@testthedocs/rules-standard';
+
+const linter = new AsciiDocLinter({ rules: { 'title-case': 'error' } });
+loadStandardRules(linter);
+----
+
+[source,typescript]
+----
+function loadStandardRules(linter: AsciiDocLinter): void
+----
+
+`linter`:: The `AsciiDocLinter` instance to register rules on.
+
+=== Rule Objects
+
+Each rule is exported as a named constant that implements xref:#lint-rule[`LintRule`].
+Import individual rules when you need to register them selectively or inspect their metadata.
+
+[source,typescript]
+----
+import {
+  headingSpacingRule,
+  titleCaseRule,
+  maxLineLengthRule,
+  noTrailingSpacesRule
+} from '@testthedocs/rules-standard';
+
+console.log(headingSpacingRule.name);        // 'heading-spacing'
+console.log(maxLineLengthRule.severity);     // 'warning'
+
+linter.addRule(headingSpacingRule);
+----
+
+For the configuration options each rule accepts, see xref:rules.adoc[Rules].

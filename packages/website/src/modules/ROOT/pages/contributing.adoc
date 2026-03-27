@@ -1,0 +1,107 @@
+= Contributing
+
+[.lead]
+This guide covers everything you need to contribute to AsciiDocLint — from setting up a local development environment to testing your changes in another project.
+
+== Prerequisites
+
+Before you start, complete the xref:installation.adoc#development-installation[Development Installation] steps to clone the repository and build all packages.
+
+== Local Development
+
+=== Watch Mode
+
+Each package supports a watch mode that recompiles on file changes.
+Run watch mode for the package you are working on:
+
+[source,bash]
+----
+# Watch the core engine
+cd packages/core && pnpm dev
+
+# Watch the standard rules
+cd packages/rules-standard && pnpm dev
+
+# Watch the CLI
+cd packages/cli && pnpm dev
+----
+
+To watch all packages simultaneously, run from the workspace root:
+
+[source,bash]
+----
+pnpm dev
+----
+
+=== Running Tests
+
+Run the full test suite from the workspace root:
+
+[source,bash]
+----
+pnpm test
+----
+
+To run tests for a single package:
+
+[source,bash]
+----
+cd packages/core && pnpm test
+cd packages/rules-standard && pnpm test
+cd packages/cli && pnpm test
+----
+
+== Linking for Local Testing
+
+Use `pnpm link` to test your local build of AsciiDocLint inside another project without publishing to npm.
+
+=== Link the CLI
+
+From the workspace root, build all packages first, then link the CLI globally:
+
+[source,bash]
+----
+pnpm build
+cd packages/cli
+pnpm link --global
+----
+
+The `adoc-lint` command now resolves to your local build.
+Verify it points to the right place:
+
+[source,bash]
+----
+which adoc-lint
+----
+
+=== Use the Linked CLI in Another Project
+
+Navigate to the project where you want to test your changes and run the linter as normal:
+
+[source,bash]
+----
+cd /path/to/your-project
+adoc-lint docs/**/*.adoc
+----
+
+Changes you make to the source under `packages/` take effect after rebuilding.
+If you are running `pnpm dev` in watch mode, rebuilds happen automatically.
+
+=== Unlink When Done
+
+Remove the global link once you have finished testing:
+
+[source,bash]
+----
+cd packages/cli
+pnpm unlink --global
+----
+
+Confirm the link is removed:
+
+[source,bash]
+----
+which adoc-lint
+----
+
+If the command is no longer found, or resolves to a globally installed npm version, the link has been removed successfully.

@@ -1,29 +1,34 @@
 = Usage
 
-== Command Line Interface
+[.lead]
+AsciiDocLint provides a command-line interface and a programmatic API for integrating linting into your workflow.
 
-=== Basic usage
+== Command-Line Interface
+
+Use the CLI to lint one or more AsciiDoc files directly from your terminal.
+
+=== Basic Usage
 
 [source,bash]
 ----
 adoc-lint document.adoc
 ----
 
-=== Multiple files
+=== Multiple Files
 
 [source,bash]
 ----
 adoc-lint doc1.adoc doc2.adoc doc3.adoc
 ----
 
-=== Glob patterns
+=== Glob Patterns
 
 [source,bash]
 ----
 adoc-lint docs/**/*.adoc
 ----
 
-=== Piping content
+=== Piping Content
 
 [source,bash]
 ----
@@ -32,14 +37,16 @@ cat document.adoc | adoc-lint
 
 == Configuration
 
-=== Using a configuration file
+Pass a configuration file to override default rule settings.
+
+=== Using a Configuration File
 
 [source,bash]
 ----
 adoc-lint --config adoc-lint.json document.adoc
 ----
 
-=== Output formats
+=== Output Formats
 
 [source,bash]
 ----
@@ -61,15 +68,15 @@ Some content here.`;
 
 const rules = await loadRules();
 const config = {
-  'line-length': { max: 80 },
-  'heading-style-equals': true
+  'max-line-length': { max: 80 },
+  'heading-spacing': true
 };
 
 const issues = runRules(content, rules, config);
 console.log(issues);
 ----
 
-== Exit codes
+== Exit Codes
 
 * `0`: No issues found
 * `1`: Configuration or runtime error

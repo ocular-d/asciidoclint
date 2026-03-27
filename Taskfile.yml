@@ -2,26 +2,42 @@ version: "3"
 
 tasks:
   # ── Docs: API reference (TypeDoc) ─────────────────────────────────────────
+  # These tasks generate Markdown under docs/api/ for developer reference.
+  # They are NOT part of docs:build — the Antora site uses the hand-authored
+  # api-reference.adoc page instead. Run `task docs:api` after changing
+  # TypeScript source to keep the generated output current.
   docs:api:core:
-    desc: Generate API docs for @testthedocs/core
+    desc: Generate API docs for @testthedocs/core (skips when source is unchanged)
     dir: packages/core
+    sources:
+      - src/**/*.ts
+    generates:
+      - ../../docs/api/core/**/*.md
     cmds:
       - pnpm exec typedoc
 
   docs:api:cli:
-    desc: Generate API docs for @testthedocs/cli
+    desc: Generate API docs for @testthedocs/cli (skips when source is unchanged)
     dir: packages/cli
+    sources:
+      - src/**/*.ts
+    generates:
+      - ../../docs/api/cli/**/*.md
     cmds:
       - pnpm exec typedoc
 
   docs:api:rules:
-    desc: Generate API docs for @testthedocs/rules-standard
+    desc: Generate API docs for @testthedocs/rules-standard (skips when source is unchanged)
     dir: packages/rules-standard
+    sources:
+      - src/**/*.ts
+    generates:
+      - ../../docs/api/rules-standard/**/*.md
     cmds:
       - pnpm exec typedoc
 
   docs:api:
-    desc: Generate API docs for all packages
+    desc: Generate API docs for all packages (each skips when source is unchanged)
     deps:
       - docs:api:core
       - docs:api:cli
@@ -76,10 +92,9 @@ tasks:
 
   # ── Docs: Full build pipeline ─────────────────────────────────────────────
   docs:build:
-    desc: "Full docs build: packages → API reference → theme → site"
+    desc: "Full docs build: packages → theme → site"
     cmds:
       - task: build:packages
-      - task: docs:api
       - task: docs:theme:bundle
       - task: docs:site
 

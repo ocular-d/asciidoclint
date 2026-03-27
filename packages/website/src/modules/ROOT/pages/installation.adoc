@@ -1,9 +1,12 @@
 = Installation
+:node-min-version: 18.0.0
+:pnpm-min-version: 8.0.0
+:asciidoclint-version: 1.0.0
 
 == Prerequisites
 
-* Node.js 18.0.0 or later
-* pnpm 8.0.0 or later (recommended)
+* Node.js {node-min-version} or later
+* pnpm {pnpm-min-version} or later (recommended)
 
 == Installing from npm
 
@@ -31,7 +34,7 @@ yarn add @testthedocs/asciidoc-linter
 ----
 ====
 
-== Global installation
+== Global Installation
 
 For command-line usage, install globally:
 
@@ -40,7 +43,9 @@ For command-line usage, install globally:
 pnpm add -g @testthedocs/asciidoc-linter
 ----
 
-== Verify installation
+== Verify Installation
+
+Run the following command to confirm the installation succeeded:
 
 [source,bash]
 ----
@@ -51,10 +56,11 @@ adoc-lint --version
 [literal]
 ----
 node bin/cli.js --version
-1.0.0
+{asciidoclint-version}
 ----
 
-== Development installation
+[#development-installation]
+== Development Installation
 
 To install for development:
 
