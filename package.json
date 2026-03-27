@@ -28,19 +28,19 @@
     "promote-release": "node scripts/promote-release.js"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.29.8",
-    "@types/node": "^25.1.0",
-    "@typescript-eslint/eslint-plugin": "^8.54.0",
-    "@typescript-eslint/parser": "^8.54.0",
-    "eslint": "^9.39.2",
-    "jest": "^30.2.0",
-    "prettier": "^3.8.1",
-    "typescript": "^5.9.3",
-    "execa": "^9.6.1",
-    "semver": "^7.7.3",
-    "typedoc": "^0.28.16",
-    "typedoc-plugin-markdown": "^4.4.0",
+    "@changesets/cli": "^2.30.0",
     "@testthedocs/antora-theme": "workspace:*",
-    "@testthedocs/docs": "workspace:*"
+    "@testthedocs/docs": "workspace:*",
+    "@types/node": "^25.5.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.2",
+    "@typescript-eslint/parser": "^8.57.2",
+    "eslint": "^10.1.0",
+    "execa": "^9.6.1",
+    "jest": "^30.3.0",
+    "prettier": "^3.8.1",
+    "semver": "^7.7.4",
+    "typedoc": "^0.28.18",
+    "typedoc-plugin-markdown": "^4.11.0",
+    "typescript": "^6.0.2"
   }
 }

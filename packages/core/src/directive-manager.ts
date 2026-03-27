@@ -1,5 +1,5 @@
 import Debug from 'debug';
-import { LintMessage } from './types/index';
+import { LintMessage } from './types/index.js';
 
 const debug = Debug('asciidoclint:directive-manager');
 

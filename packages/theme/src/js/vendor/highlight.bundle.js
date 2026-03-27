@@ -1,7 +1,7 @@
 ;(function () {
   'use strict'
 
-  const hljs = require('highlight.js/lib')
+  const hljs = require('highlight.js/lib/core')
   // Register all languages first
   hljs.registerLanguage('asciidoc', require('highlight.js/lib/languages/asciidoc'))
   hljs.registerLanguage('bash', require('highlight.js/lib/languages/bash'))
@@ -332,7 +332,7 @@
 
   // First, highlight all code blocks
   ;[].slice.call(document.querySelectorAll('pre code.hljs[data-lang]')).forEach(function (node) {
-    hljs.highlightBlock(node)
+    hljs.highlightElement(node)
   })
 
   // Then, apply line numbers to highlighted blocks

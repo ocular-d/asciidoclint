@@ -5,7 +5,6 @@ const browserify = require('browserify')
 const concat = require('gulp-concat')
 const cssnano = require('cssnano')
 const fs = require('fs-extra')
-const imagemin = require('gulp-imagemin')
 const merge = require('merge-stream')
 const ospath = require('path')
 const path = ospath.posix
@@ -21,7 +20,7 @@ const through = () => map((file, enc, next) => next(null, file))
 const uglify = require('gulp-uglify')
 const vfs = require('vinyl-fs')
 
-module.exports = (src, dest, preview) => () => {
+module.exports = (src, dest, preview) => () => new Promise((resolve, reject) => {
   const opts = { base: src, cwd: src }
   const sourcemaps = preview || process.env.SOURCEMAPS === 'true'
   const postcssPlugins = [
@@ -108,7 +107,9 @@ module.exports = (src, dest, preview) => () => {
     vfs.src('partials/*.hbs', opts),
     vfs.src('static/**/*[!~]', { ...opts, base: ospath.join(src, 'static'), dot: true })
   ).pipe(vfs.dest(dest, { sourcemaps: sourcemaps && '.' }))
-}
+    .on('finish', resolve)
+    .on('error', reject)
+})
 
 function bundle ({ base: basedir, ext: bundleExt = '.bundle.js' }) {
   return map((file, enc, next) => {

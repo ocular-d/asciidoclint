@@ -1,7 +1,7 @@
 import asciidoctor from '@asciidoctor/core';
 import Debug from 'debug';
-import { LintRule, LintContext, LintResult, LintMessage, LintConfig } from './types/index';
-import { DirectiveManager } from './directive-manager';
+import { LintRule, LintContext, LintResult, LintMessage, LintConfig } from './types/index.js';
+import { DirectiveManager } from './directive-manager.js';
 
 const debug = Debug('asciidoclint:core');
 
@@ -214,6 +214,6 @@ export class AsciiDocLinter {
   }
 }
 
-export * from './types/index';
-export { DirectiveManager } from './directive-manager';
+export * from './types/index.js';
+export { DirectiveManager } from './directive-manager.js';
 export { AsciiDocLinter as default };

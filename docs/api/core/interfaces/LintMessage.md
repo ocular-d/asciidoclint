@@ -36,7 +36,7 @@ Defined in: [types/index.ts:6](https://github.com/ocular-d/asciidoclint/blob/mai
 
 ### line?
 
-> `optional` **line**: `number`
+> `optional` **line?**: `number`
 
 Defined in: [types/index.ts:7](https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L7)
 
@@ -44,7 +44,7 @@ Defined in: [types/index.ts:7](https://github.com/ocular-d/asciidoclint/blob/mai
 
 ### column?
 
-> `optional` **column**: `number`
+> `optional` **column?**: `number`
 
 Defined in: [types/index.ts:8](https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L8)
 
@@ -52,6 +52,6 @@ Defined in: [types/index.ts:8](https://github.com/ocular-d/asciidoclint/blob/mai
 
 ### source?
 
-> `optional` **source**: `string`
+> `optional` **source?**: `string`
 
 Defined in: [types/index.ts:9](https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L9)

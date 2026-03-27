@@ -2,12 +2,21 @@
   "name": "@testthedocs/rules-standard",
   "version": "1.0.0",
   "description": "Standard rules for AsciiDoc linting",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "test": "jest --passWithNoTests",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --passWithNoTests",
     "type-check": "tsc --noEmit",
     "lint": "eslint src/**/*.ts",
     "clean": "rm -rf dist"
@@ -35,12 +44,12 @@
   },
   "dependencies": {
     "@testthedocs/core": "workspace:*",
-    "debug": "^4.3.4"
+    "debug": "^4.4.3"
   },
   "devDependencies": {
-    "@types/debug": "^4.1.12",
-    "typescript": "^5.9.3",
-    "@types/node": "^25.1.0",
-    "jest": "^30.2.0"
+    "@types/debug": "^4.1.13",
+    "@types/node": "^25.5.0",
+    "jest": "^30.3.0",
+    "typescript": "^6.0.2"
   }
 }

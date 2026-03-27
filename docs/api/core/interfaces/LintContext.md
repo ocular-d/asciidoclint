@@ -12,7 +12,7 @@ Defined in: [types/index.ts:19](https://github.com/ocular-d/asciidoclint/blob/ma
 
 ### filename?
 
-> `optional` **filename**: `string`
+> `optional` **filename?**: `string`
 
 Defined in: [types/index.ts:20](https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/types/index.ts#L20)
 

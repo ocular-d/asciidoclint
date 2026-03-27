@@ -3,8 +3,8 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import { AsciiDocLinter, LintConfig } from '@testthedocs/core';
-import { loadConfig } from './config';
-import { formatResults } from './formatters';
+import { loadConfig } from './config.js';
+import { formatResults } from './formatters.js';
 import { glob } from 'glob';
 import Debug from 'debug';
 

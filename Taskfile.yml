@@ -1,0 +1,110 @@
+version: "3"
+
+tasks:
+  # ── Docs: API reference (TypeDoc) ─────────────────────────────────────────
+  docs:api:core:
+    desc: Generate API docs for @testthedocs/core
+    dir: packages/core
+    cmds:
+      - pnpm exec typedoc
+
+  docs:api:cli:
+    desc: Generate API docs for @testthedocs/cli
+    dir: packages/cli
+    cmds:
+      - pnpm exec typedoc
+
+  docs:api:rules:
+    desc: Generate API docs for @testthedocs/rules-standard
+    dir: packages/rules-standard
+    cmds:
+      - pnpm exec typedoc
+
+  docs:api:
+    desc: Generate API docs for all packages
+    deps:
+      - docs:api:core
+      - docs:api:cli
+      - docs:api:rules
+
+  # ── Docs: Theme (Antora UI / Vite) ────────────────────────────────────────
+  docs:theme:
+    desc: Build the Antora UI theme (main assets)
+    cmds:
+      - pnpm --filter @testthedocs/antora-theme build
+
+  docs:theme:bundle:
+    desc: Build the Antora UI theme including vendor bundles (highlight.js)
+    cmds:
+      - pnpm --filter @testthedocs/antora-theme bundle
+
+  docs:theme:dev:
+    desc: Watch-mode dev server for the Antora UI theme
+    cmds:
+      - pnpm --filter @testthedocs/antora-theme dev
+
+  docs:theme:lint:
+    desc: Lint the Antora UI theme sources
+    cmds:
+      - pnpm --filter @testthedocs/antora-theme lint
+
+  docs:theme:clean:
+    desc: Clean Antora UI theme build artifacts
+    cmds:
+      - pnpm --filter @testthedocs/antora-theme clean
+
+  # ── Docs: Site (Antora) ───────────────────────────────────────────────────
+  docs:site:
+    desc: Build the documentation site with Antora
+    cmds:
+      - pnpm --filter @testthedocs/docs build
+
+  docs:serve:
+    desc: Serve the built documentation site locally (port 9090)
+    cmds:
+      - pnpm --filter @testthedocs/docs serve
+
+  docs:watch:
+    desc: Watch docs sources and rebuild on change
+    cmds:
+      - pnpm --filter @testthedocs/docs watch
+
+  docs:site:clean:
+    desc: Clean the Antora site build directory
+    cmds:
+      - pnpm --filter @testthedocs/docs clean
+
+  # ── Docs: Full build pipeline ─────────────────────────────────────────────
+  docs:build:
+    desc: "Full docs build: packages → API reference → theme → site"
+    cmds:
+      - task: build:packages
+      - task: docs:api
+      - task: docs:theme:bundle
+      - task: docs:site
+
+  # ── Workspace ─────────────────────────────────────────────────────────────
+  build:packages:
+    desc: Build only the TypeScript packages (core, rules-standard, cli)
+    cmds:
+      - pnpm --filter @testthedocs/core run build
+      - pnpm --filter @testthedocs/rules-standard run build
+      - pnpm --filter @testthedocs/cli run build
+
+  build:
+    desc: Build all workspace packages in dependency order
+    cmds:
+      - task: build:packages
+      - task: docs:theme
+      - task: docs:site
+
+  test:
+    desc: Run tests across all workspace packages
+    cmds:
+      - pnpm -r run test
+
+  clean:
+    desc: Clean all build artifacts and node_modules
+    cmds:
+      - pnpm -r run clean
+      - rm -rf node_modules

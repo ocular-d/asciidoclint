@@ -12,13 +12,13 @@ Defined in: [index.ts:8](https://github.com/ocular-d/asciidoclint/blob/main/pack
 
 ### Constructor
 
-> **new AsciiDocLinter**(`config`): `AsciiDocLinter`
+> **new AsciiDocLinter**(`config?`): `AsciiDocLinter`
 
 Defined in: [index.ts:14](https://github.com/ocular-d/asciidoclint/blob/main/packages/core/src/index.ts#L14)
 
 #### Parameters
 
-##### config
+##### config?
 
 [`LintConfig`](../interfaces/LintConfig.md) = `...`
 
